@@ -19,7 +19,7 @@ body {
   display: block;
   margin: auto;
   /* margin-top: 334px; */
-  max-width: 626px;
+  /* max-width: 626px; */
   height: 100vh;
 }
 input[type='number'] {
