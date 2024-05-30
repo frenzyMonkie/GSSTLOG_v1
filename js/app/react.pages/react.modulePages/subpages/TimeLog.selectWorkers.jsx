@@ -28,7 +28,7 @@ const TimeLogSelectWorkers  = () => {
     var firstLoad = true
     var workers = [
         {id: 1, name: "Авплетий Ничан Пастырович", band: "Дьячков", isFav: false, isSelected: true},
-        {id: 2, name: "Ахмедов Ахмед Ахмедови", band: "Дьячков", isFav: true, isSelected: false},
+        {id: 2, name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false},
         {id: 3, name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false},
         {id: 4, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true},
         {id: 5, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true},
