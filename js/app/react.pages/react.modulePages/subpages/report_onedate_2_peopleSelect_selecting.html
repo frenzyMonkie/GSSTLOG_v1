@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 123 </title>
+    <link rel="stylesheet" href="../icons.css">
+    <link rel="stylesheet" href="../canvas.css">
+    <link rel="stylesheet" href="../typo_android.css">
+    <!-- <link rel="stylesheet" href="typo_perfect4th.css"> -->
+    <link rel="stylesheet" href="./tabs_fullwidth.css">
+    <!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-regular-rounded.css'> -->
+    <!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-outline-rounded.css'> -->
+    <script defer src="onclick_toggle.js"></script>
+</head>
+<body>
+
+    <div class="header" id="header_main">
+        <i class="header_back fi fi-rr-arrow-small-left"></i>
+        <div class="header_title"> АО Геоспецстрой</div>
+        <i class="header_save fi fi-rs-disk"></i>
+    </div>
+    <div class="container">
+        <div class="content" id="content_main">
+
+
+                <div class="tab-wrap">
+
+                    <!-- active tab on page load gets checked attribute -->
+                    <input type="radio" id="tab1" name="tabGroup1" class="tab" checked>
+                    <label for="tab1">Выбранные</label>
+
+                    <input type="radio" id="tab2" name="tabGroup1" class="tab">
+                    <label for="tab2">Избранное</label>
+
+                    <input type="radio" id="tab3" name="tabGroup1" class="tab">
+                    <label for="tab3">Все</label>
+
+                    <div class="tab__content">
+                      <div class="tasks_list">
+                        <div class="task_item">
+                            <div class="task_item_text">
+                                <p class="task_item_header nomargin title_m">Захаров Дмитрий Алексеевич</p>
+                                <!-- <p class="task_item_info body_s"><span>25.04.2024</span> <br>и еще 3 даты</p> -->
+                                <!-- <p class="task_item_info label_s">Дежурство, Замывка, Монтаж</p> -->
+                                <p class="task_item_info label_s">Геоспецстрой</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Якубенко Владислав Игоревич</p>
+                                <!-- <p class="task_item_info label_s">Нет данных</p> -->
+                                <p class="task_item_info label_s">Илькевич</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Мухатгалиев Якубджон Джамшут-оглы</p>
+                                <!-- <p class="task_item_info label_s">Дежурство, Монтаж</p> -->
+                                <p class="task_item_info label_s">Дьячков</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">...</p>
+                                <!-- <p class="task_item_info label_s">Дежурство, Монтаж</p> -->
+                                <p class="task_item_info label_s">Скорее всего всё же сделать кнопку "Добавить" для "Все" и "Избранные", кнопку "Удалить" для "Выбранные" и отдельные списки вместо 3-х окон, чисто механически меньше кликать.
+                                    <br>Либо отсылать всех выбранных при клике сразу в окно Выбранные, а в остальных окнах чтоб не было отметок вообще выбран/не выбран... Тоже такое себе, недотягивает.
+                                </p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">...</p>
+                                <!-- <p class="task_item_info label_s">Дежурство, Монтаж</p> -->
+                                <p class="task_item_info label_s">
+                                    Короче
+                                    <br>1. При клике на "Удалить" иконки > меняются на иконки "ok", и их можно удалять
+                                    <br>2. При клике на "Добавить" открываются эти две вкладки, "избранные" и "все".
+                                    <br>Либо
+                                    <br>1. При клике на "Скорректировать" открываются три вкладки.
+                                </p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="tab__content">
+                    <div class="tasks_list">
+                        <div class="task_item">
+                            <div class="task_item_text">
+                                <p class="task_item_header nomargin title_m">Захаров Дмитрий Алексеевич</p>
+                                <!-- <p class="task_item_info body_s"><span>25.04.2024</span> <br>и еще 3 даты</p> -->
+                                <p class="task_item_info label_s">Геоспецстрой</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Якубенко Владислав Игоревич</p>
+                                <p class="task_item_info label_s">Илькевич</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Мухатгалиев Якубджон Джамшут-оглы</p>
+
+                                <p class="task_item_info label_s">Дьячков</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab__content">
+                    <input type="text" class="people_search" placeholder="Начните поиск..."/>
+                    <div class="tasks_list">
+                        <div class="task_item">
+                            <div class="task_item_text">
+                                <p class="task_item_header nomargin title_m">Захаров Дмитрий Алексеевич</p>
+                                <!-- <p class="task_item_info body_s"><span>25.04.2024</span> <br>и еще 3 даты</p> -->
+                                <p class="task_item_info label_s">Геоспецстрой 123</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Якубенко Владислав Игоревич</p>
+                                <p class="task_item_info label_s">Илькевич 123</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Мухатгалиев Якубджон Джамшут-оглы</p>
+
+                                <p class="task_item_info label_s">Дьячков 123</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+    </div>
+    <!-- <div class="menu">
+        <div class="menu_item menu_item_thin" id="presets">
+            <i class="fi fi-sr-input-numeric"></i>
+            <p class="title_s"> Назад </p>
+            <i class="fi fi-rr-list-check"></i>
+            <p class="menu_item_name label_l">Мои списки</p>
+            <p class="title_s">Далее</p>
+        </div>
+    </div> -->
+
+
+    </div>
+
+    <div class="nav_footer">
+        <div class="nav_main" id="nav_main">
+            <div class="menu menu_s">
+                <!-- <div class="menu_item" id="today_tasks">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <i class="fi fi-ss-flame"></i>
+                    <p class="menu_item_name title_s">Задачи</p>
+                </div> -->
+                <div class="menu_item_s" id="presets">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <i class="fi fi-rr-list-check"></i> -->
+                    <!-- <p class="menu_item_name label_l">Мои списки</p> -->
+                </div>
+                <div class="menu_item_s" id="report_corrections">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <p class="menu_item_name label_l">Корректировка отчётов</p> -->
+                </div>
+                <div class="menu_item_s" id="get_reports">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <i class="fi fi-rr-receipt"></i> -->
+                    <!-- <p class="menu_item_name label_l">История отчётов</p> -->
+                </div>
+                <div class="menu_item_s" id="personal">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <p class="menu_item_name label_l">Настройки</p> -->
+                </div>
+            </div>
+        </div>
+        <div class="nav_current" id="nav_tasks"></div>
+    </div>
+
+</body>
+</html>

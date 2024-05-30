@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>ГеоСпец.Логгер</title>
+
+    <!-- Общие стили для элементарных блоков  -->
+    <link rel="stylesheet" href="./css/css.appstyleguide/typography.android.css">
+    <link rel="stylesheet" href="./css/css.appstyleguide/inputs.output.css">
+    <link rel="stylesheet" href="./css/css.appstyleguide/app.css">
+    <!-- Холст -->
+    <link rel="stylesheet" href="./css/css.appstyleguide/icons.css">
+    <link rel="stylesheet" href="./css/css.appstyleguide/canvas.css">
+    <link rel="stylesheet" href="./css/css.appstyleguide/spinner.css">
+    <!-- Стили библиотек (сторонних компонентов) -->
+    <link rel="stylesheet" href="./css/css.libs/jquery-ui.css"> <!-- Базовый стиль календаря (основа) -->
+    <!-- <link rel="stylesheet" href="./css/multidate.css"> --> <!-- Сделать дополнение стиля вместо хардкодинга -->
+
+    <!-- Доопределяющие стили для компонентов, интегрированные сторонние + собственные, и то и другое - в том числе на основе элементарных блоков -->
+    <!-- <link rel="stylesheet" href="./css/css.components/dropdown.css">
+    <link rel="stylesheet" href="./css/css.components/divtable.css">
+    <link rel="stylesheet" href="./css/css.components/popup.css"> -->
+    <link rel="stylesheet" href="./css/css.components/tabs_fullwidth.css">
+
+    <!-- <link rel="stylesheet" href="./css/typo_android.css"> -->
+    <!-- <link rel="stylesheet" href="typo_perfect4th.css"> -->
+
+    <link rel="stylesheet" href="./css/css.components/timelog.css">
+
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- // jQuery -->
+    <script src="/js/libs/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/js/libs/jquery/jquery-ui-datepicker.js"></script>
+    <script src="/js/libs/jquery/jquery-ui-datepicker-ru.js"></script>
+    <script src="/js/libs/jquery/jquery.datepicker.extension.range.min.js"></script>
+
+    <!-- // Babel -->
+    <script src="/js/libs/babel/babel.min.js"></script>
+    <!-- // React -->
+    <script src="/js/libs/react/react.production.min.js"></script>
+    <script src="/js/libs/react/react-dom.production.min.js"></script>
+    <script src="/js/libs/react-router/remix-run.router.js"></script>
+    <script src="/js/libs/react-router/react-router.min.js"></script>
+    <script src="/js/libs/react-router/react-router-dom.min.js"></script>
+
+    <!-- // idb -->
+    <!-- <script type="module">
+        import { openDB, deleteDB, wrap, unwrap } from '/js/libs/idb/idb.min.js';
+    </script> -->
+    <script src="/js/libs/idb/idb.min.js"></script>
+    <script src="/js/libs/idb-keyval/idb-keyval.min.js"></script>
+    <script src="/js/app/hoc/idb/localdb.js"></script>
+
+    <!-- // React Cookie -->
+    <!-- https://bobbyhadz.com/blog/javascript-referenceerror-require-is-not-defined -->
+    <!-- <script data-main="js/app" src="js/require.js"></script> -->
+    <!-- <script src="/js/libs/react-cookie/universal-cookie.min.js"></script> -->
+    <!-- <script src="/js/libs/react-cookie/react-cookie.min.js"></script> -->
+    <!-- <script src="/js/hoc/cookieContext.jsx" type="text/babel"></script> -->
+
+
+
+    <!-- // Подключения -->
+    <script src="/js/app/imports.js" type="text/babel"></script>
+    <script src="/js/app/hoc/idb/dataSync.jsx" type='text/babel'></script>
+    <script src="/js/app/hoc/syncStorages.jsx" type='text/babel'></script>
+    <script src="/js/app/hoc/AppContextProvider.jsx" type='text/babel'></script>
+    <script src="/js/app/hoc/authContextProvider.jsx" type='text/babel'></script>
+    <!-- <script src="/js/app/hoc/requireAuth.jsx" type='text/babel'></script> -->
+    <!-- <script src="/js/app/hookwrap/useAuth.js" type='text/babel'></script> -->
+
+    <!-- Elements -->
+    <script src="/js/app/react.pages/react.elements/search.filter.jsx" type='text/babel'></script>
+
+    <!-- Pages -->
+    <script src="/js/app/react.pages/AppLayout.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.elements/loadSpinner.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/login.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/PageComponent.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/MainPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/ReportCorrectionPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/CustomListsPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/OldReportsPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/ReportPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/SettingsPage.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/PumpLog.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/SpendingLog.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/StageLog.jsx" type='text/babel'></script>
+
+
+
+    <script src="/js/app/react.pages/react.modulePages/TimeLog.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/subpages/TimeLog.WorkerList.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/subpages/TimeLog.selectWorkers.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/subpages/TimeLog.ApplyWorkerInfo.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/subpages/timelog_workerlist_onclick_toggle.js"></script>
+
+
+    <script src="/js/app/react.pages/react.modulePages/VehicleLog.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/WaterLog.jsx" type='text/babel'></script>
+    <script src="/js/app/react.pages/react.modulePages/WorkLog.jsx" type='text/babel'></script>
+
+
+
+    <script src="/js/app.js" type='text/babel'></script>
+    <!-- <script src="react.app.js" type='text/babel'></script> -->
+</body>
+</html>

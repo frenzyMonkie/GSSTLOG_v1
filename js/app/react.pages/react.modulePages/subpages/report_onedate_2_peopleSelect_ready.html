@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 123 </title>
+    <link rel="stylesheet" href="../icons.css">
+    <link rel="stylesheet" href="../canvas.css">
+    <link rel="stylesheet" href="../typo_android.css">
+    <!-- <link rel="stylesheet" href="typo_perfect4th.css"> -->
+    <link rel="stylesheet" href="./tabs_fullwidth.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-outline-rounded.css'> -->
+
+</head>
+<body>
+
+    <div class="header" id="header_main">
+        <i class="header_back fi fi-rr-arrow-small-left"></i>
+        <div class="header_title"> АО Геоспецстрой</div>
+        <i class="header_save fi fi-rs-disk"></i>
+    </div>
+    <div class="container">
+        <div class="content" id="content_main">
+            <div class="menu">
+                <div class="menu_item menu_item_thin" id="presets">
+                    <!-- <i class="fi fi-sr-input-numeric"></i> -->
+                    <p class="title_s"> Силикатный пр-д</p>
+                    <!-- <i class="fi fi-rr-list-check"></i> -->
+                    <!-- <p class="menu_item_name label_l">Мои списки</p> -->
+                    <p class="title_s">25.04.2024</p>
+                </div>
+            </div>
+
+            <div class="tab-wrap">
+
+                <!-- active tab on page load gets checked attribute -->
+                <input type="radio" id="tab1" name="tabGroup1" class="tab" checked>
+                <label for="tab1">Все</label>
+
+                <input type="radio" id="tab2" name="tabGroup1" class="tab">
+                <label for="tab2">Избранное</label>
+
+                <div class="tab__content">
+
+                    <div class="tasks_list">
+                    <div class="task_item">
+                        <div class="task_item_text">
+                            <p class="task_item_header nomargin title_m">Захаров Дмитрий Алексеевич</p>
+                            <!-- <p class="task_item_info body_s"><span>25.04.2024</span> <br>и еще 3 даты</p> -->
+                            <p class="task_item_info label_s">Дней: 8</p>
+                            <p class="task_item_info label_s">Дежурство, Замывка, Монтаж</p>
+                        </div>
+                        <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                    </div>
+                    <div class="task_item">
+                        <div class="task_item_text ">
+                            <p class="task_item_header nomargin title_m">Якубенко Владислав Игоревич</p>
+                            <p class="task_item_info label_s">Дней: 12</p>
+                            <p class="task_item_info label_s">Дежурство</p>
+                        </div>
+                        <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                    </div>
+                    <div class="task_item">
+                        <div class="task_item_text ">
+                            <p class="task_item_header nomargin title_m">Мухатгалиев Якубджон Джамшут-оглы</p>
+                            <p class="task_item_info label_s">Дней: 24</p>
+                            <p class="task_item_info label_s">Дежурство, Монтаж</p>
+                        </div>
+                        <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <div class="tab__content">
+                    <div class="tasks_list">
+                        <div class="task_item">
+                            <div class="task_item_text">
+                                <p class="task_item_header nomargin title_m">Захаров Дмитрий Алексеевич</p>
+                                <!-- <p class="task_item_info body_s"><span>25.04.2024</span> <br>и еще 3 даты</p> -->
+                                <p class="task_item_info label_s">Дней: 8</p>
+                                <p class="task_item_info label_s">Дежурство, Замывка, Монтаж</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Якубенко Владислав Игоревич</p>
+                                <p class="task_item_info label_s">Дней: 12</p>
+                                <p class="task_item_info label_s">Дежурство</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                        </div>
+                        <div class="task_item">
+                            <div class="task_item_text ">
+                                <p class="task_item_header nomargin title_m">Мухатгалиев Якубджон Джамшут-оглы</p>
+                                <p class="task_item_info label_s">Дней: 24</p>
+                                <p class="task_item_info label_s">Дежурство, Монтаж</p>
+                            </div>
+                            <i class="task_item_arr fi fi-br-angle-small-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="tab__content">
+                  <h3>Long Section</h3>
+                  <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
+
+                  <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Morbi mattis ullamcorper velit. Pellentesque posuere. Etiam ut purus mattis mauris sodales aliquam. Praesent nec nisl a purus blandit viverra.</p>
+
+                  <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
+
+                  <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Morbi mattis ullamcorper velit. Pellentesque posuere. Etiam ut purus mattis mauris sodales aliquam. Praesent nec nisl a purus blandit viverra.</p>
+                </div> -->
+
+              </div>
+            <div class="tasks" id="today_tasks">
+                <div class="tasks_header title_m">
+                    <div class="tasks_header_left">
+                        <i class="fi fi-rr-receipt"></i>
+                        <!-- <i class="fi fi-ss-flame"></i> -->
+                        <p>Календарь. Выбор даты.</p>
+                    </div>
+                    <div class="tasks_header_right title_s">
+                        <!-- <p>9 в ожидании</p> -->
+                    </div>
+
+                </div>
+                <div class="tasks_list">
+                    <div class="task_item" id="date_applied">
+
+                        <div class="task_item_text">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="menu">
+                <div class="menu_item menu_item_thin" id="presets">
+                    <!-- <i class="fi fi-sr-input-numeric"></i> -->
+                    <p class="title_s"> Назад </p>
+                    <!-- <i class="fi fi-rr-list-check"></i> -->
+                    <!-- <p class="menu_item_name label_l">Мои списки</p> -->
+                    <p class="title_s">Далее</p>
+                </div>
+            </div>
+
+
+
+    </div>
+
+
+
+    </div>
+
+    <div class="nav_footer">
+        <div class="nav_main" id="nav_main">
+            <div class="menu menu_s">
+                <!-- <div class="menu_item" id="today_tasks">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <i class="fi fi-ss-flame"></i>
+                    <p class="menu_item_name title_s">Задачи</p>
+                </div> -->
+                <div class="menu_item_s" id="presets">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <i class="fi fi-rr-list-check"></i> -->
+                    <!-- <p class="menu_item_name label_l">Мои списки</p> -->
+                </div>
+                <div class="menu_item_s" id="report_corrections">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <p class="menu_item_name label_l">Корректировка отчётов</p> -->
+                </div>
+                <div class="menu_item_s" id="get_reports">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <i class="fi fi-rr-receipt"></i> -->
+                    <!-- <p class="menu_item_name label_l">История отчётов</p> -->
+                </div>
+                <div class="menu_item_s" id="personal">
+                    <i class="fi fi-sr-input-numeric"></i>
+                    <!-- <p class="menu_item_name label_l">Настройки</p> -->
+                </div>
+            </div>
+        </div>
+        <div class="nav_current" id="nav_tasks"></div>
+    </div>
+
+</body>
+</html>
