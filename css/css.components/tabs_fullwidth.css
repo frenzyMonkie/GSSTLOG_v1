@@ -90,8 +90,8 @@
     transition: 0.3s background-color ease, 0.3s box-shadow ease;
     height: 50px;
     box-sizing: border-box;
-    padding: 67px 0px 142px 0px;
-    font-size: 3rem;
+    padding: 25px 0px 38px 0px;
+    font-size: 1rem;
   }
   .tab + label:hover {
     background-color: #f9f9f9;
