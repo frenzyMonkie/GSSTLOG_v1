@@ -88,9 +88,9 @@
             user-select: none;
     text-align: center;
     transition: 0.3s background-color ease, 0.3s box-shadow ease;
-    height: 50px;
+    /* height: 50px; */
     box-sizing: border-box;
-    padding: 25px 0px 38px 0px;
+    padding: 5px 0px 12px 0px;
     font-size: 1rem;
   }
   .tab + label:hover {
@@ -168,8 +168,8 @@
   }
 
   .tab-wrap .task_item i {
-    margin: 0 60px 0 0;
-    scale: 2.1;
+    margin: 0 15px 0 0;
+    scale: 1;
     display: none;
   }
 

@@ -29,19 +29,19 @@ body {
 
     /* width: 100%; */
     /* margin: auto; */
-    padding: 20px 0;
+    padding: 7px 0;
     background-color: var(--bg-main);
     border-bottom: var(--border-sep);
 }
 .header .nav_left {
     margin-right: auto;
-    margin: 0 0 0 25px;
+    margin: 0 0 0 10px;
     position: relative;
 
 }
 .header .nav_right {
     margin-left: auto;
-    padding: 0 25px 0 0;
+    padding: 0 10px 0 0;
     position: relative;
 }
 .header i {
@@ -60,7 +60,8 @@ body {
     height: 100%;
 }
 .header_title {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    line-height: 0.75rem;
     text-align: center;
     margin: auto;
 }
