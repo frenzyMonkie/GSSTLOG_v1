@@ -39,8 +39,8 @@
 
 }
 .task_item {
-    /* padding: 12px 0px 8px 10px; */
-    padding: 46px 0px 48px 50px;
+    padding: 12px 0px 8px 10px;
+    /* padding: 46px 0px 48px 50px; */
     min-height: 50px;
     /* background-color: rgb(252, 252, 252); */
     display: flex;
@@ -60,7 +60,7 @@
 }
 .task_item_header {
 
-    margin: 0 0 16px 0;
+    margin: 0 0 7px 0;
 }
 
 .task_item_info {
