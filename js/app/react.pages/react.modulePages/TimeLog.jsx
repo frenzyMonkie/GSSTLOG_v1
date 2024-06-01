@@ -26,11 +26,21 @@ const TimeLog = () => {
     const renderCanvas = () => {
         return (
             <Fragment>
-            {/* <TimeLogSelectWorkers/> */}
+            <TimeLogSelectWorkers/>
             </Fragment>
         )
     }
+    const navLeft  = () => {return (
+        <Fragment>
+        {/* <i class="header_back fi fi-rr-arrow-small-left"></i> */}
+        </Fragment>
+    )}
+    const navRight  = () => {return (
 
+        <Fragment>
+        {/* <i class="header_save fi fi-rs-disk"></i> */}
+        </Fragment>
+    )}
     const render = () => {
         // context = usePageContext()
         return PageComponent({

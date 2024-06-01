@@ -45,16 +45,13 @@ const AppCanvas = (props) => {
             nextPage();
         }
     };  //   <button onClick={handleFetchClick}>Fetch Data</button>
+    console.log(props)
+    var head = props.head(handlePageData)
 
     return (
         <Fragment>
-                <div class="header" id="header_main">
+        {head}
 
-                <div className="nav_left"> {props.navLeft(handlePageData) || null}</div>
-                <div class="header_title"> {props.pageTitle || "Нету названия"} </div>
-                <div className="nav_right"> {props.navRight(handlePageData) || null}</div>
-
-                </div>
                 <div className="container">
                 { loading ? (
                     <LoadSpinner />

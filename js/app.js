@@ -18,10 +18,12 @@ function App () {
             <AuthProvider>
             <AppContextProvider>
                 <Routes>
-                    <Route path="/" render={<Layout />}>
+                    <Route path="/" element={<Layout />}>
                         <Route path="*" element={<NotFound />} />
+                        {/* <MainPage/> */}
+                        <Route index element={<TimeLogSelectWorkers />} />
 
-                        <Route index element={<MainPage />} />
+
                         <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
                         <Route path="OldReportsPage" element={<OldReportsPage />} />
                         <Route path="SettingsPage" element={<SettingsPage />} />

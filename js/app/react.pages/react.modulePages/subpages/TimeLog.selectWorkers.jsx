@@ -11,7 +11,7 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: "Выберите рабочих",
+        pageTitle: "Перечень сотрудников",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
@@ -26,6 +26,8 @@ const TimeLogSelectWorkers  = () => {
     const [favSelected, setFavSelected] = useState(false)
     const [allSelected, setAllSelected] = useState(false)
     var firstLoad = true
+
+    const searchInput = React.useRef(null);
     var workers = [
         {id: 1, name: "Авплетий Ничан Пастырович", band: "Дьячков", isFav: false, isSelected: true},
         {id: 2, name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false},
@@ -125,7 +127,6 @@ const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => 
       );
 }
 
-
 const workerCanvasManager = (useTimelogContext, newWorker, nameSelected, setNameSelected) => {
 
     const parseContextNames = (useTimelogContext) => {
@@ -163,11 +164,95 @@ const renderEditMode = (ctx) => {
         if (item.useState[0]) { return true }
     })
 }
+
+
+
+// // the value of the search field
+// const [name, setName] = useState('');
+// // the search result
+// const [foundUsers, setFoundUsers] = useState(USERS);
+// const filter = (e) => {
+//     const keyword = e.target.value;
+//     if (keyword !== '') {
+//         const results = USERS.filter((user) => {
+//         return user.name.toLowerCase().startsWith(keyword.toLowerCase());
+//         // Use the toLowerCase() method to make it case-insensitive
+//         });
+//         setFoundUsers(results);
+//     } else {
+//         setFoundUsers(USERS);
+//         // If the text field is empty, show all users
+//     }
+//     setName(keyword);
+
+
+//   return (
+//     <div className="container">
+//       <input
+//         type="search"
+//         value={name}
+//         onChange={filter}
+//         className="input"
+//         placeholder="Filter"
+//       />
+
+//       <div className="user-list">
+//         {foundUsers && foundUsers.length > 0 ? (
+//           foundUsers.map((user) => (
+//             <li key={user.id} className="user">
+//               <span className="user-id">{user.id}</span>
+//               <span className="user-name">{user.name}</span>
+//               <span className="user-age">{user.age} year old</span>
+//             </li>
+//           ))
+//         ) : (
+//           <h1>No results found!</h1>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
+const searchBar = () => {
+    // const ref = React.createRef();
+
+    // useEffect(() => {
+    //     console.log(searchInput)
+    //     searchInput.current.focus();
+    // }, [q]);
+    // onFocus={(e) => e.target.select()}
+    return <input key="seacrhWorkers" type="search" class="people_search" placeholder="Поиск" defaultValue={q} onChange={ setInputValue} ref={searchInput}  /> // autoFocus setQ
+    // React.useMemo(() => (
+    //   ), [] );
+}
+
+
+const setInputValue = (e) => {
+
+    // Фиксируем проблему: при вводе текста в инпут происходит полный ре-рендер, который ре-рендерит еще и сам инпут, поэтому он теряет фокус.
+    // Если e.target.value != "", то автофокус?
+    // Еще вариант, попробовать
+        // 1. Вынуть input из подфункций, но хз поможет ли, всё равно рендерится на одном холсте.
+        // 2. Попробовать изолировать обновление листа от других компонентов. Чтобы его изменение не триггерило изменение родительсткого холста и рядом стоящих элементов.
+
+    console.log(e)
+    console.log(e.target.value)
+
+    setQ(e.target.value)
+    searchInput.current.focus()
+
+}
+
+const cb_SetQ = React.useCallback((evt) => {
+        setQ(evt)
+    }, [])
+
+
 const renderCanvas2 = () => {
 
-    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-    const searchBar = () => (<input type="search" class="people_search" placeholder="Поиск" value={q} onChange={ (e) => cb_SetQ(e.target.value)} autoFocus/>)
 
+
+    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
     prepareWorkers(useTimelogContext)
 
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
@@ -221,7 +306,7 @@ const renderCanvas2 = () => {
 
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
                                     <label for="tab3" onClick={() => {return setFilterParam("Все")}}>Все</label>
-                                    {searchBar()}
+                                    {searchBar}
 
                                     {nameList_selectmode}
                                 </div>
@@ -381,9 +466,7 @@ const prepareWorkers = (useTimelogContext) => {
     // return {favouriteWorkersCanvas, selectedWorkersCanvas, allWorkersCanvas}
 }
 
-const cb_SetQ = React.useCallback((e) => {
-    setQ(e)
-}, [])
+
 
 // const renderSelectmodeCanvas = () => {
 //     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
@@ -435,34 +518,64 @@ const cb_SetQ = React.useCallback((e) => {
 //     )
 // }
 
-const toggleSelectMode = () => {
-    setSelectMode(!selectMode)
-}
-const navLeft  = () => {return (
-    <Fragment>
-    <i class="header_back fi fi-rr-arrow-small-left"></i>
-    </Fragment>
-)}
-const navRight  = () => {
+    const toggleSelectMode = () => {
+        setSelectMode(!selectMode)
+    }
+    const navLeft  = ({children}) => {return (
+        <Fragment>
+        <i class="header_back fi fi-rr-arrow-small-left"></i>
+        </Fragment>
+    )}
+    const navRight  = ({children}) => {
 
-    var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
-    return (
-    <Fragment>
-    {/* <i class="header_save fi fi-rs-disk"></i> */}
-    {btn}
-    </Fragment>
-)}
+        var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
+        return (
+        <Fragment>
+        {/* <i class="header_save fi fi-rs-disk"></i> */}
+        {btn}
+        </Fragment>
+    )}
+    const header = (handler) => {
 
-const render = () => {
+        return (
+            <div class="header" id="header_main">
+                <div className="nav_left"> {navLeft(handler) || null}</div>
+                <div class="header_title"> {state.pageTitle || "Нету названия"} </div>
+                <div className="nav_right"> {navRight(handler) || null}</div>
+            </div>
+        )
+    }
 
-    return PageComponent({
-        renderCanvas: renderCanvas2,
-        pageTitle: state.pageTitle,
-        navLeft: navLeft,
-        navRight: navRight
-       })
-}
+    const renderCanvas = () => {
+        var he = header()
+        var co = content()
+        return (
+            <Fragment>
+                {he}
+                {co}
+            </Fragment>
+        )
+    }
+    const render = () => {
+        return AppCanvas({
+                renderCanvas: renderCanvas2,
+                pageTitle: state.pageTitle,
+                navLeft: navLeft,
+                navRight: navRight,
+                head: header
+            })
 
-return render()
+    }
+    const oldrender = () => {
+        // console.log(123)
+        return PageComponent({
+            renderCanvas: renderCanvas2,
+            pageTitle: state.pageTitle,
+            navLeft: navLeft,
+            navRight: navRight
+        })
+    }
+
+    return render()
 
 }
