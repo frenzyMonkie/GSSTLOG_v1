@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 body {
     /* font-family: "Roboto", "Open Sans", "Noto Sans", "Roboto Serif", "Noto Serif", serif; */
     font-family: "SF Pro Text";
@@ -12,6 +13,8 @@ body {
     /* font-variation-settings:
     "wdth" 100,
     "GRAD" 0; */
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 /* "wght" — font-weight;
 "wdth" — font-stretch;
@@ -71,7 +74,7 @@ body {
     /* font-size: 16px; */
     /* letter-spacing: 0.15px; */
     /* line-height: 24px; */
-    font-size: 1.6rem;
+    font-size: 2.4rem;
 }
 .title_s {
     font-weight: 500;
@@ -129,7 +132,7 @@ body {
 .label_s {
     font-weight: 500;
     /* font-size: 11px; */
-    font-size: 1.25rem;
+    font-size: 1.8rem;
     letter-spacing: 0.5px;
     line-height: 16px;
 }
