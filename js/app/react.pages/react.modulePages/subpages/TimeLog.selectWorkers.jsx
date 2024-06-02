@@ -11,7 +11,7 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: "Перечень сотрудников",
+        pageTitle: <Fragment> <span class="timelog_object">Силикатный пр-д</span><br/> <span class="timelog_month">Апрель 2024</span></Fragment>,
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
@@ -29,15 +29,15 @@ const TimeLogSelectWorkers  = () => {
 
     const searchInput = React.useRef(null);
     var workers = [
-        {id: 1, name: "Авплетий Ничан Пастырович", band: "Дьячков", isFav: false, isSelected: true},
-        {id: 2, name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false},
-        {id: 3, name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false},
-        {id: 4, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true},
-        {id: 5, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true},
-        {id: 6, name: "Нагорный Ламинат Горыныч", band: "Дьячков", isFav: false, isSelected: false},
-        {id: 7, name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, isSelected: false},
-        {id: 8, name: "Смешной Егор Егорович", band: "Дьячков", isFav: true, isSelected: true},
-        {id: 9, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false},
+    {id : 1, name: " Авплетий Ничан Пастырович", band: "🢒 Дьячков", isFav: false, isSelected: true},
+    {id : 2, name: " Ахмедов Ахмед Ахмедович", band: "🢒 Дьячков", isFav: true, isSelected: false},
+    {id : 3, name: " Джованни Джорджо Яковлевич", band: "🢒 Дьячков", isFav: false, isSelected: false},
+    {id : 4, name: " Захаров Дмитрий Алексеевич", band: "🢒 Геоспецстрой", isFav: true, isSelected: true},
+    {id : 5, name: " Мухатгалиев Якубджон Джамшут-оглы", band: "🢒 Дьячков", isFav: false, isSelected: true},
+    {id : 6, name: " Нагорный Ламинат Горыныч", band: "🢒 Дьячков", isFav: false, isSelected: false},
+    {id : 7, name: " Сальчичон Балык Хамонович", band: "🢒 Дьячков", isFav: false, isSelected: false},
+    {id : 8, name: " Смешной Егор Егорович", band: "🢒 Дьячков", isFav: true, isSelected: true},
+    {id : 9, name: " Якубенко Владислав Игоревич", band: "🢒 Илькевич", isFav: true, isSelected: false},
     ]
 
 
@@ -299,13 +299,13 @@ const renderCanvas2 = () => {
                                 <div className="grid">
 
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" defaultChecked={filterParam == "Выбранные" ? true : null}/>
-                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}>Выбранные</label>
+                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><label class="label_bordbot" >Выбранные</label></label>
 
                                     <input type="radio" id="tab2" name="tabGroup1" class="tab" defaultChecked={filterParam == "Избранное" ? true : null}/>
-                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}>Избранное</label>
+                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><label class="label_bordbot"  >Свой список</label></label>
 
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}>Все</label>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><label class="label_bordbot"  >Все (иконки? поиск?)</label></label>
                                     {searchBar}
 
                                     {nameList_selectmode}
@@ -524,6 +524,7 @@ const prepareWorkers = (useTimelogContext) => {
     const navLeft  = ({children}) => {return (
         <Fragment>
         <i class="header_back fi fi-rr-arrow-small-left"></i>
+
         </Fragment>
     )}
     const navRight  = ({children}) => {
