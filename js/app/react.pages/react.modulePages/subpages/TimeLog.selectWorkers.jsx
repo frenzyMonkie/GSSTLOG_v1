@@ -305,7 +305,7 @@ const renderCanvas2 = () => {
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><label class="label_bordbot"  >Свой список</label></label>
 
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><label class="label_bordbot"  >Все (иконки? поиск?)</label></label>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><label class="label_bordbot"  >Все(иконки?) </label></label>
                                     {searchBar}
 
                                     {nameList_selectmode}
