@@ -9,14 +9,18 @@
     --border-header-sep: 1px rgb(144, 144, 144) solid;
 }
 
+html {
+    position:absolute;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
 body {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    position:absolute;
-    overflow-y:scroll;
-    overflow-x:hidden;
+
 }
 
 
