@@ -3,11 +3,18 @@
     color: white;
     outline: none;
     border: none;
-    padding: 9px 16px;
+    padding: 9px 20px;
     border-radius: 6px;
     cursor: pointer;
     font-size: .7rem;
 }
 .change_workers.ready {
     background-color: rgb(63 205 106);
+}
+.timelog_object {
+    font-weight: 400;
+
+}
+.timelog_month {
+    font-size: .7rem;
 }
