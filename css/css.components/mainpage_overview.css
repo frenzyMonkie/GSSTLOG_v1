@@ -71,7 +71,7 @@
     max-width: 76%;
 }
 .task_item_header {
-    word-wrap: break-all;
+    word-wrap:break-word;
     -webkit-line-clamp: 1; /* Число отображаемых строк */
     display: -webkit-box; /* Включаем флексбоксы */
     -webkit-box-orient: vertical; /* Вертикальная ориентация */
@@ -79,8 +79,13 @@
     margin: 0 0 3px 0;
     color: #474646;
     letter-spacing: -.44px;
+    /* Через span можно тогда выделить первую букву, при генерации списков */
+    /* display: block; */
 }
-
+/* .task_item_header:first-letter {
+    color: rgb(101, 101, 101);
+    font-size: 110%;
+} */
 .task_item_info {
     color: #777777;
     letter-spacing: -.34px;

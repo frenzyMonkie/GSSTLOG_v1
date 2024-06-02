@@ -17,6 +17,8 @@ input {
   outline: none;
   height: 100%;
 
+  /* Обещают что поможет убрать автозум */
+  max-width:100%;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
