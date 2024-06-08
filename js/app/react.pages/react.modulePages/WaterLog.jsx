@@ -33,11 +33,12 @@ const WaterLog = () => {
 
     const render = () => {
 
-        return PageComponent({
+        return AppCanvas({
             renderCanvas: renderCanvas,
             pageTitle: state.pageTitle,
             navLeft: navLeft,
-            navRight: navRight
+            navRight: navRight,
+            head: header
            })
     }
 

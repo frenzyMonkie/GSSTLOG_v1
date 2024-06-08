@@ -1,3 +1,5 @@
+
+const TimeLogContext = React.createContext([])
 const TimeLogSelectWorkers  = () => {
 
 
@@ -20,7 +22,7 @@ const TimeLogSelectWorkers  = () => {
         nextPage: "/TimeLog",
         const: {Spendables: [], MeasureUnits: [] },
     }
-    const TimeLogContext = React.createContext([])
+
     const [selectMode, setSelectMode] = useState(false)
     const [chosenSelected, setChosenSelected] = useState(true)
     const [favSelected, setFavSelected] = useState(false)
@@ -126,9 +128,14 @@ const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => 
                     </div>
       );
 }
-
+// const parseContextNames = (useTimelogContext) => {
+//     var ret = [] // Просто выдираем имена из контекста
+//     for (var uniqueWorker of useTimelogContext) {
+//         ret.push(uniqueWorker.name)
+//     }
+//     return ret
+// }
 const workerCanvasManager = (useTimelogContext, newWorker, nameSelected, setNameSelected) => {
-
     const parseContextNames = (useTimelogContext) => {
         var ret = [] // Просто выдираем имена из контекста
         for (var uniqueWorker of useTimelogContext) {
@@ -215,7 +222,7 @@ const renderEditMode = (ctx) => {
 
 const searchBar = () => {
     // const ref = React.createRef();
-
+    console.log(11111111111111111111111111111111111111111111111)
     // useEffect(() => {
     //     console.log(searchInput)
     //     searchInput.current.focus();
@@ -294,7 +301,7 @@ const renderCanvas2 = () => {
     //     }
     // }
     // }
-
+    const sbar = React.useMemo(() => searchBar())
     const selectmodeCanvas = <Fragment>
                                 <div className="grid">
 
@@ -306,7 +313,7 @@ const renderCanvas2 = () => {
 
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
                                     <label for="tab3" onClick={() => {return setFilterParam("Все")}}><label class="label_bordbot"  >Все(иконки?) </label></label>
-                                    {searchBar()}
+                                    {sbar}
 
                                     {nameList_selectmode}
                                 </div>

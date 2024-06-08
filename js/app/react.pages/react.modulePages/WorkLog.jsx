@@ -32,12 +32,13 @@ const  WorkLog = () => {
 
     const render = () => {
 
-        return PageComponent({
-                renderCanvas: renderCanvas,
-                pageTitle: state.pageTitle,
-                navLeft: navLeft,
-                navRight: navRight
-               })
+        return AppCanvas({
+            renderCanvas: renderCanvas,
+            pageTitle: state.pageTitle,
+            navLeft: navLeft,
+            navRight: navRight,
+            head: header
+           })
     }
 
     return render()

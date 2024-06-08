@@ -48,12 +48,13 @@ const CustomListsPage = () => {
 
     const render = () => {
 
-        return PageComponent({
-                renderedCanvas: renderCanvas(),
-                pageTitle: state.pageTitle,
-                renderedNavLeft: navLeft(),
-                renderedNavRight: navRight()
-               })
+        return AppCanvas({
+            renderCanvas: renderCanvas,
+            pageTitle: state.pageTitle,
+            navLeft: navLeft,
+            navRight: navRight,
+            head: header
+           })
     }
 
     return render()

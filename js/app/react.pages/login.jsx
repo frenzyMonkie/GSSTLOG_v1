@@ -43,11 +43,21 @@ const LoginPage = () => {
             <i class="header_save fi fi-rs-disk"></i>
             </Fragment>
     )}
+    const header = (handler) => {
+        return (
+            <div class="header" id="header_main">
+                <div className="nav_left"> {navLeft(handler) || null}</div>
+                <div class="header_title"> {state.pageTitle || "Нету названия"} </div>
+                <div className="nav_right"> {navRight(handler) || null}</div>
+            </div>
+        )
+    }
     // context = usePageContext()
-    return PageComponent({
+    return AppCanvas({
         renderCanvas: renderCanvas,
-        pageTitle: PageTitle,
+        pageTitle: state.pageTitle,
         navLeft: navLeft,
-        navRight: navRight
-        })
+        navRight: navRight,
+        head: header
+       })
 }

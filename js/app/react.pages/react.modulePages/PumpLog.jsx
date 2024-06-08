@@ -41,11 +41,12 @@ const PumpLog = () => {
 
     const render = () => {
         // context = usePageContext()
-        return PageComponent({
+        return AppCanvas({
             renderCanvas: renderCanvas,
             pageTitle: state.pageTitle,
             navLeft: navLeft,
-            navRight: navRight
+            navRight: navRight,
+            head: header
            })
     }
     return render()
