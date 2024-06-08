@@ -8,6 +8,7 @@
     background-color: rgb(243, 243, 243);
     border-radius: 5px;
     box-shadow: 0px 4px 11px 0px rgba(0,0,0,0.1);
+    /* margin: 0 auto; */
     /* https://box-shadow.dev/ */
 }
 .tasks_header {
@@ -17,6 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     border-radius: 5px 5px 0 0;
 }
 .tasks_header_left {
@@ -35,7 +37,7 @@
     display: flex;
     flex-direction: column;
     padding: 0px 0 0px 0px;
-
+    margin: 0 auto;
 
 }
 .task_item {

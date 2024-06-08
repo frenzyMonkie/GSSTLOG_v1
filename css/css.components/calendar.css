@@ -1,0 +1,14 @@
+.calendFilters {
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    cursor: pointer;
+
+    background-color: #e5e5e5;
+}
+.calendFilter {
+    padding: 0.8rem;
+    font-size: calc(100vw / 35);
+
+}
