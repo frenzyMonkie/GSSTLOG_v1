@@ -305,24 +305,21 @@ const renderCanvas2 = () => {
     const selectmodeCanvas = <Fragment>
                                 <div className="grid">
 
-                                    <input type="radio" id="tab1" name="tabGroup1" class="tab" defaultChecked={filterParam == "Выбранные" ? true : null}/>
-                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><label class="label_bordbot" >Выбранные</label></label>
+                                    <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
+                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot" >Выбранные</div></label>
 
-                                    <input type="radio" id="tab2" name="tabGroup1" class="tab" defaultChecked={filterParam == "Избранное" ? true : null}/>
-                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><label class="label_bordbot"  >Свой список</label></label>
+                                    <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
+                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot"  >Свой список</div></label>
 
-                                    <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><label class="label_bordbot"  >Все(иконки?) </label></label>
+                                    <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все(иконки?) </div></label>
                                     {sbar}
 
                                     {nameList_selectmode}
                                 </div>
-
-
-
                             </Fragment>
     const mainCanvas = <Fragment>
-                            <input type="radio" id="tab1" name="tabGroup1" class="tab" checked/>
+                            <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                             {/* <label for="tab1">Выбранные</label> */}
                             {nameList_mainmode}
                         </Fragment>
