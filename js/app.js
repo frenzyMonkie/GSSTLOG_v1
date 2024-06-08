@@ -22,9 +22,8 @@ function App () {
                         <Route path="*" element={<NotFound />} />
                         {/* <MainPage/> */}
                         {/* TimeLogSelectWorkers */}
-                        {/* CalendarPro */}
                         <Route index element={<TimeLogSelectWorkers />} />
-
+                        <Route path="CalendarPro" element={<CalendarPro />} />
 
                         <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
                         <Route path="OldReportsPage" element={<OldReportsPage />} />

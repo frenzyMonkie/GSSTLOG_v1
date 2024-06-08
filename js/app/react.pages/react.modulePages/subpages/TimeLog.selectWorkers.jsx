@@ -1,7 +1,25 @@
 
-const TimeLogContext = React.createContext([])
+const TimeLogContext = React.createContext({
+    workers: [],
+    current: {
+        idx: null,
+        worker: null,
+        workType: null,
+        smena: null,
+        timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
+    }})
+const searchBar = (searchQuery, setSearchQuery) => {
+    console.log("[ RE-CALLED ] : searchBar")
+    return <input
+                    key="seacrhWorkers"
+                    type="search"
+                    class="people_search"
+                    placeholder="Поиск"
+                    defaultValue={searchQuery}
+                    onChange={ (e) => setSearchQuery(e.target.value) }  /> // autoFocus
+}
 const TimeLogSelectWorkers  = () => {
-
+    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
 
     // Должно быть:
     // 1. Заходим и видим список фамилий. При нажатии на любую - попадаем уже в индивидуальный отчёт.
@@ -24,39 +42,35 @@ const TimeLogSelectWorkers  = () => {
     }
 
     const [selectMode, setSelectMode] = useState(false)
-    const [chosenSelected, setChosenSelected] = useState(true)
-    const [favSelected, setFavSelected] = useState(false)
-    const [allSelected, setAllSelected] = useState(false)
     var firstLoad = true
 
-    const searchInput = React.useRef(null);
+
     var workers = [
-    {id : 1, name: " Авплетий Ничан Пастырович", band: "🢒 Дьячков", isFav: false, isSelected: true},
-    {id : 2, name: " Ахмедов Ахмед Ахмедович", band: "🢒 Дьячков", isFav: true, isSelected: false},
-    {id : 3, name: " Джованни Джорджо Яковлевич", band: "🢒 Дьячков", isFav: false, isSelected: false},
-    {id : 4, name: " Захаров Дмитрий Алексеевич", band: "🢒 Геоспецстрой", isFav: true, isSelected: true},
-    {id : 5, name: " Мухатгалиев Якубджон Джамшут-оглы", band: "🢒 Дьячков", isFav: false, isSelected: true},
-    {id : 6, name: " Нагорный Ламинат Горыныч", band: "🢒 Дьячков", isFav: false, isSelected: false},
-    {id : 7, name: " Сальчичон Балык Хамонович", band: "🢒 Дьячков", isFav: false, isSelected: false},
-    {id : 8, name: " Смешной Егор Егорович", band: "🢒 Дьячков", isFav: true, isSelected: true},
-    {id : 9, name: " Якубенко Владислав Игоревич", band: "🢒 Илькевич", isFav: true, isSelected: false},
+        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true, timenodes: [],},
+        {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
+        {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
+        {name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true, timenodes: [],},
+        {name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true, timenodes: [],},
+        {name: "Нагорный Ламинат Горыныч", band: "Данченко", isFav: false, isSelected: false, timenodes: [],},
+        {name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
+        {name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, isSelected: true, timenodes: [],},
+        {name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false, timenodes: [],},
     ]
 
 
     // https://codepen.io/Spruce_khalifa/pen/GRrWjmR
 
-    // const [items, setItems] = useState([]);
-    // const data = Object.values(items);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [q, setQ] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     const [searchParam] = useState(["name", "band"]);
     const [filterParam, setFilterParam] = useState(["Выбранные"]); // "Все", "Избранное". "Выбранные"
-    // const [chosenSelected, setChosenSelected] = useState(true)
-    // const [favSelected, setFavSelected] = useState(false)
-    // const [allSelected, setAllSelected] = useState(false)
-
+    const navigate = useNavigate();
+    const toggleSelectMode = () => {
+        setSelectMode(!selectMode)
+    }
     function search(items) {
+        console.log("[ RE-CALLED ] : search", items)
         // console.log(items)
         return items.filter((item) => { // Отобразятся только элементы, по которым прошло true по условиям.
             // Если значение элемента совпадает с указанным в фильтре (напр. избранное или выбранные)
@@ -70,7 +84,7 @@ const TimeLogSelectWorkers  = () => {
                         item[newItem]
                             .toString()
                             .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
+                            .indexOf(searchQuery.toLowerCase()) > -1
                     );
                 });
             }
@@ -80,26 +94,50 @@ const TimeLogSelectWorkers  = () => {
                         item[newItem]
                             .toString()
                             .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
+                            .indexOf(searchQuery.toLowerCase()) > -1
                     );
                 });
             }
-            if (filterParam == "Выбранные" && item.useState[0]) { // Если в выбранных и итем принадлежит этой категории
+            if (filterParam == "Выбранные" && item.useNameSelected[0]) { // Если в выбранных и итем принадлежит этой категории
                 return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
                     return ( // Возвращаем true если есть вхождение набранного текста в очередной айтем.
                         item[newItem]
                             .toString()
                             .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
+                            .indexOf(searchQuery.toLowerCase()) > -1
                     );
                 });
             }
+            console.log("[ RE-CALLED ] : search", items)
         });
-    }
 
-const oneWorkerMainCanvas = (newWorker) => {
+    }
+const object = {name: "Амурская", type: "СВП"}
+const [smena, setSmena] = useState("День")
+const [workType, setWorkType] = useState(object.type == "123" ? "Дежурство" : "Проходка")
+const oneWorkerMainCanvas = (idx, newWorker) => {
+    console.log("[ RE-CALLED ] : oneWorkerMainCanvas")
     const editWorker = () => {
+
+        // При перезагрузке страницы календаря - контекст сбрасывается, всё теряется.
+        // Т.е. нужно брать все данные из базы данных вообще? Тогда реактивность будет пропадать.
+        // Можно перенаправлять на главную страницу при перезагрузке,
+        // мб проверять снэпшот контекста, сохраненный в базе, с актуальным, и если есть разница, то показывать сообщение типа "страница обновлена, несохраненные данные сброшены"
+        // На крайний случай завести переменную типа "enteredEditMode" в базе данных, чтобы при загрузке любой страницы понимать,
+        // что состояние прервалось в момент корректировки и запускать соответствующее сообщение.
+        // (при переходе в контекст редактирования ставить true, при выходе/сохранении false,
+        // и затем на переходе на новую страницу ставить проверку, что должно быть всегда false, иначе понимаем что прервался режим редактирования,
+        // и уже потом в зависимости от контекста страницы ставим true или false для последующих проверок)
+        useTimelogContext.current.idx = idx;
+        useTimelogContext.current.worker = newWorker;
+        useTimelogContext.current.smena = smena;
+        useTimelogContext.current.workType = workType;
+
         console.log("ok", newWorker)
+        console.log("worker",newWorker);
+        console.log("contetx", useTimelogContext.workers);
+        console.log("worker index", useTimelogContext.workers.indexOf(newWorker));
+        navigate("/CalendarPro", {replace: true})
     }; // Тоггл галочки выбора
     return (
         <div class="task_item" onClick={editWorker}>
@@ -113,7 +151,8 @@ const oneWorkerMainCanvas = (newWorker) => {
 }
 
 
-const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => {
+const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected) => {
+    console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
     const toggleWorkerisSelected = () => {
         setNameSelected( !nameSelected );
     }; // Тоггл галочки выбора
@@ -128,199 +167,86 @@ const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => 
                     </div>
       );
 }
-// const parseContextNames = (useTimelogContext) => {
-//     var ret = [] // Просто выдираем имена из контекста
-//     for (var uniqueWorker of useTimelogContext) {
-//         ret.push(uniqueWorker.name)
-//     }
-//     return ret
-// }
-const workerCanvasManager = (useTimelogContext, newWorker, nameSelected, setNameSelected) => {
-    const parseContextNames = (useTimelogContext) => {
-        var ret = [] // Просто выдираем имена из контекста
-        for (var uniqueWorker of useTimelogContext) {
-            ret.push(uniqueWorker.name)
-        }
-        return ret
+const parseContextNames = (useTimelogContext) => {
+    console.log("[ RE-CALLED ] : parseContextNames")
+    var ret = [] // Просто выдираем имена из контекста
+    for (var uniqueWorker of useTimelogContext.workers) {
+        ret.push(uniqueWorker.name)
     }
-    var canvas = selectMode ? oneWorkerSelectableCanvas(newWorker, nameSelected, setNameSelected) : oneWorkerMainCanvas(newWorker, nameSelected, setNameSelected)
+    return ret
+}
+const workerCanvasManager = (idx, newWorker, nameSelected, setNameSelected) => {
+    console.log("[ RE-CALLED ] : workerCanvasManager")
+    // useTimelogContext - нужно здесь обновить TimeLogContext на предмет выбранной ячейки,
+    //  чтобы считывать для отображения в календаре и записывать туда корректируемые данные
+    // Для этого нужна нормальная структура данных
+
+    var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newWorker, nameSelected, setNameSelected) : oneWorkerMainCanvas(idx, newWorker, nameSelected, setNameSelected)
     // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
     let newWorkerData = {
+        index: idx, // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         canvas: canvas,
-        useState: [nameSelected, setNameSelected],
+        useNameSelected: [nameSelected, setNameSelected],
         ...newWorker
     }
 
     // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
     // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
     var namesInContext = parseContextNames(useTimelogContext)
+    console.log(useTimelogContext)
     if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
-        useTimelogContext.push(newWorkerData)
+        useTimelogContext.workers.push(newWorkerData)
     } else {
-        console.log(useTimelogContext)
-        var idx = useTimelogContext.findIndex((element) => element.name == newWorkerData.name)
+        var idx = useTimelogContext.workers.findIndex((element) => element.name == newWorkerData.name)
         // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
-        useTimelogContext[idx] = newWorkerData
+        useTimelogContext.workers[idx] = newWorkerData
     }
 
     return canvas
 }
 
-const renderEditMode = (ctx) => {
-    return ctx.filter( (item) => {
-        if (item.useState[0]) { return true }
-    })
-}
 
 
 
-// // the value of the search field
-// const [name, setName] = useState('');
-// // the search result
-// const [foundUsers, setFoundUsers] = useState(USERS);
-// const filter = (e) => {
-//     const keyword = e.target.value;
-//     if (keyword !== '') {
-//         const results = USERS.filter((user) => {
-//         return user.name.toLowerCase().startsWith(keyword.toLowerCase());
-//         // Use the toLowerCase() method to make it case-insensitive
-//         });
-//         setFoundUsers(results);
-//     } else {
-//         setFoundUsers(USERS);
-//         // If the text field is empty, show all users
-//     }
-//     setName(keyword);
 
 
-//   return (
-//     <div className="container">
-//       <input
-//         type="search"
-//         value={name}
-//         onChange={filter}
-//         className="input"
-//         placeholder="Filter"
-//       />
+const renderContent = () => {
+    console.log("[ RE-CALLED ] : renderContent")
+    const renderEditMode = (ctx) => {
+        console.log("[ RE-CALLED ] : renderEditMode")
+        return ctx.filter( (item) => {
+            if (item.useNameSelected[0]) { return true }
+        })
+    }
 
-//       <div className="user-list">
-//         {foundUsers && foundUsers.length > 0 ? (
-//           foundUsers.map((user) => (
-//             <li key={user.id} className="user">
-//               <span className="user-id">{user.id}</span>
-//               <span className="user-name">{user.name}</span>
-//               <span className="user-age">{user.age} year old</span>
-//             </li>
-//           ))
-//         ) : (
-//           <h1>No results found!</h1>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-const searchBar = () => {
-    // const ref = React.createRef();
-    console.log(11111111111111111111111111111111111111111111111)
-    // useEffect(() => {
-    //     console.log(searchInput)
-    //     searchInput.current.focus();
-    // }, [q]);
-    // onFocus={(e) => e.target.select()}
-    return <input key="seacrhWorkers" type="search" class="people_search" placeholder="Поиск" defaultValue={q} onChange={ setInputValue} ref={searchInput}  /> // autoFocus setQ
-    // React.useMemo(() => (
-    //   ), [] );
-}
-
-
-const setInputValue = (e) => {
-
-    // Фиксируем проблему: при вводе текста в инпут происходит полный ре-рендер, который ре-рендерит еще и сам инпут, поэтому он теряет фокус.
-    // Если e.target.value != "", то автофокус?
-    // Еще вариант, попробовать
-        // 1. Вынуть input из подфункций, но хз поможет ли, всё равно рендерится на одном холсте.
-        // 2. Попробовать изолировать обновление листа от других компонентов. Чтобы его изменение не триггерило изменение родительсткого холста и рядом стоящих элементов.
-
-    console.log(e)
-    console.log(e.target.value)
-
-    setQ(e.target.value)
-    searchInput.current.focus()
-
-}
-
-const cb_SetQ = React.useCallback((evt) => {
-        setQ(evt)
-    }, [])
-
-
-const renderCanvas2 = () => {
-
-
-
-    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-    prepareWorkers(useTimelogContext)
+    // Подготовка данных
+    prepareWorkers()
 
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
-                                    {search(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {search(useTimelogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                     ))}
                                 </div>
     const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
-                                    {renderEditMode(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {renderEditMode(useTimelogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                     ))}
                                 </div>
-    // if (firstLoad) {
-    //     var selectedWorkersCanvas = []
-    //     firstLoad = false
-    //     for (var newWorker of workers) { // Формируем список фамилий
-    //         const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-    //         var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
-    //         // Распределяем созданные элементы ФИО в разные вкладки
-    //         // if (newWorker.isSelected) {
-    //             selectedWorkersCanvas.push(listItemCanvas)
-    //             useEffect(() => { // Устанавливаем пресетные значения
-    //                 const addSelected = async () => {if (newWorker.isSelected) {setSelected(true)}};
-    //                 addSelected()
-    //                 }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-    //         // } // Вкладка отмеченных
-
-    //     }
-    // }
-
-    // if (!firstLoad) {
-    //     var selectedWorkersCanvas = []
-    //     for (var newWorker of useTimelogContext) {
-    //         if (newWorker.useState[0]) {
-    //         // 1. Взять listItemCanvas и добавить в useTimelogContext вместо uniqueName.
-    //         // console.log(newWorker)
-    //         var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
-    //         selectedWorkersCanvas.push(listItemCanvas)
-    //     }
-    // }
-    // }
-    const sbar = React.useMemo(() => searchBar())
+    const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
     const selectmodeCanvas = <Fragment>
                                 <div className="grid">
-
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
                                     <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot" >Выбранные</div></label>
-
                                     <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot"  >Свой список</div></label>
-
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
                                     <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все(иконки?) </div></label>
                                     {sbar}
-
                                     {nameList_selectmode}
                                 </div>
                             </Fragment>
     const mainCanvas = <Fragment>
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
-                            {/* <label for="tab1">Выбранные</label> */}
                             {nameList_mainmode}
                         </Fragment>
 
@@ -338,104 +264,35 @@ const renderCanvas2 = () => {
 
 }
 
-// const renderCanvas = () => {
-//     return selectMode ? renderSelectmodeCanvas() : renderMainCanvas()
-// }
-// const renderMainCanvas = () => {
-
-//     // Хранилища для ссылок на холсты, которые будут далее собраны на основе данных
-
-//     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-
-//     // Сначала нужно определить, что у нас в контексте.
-//     // 1. при смене режима именно контекст - главный
-//     // 2. при инициализации именно входящие данные - главные.
-
-//     prepareWorkers(useTimelogContext)
-
-//     if (firstLoad) {
-//         var selectedWorkersCanvas = []
-//         firstLoad = false
-//         for (var newWorker of workers) { // Формируем список фамилий
-//             const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-//             var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
-//             // Распределяем созданные элементы ФИО в разные вкладки
-//             // if (newWorker.isSelected) {
-//                 selectedWorkersCanvas.push(listItemCanvas)
-//                 useEffect(() => { // Устанавливаем пресетные значения
-//                     const addSelected = async () => {if (newWorker.isSelected) {setSelected(true)}};
-//                     addSelected()
-//                     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-//             // } // Вкладка отмеченных
-
-//         }
-//     }
-
-//     if (!firstLoad) {
-//         var selectedWorkersCanvas = []
-//         for (var newWorker of useTimelogContext) {
-//             if (newWorker.useState[0]) {
-//             // 1. Взять listItemCanvas и добавить в useTimelogContext вместо uniqueName.
-//             // console.log(newWorker)
-//             var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
-//             selectedWorkersCanvas.push(listItemCanvas)
-//         }
-//     }
-//     }
-
-//     // useEffect(() => {
-//     //     const finish = () => {setFirstLoad(false)};
-//     //     finish()
-//     // }, []);
-
-//     return (
-//         <TimeLogContext.Provider>
-//         <div class="container timelog">
-//             <div class="content timelog" id="content_main">
-//                 <div class="tab-wrap">
-//                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked/>
-//                     {/* <label for="tab1">Выбранные</label> */}
-
-//                     <div class="tab__content" id="tab__chosen_workers">
-//                     {selectedWorkersCanvas}
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//         </TimeLogContext.Provider>
-//     )
-
-
-// }
-
-// const renderWorker = (newWorker) => {
-//     return useTimelogContext.filter((item) => {
-//         console.log(item.canvas, newWorker)
-//         if (useTimelogContext.includes(newWorker)) {
-//             return
-//         }
-//     });
-
-// }
-const prepareWorkers = (useTimelogContext) => {
-    // Вроде как надо подготовить холсты, а потом по результатам поиска доставать их из хранилища по совпадениям.
-    // Хранилища для ссылок на холсты, которые будут далее собраны на основе данных
-    const favouriteWorkersCanvas = []
-    const selectedWorkersCanvas = []
-    const allWorkersCanvas = []
-
-
+const prepareWorkers = () => {
     /// При первом рендере кладем воркеров в контекст и используем контекст
     // Во всех остальных - используем контекст.
+    console.log("[ RE-CALLED ] : prepareWorkers")
+
+    // Можно попробовать некую проверку контекста на наличие в нём всех загруженных новых актуальных данных вместо firstLoad
+    // Но это будет дольше чем просто засунуть все новые данные.
+    // Однако суть в том, что могут быть уже внесенные данные в контекст, которые отличаются от вновь загруженных
+    // Поскольку список фамилий меняться не может, то проверять нужно только на них, и если есть новая фамилия, то добавлять в контекст, иначе пропускать,
+    // т.к. пользователь мог поменять что-то.
+    // Если же поменялись данные по пользователю на конкретном объекте и на конкретную дату, значит кто-то другой уже внес свою актуальную информацию, других вариантов нет.
+    // Это значит что нужно на вкладке выбора времени указывать также имя того, кто внёс данные, и помечать кружок другим цветом (оранжевым к примеру),
+    // если имя не совпадает с именем вносившего, просто чтобы человек обратил внимание, что кто-то внёс за него информацию, и мог уже действовать по-своему.
+    // Соответственно, проверка должна быть в любом случае, и проверка должна быть двойной.
+    // 1. Проверка на новые фамилии и добавление новых в случае отсутствия
+    // 2. Проверка на соответствии имен пользователя и вносившего в контексте выбранной для редактирования фамилии
+    // 3. Проверка серверная на дату и время заполнения, и всегда записывается та информация, время заполнения которой позже.
+    // т.е. если пришел пакет, а там время заполнения раньше чем в последнем сохраненном, то он отклоняется. Чисто технический момент.
+    // Если один и тот же пользователь меняет инфу из 2-х устройств? Например начал на ПК, сохранил,
+    // интернета не было, он решил начать с телефона, и пока заполнял с телефона, появился интернет, и данные сохранились.
+    // Тогда тут нужна проверка на время именно сохранения данных, момент заполнения.
+    // И тот который позже всегда должен перезаписывать новый. Иначе могу быть казусы, чисто теоретически, и их надо исключить.
     if (firstLoad) {
         firstLoad = false
+        let idx = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         for (var newWorker of workers) { // Формируем список фамилий
-            console.log(newWorker)
+            // console.log(newWorker)
             const [selected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-            var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
-            // Распределяем созданные элементы ФИО в разные вкладки
-            // selectedWorkersCanvas.push(listItemCanvas)
-            // if (newWorker.isSelected) {console.log(newWorker.isSelected)}
+            workerCanvasManager(idx, newWorker, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
             if (newWorker.isSelected) {
                 useEffect(() => { // Устанавливаем пресетные значения
                     const addSelected = async () => {
@@ -444,95 +301,29 @@ const prepareWorkers = (useTimelogContext) => {
                     addSelected()
                 }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
             }
-
-            // Вкладка отмеченных
-
-        //     // if (newWorker.isFav) {favouriteWorkersCanvas.push(listItemCanvas)} // Вкладка избранных
-        //     // allWorkersCanvas.push(listItemCanvas) // Общий список
-        //     // console.log(allWorkersCanvas)
+            idx++
         }
     } else {
-        for (var newWorker of useTimelogContext) {
-
-            // var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
-            if (newWorker.useState[0]) { // if (newWorker.isSelected)
+        // console.log(firstLoad)
+        for (var newWorker of useTimelogContext.workers) {
+            if (newWorker.useNameSelected[0]) { // if (newWorker.isSelected)
                 useEffect(() => { // Устанавливаем пресетные значения
-                    const addSelected = async () => {newWorker.useState[1](true)};
+                    const addSelected = async () => {newWorker.useNameSelected[1](true)};
                     addSelected()
                     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-                var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
+
+                workerCanvasManager(idx, newWorker, newWorker.useNameSelected[0], newWorker.useNameSelected[1]) // Инициализируем сам элемент с логикой и холстом
             }
         }
     }
-
-
-
-    // return {favouriteWorkersCanvas, selectedWorkersCanvas, allWorkersCanvas}
 }
-
-
-
-// const renderSelectmodeCanvas = () => {
-//     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-//     // var {favouriteWorkersCanvas, selectedWorkersCanvas, allWorkersCanvas} = prepareWorkers(useTimelogContext)
-//     prepareWorkers(useTimelogContext)
-//     // console.log(useTimelogContext)
-
-//     const searchBar = () => (<input type="search" class="people_search" placeholder="Поиск" value={q} onChange={ (e) => cb_SetQ(e.target.value)} autoFocus/>)
-//     const nameList = <div className="tab__content" id="tab__favourite_workers">
-//                                 {search(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
-//                                     item.canvas
-//                                 ))}
-//                             </div>
-
-//     return (
-//         <TimeLogContext.Provider>
-//         <div class="container timelog">
-//             <div class="content timelog" id="content_main">
-//                 <div class="tab-wrap">
-
-//                     <input type="radio" id="tab1" name="tabGroup1" class="tab" defaultChecked={filterParam == "Выбранные" ? true : null}/>
-//                     <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}>Выбранные</label>
-
-//                     <input type="radio" id="tab2" name="tabGroup1" class="tab" defaultChecked={filterParam == "Избранное" ? true : null}/>
-//                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}>Избранное</label>
-
-//                     <input type="radio" id="tab3" name="tabGroup1" class="tab" defaultChecked={filterParam == "Все" ? true : null}/>
-//                     <label for="tab3" onClick={() => {return setFilterParam("Все")}}>Все</label>
-//                     {/* this means that component itself or any of its parents instead of being updated is remounted: deleted and re-created. */}
-
-//                     {searchBar()}
-//                     {nameList}
-//                     {/* Компонент ремаунтится / ререндерится вместе с самой строкой поиска, вот и вся проблема. */}
-
-//                     {/* <div className="tab__content" id="tab__chosen_workers">
-//                     {selectedWorkersCanvas}
-//                     </div>
-//                     <div className="tab__content" id="tab__favourite_workers">
-//                     {favouriteWorkersCanvas}
-//                     </div>
-//                     <div className="tab__content" id="tab__all_workers">
-//                     {allWorkersCanvas}
-//                     </div> */}
-
-//                 </div>
-//             </div>
-//         </div>
-//         </TimeLogContext.Provider>
-//     )
-// }
-
-    const toggleSelectMode = () => {
-        setSelectMode(!selectMode)
-    }
-    const navLeft  = ({children}) => {return (
-        <Fragment>
-        <i class="header_back fi fi-rr-arrow-small-left"></i>
-
-        </Fragment>
+    const navLeft  = ({children}) => {console.log("[ RE-CALLED ] : navLeft")
+        return (
+            <Fragment>
+            <i class="header_back fi fi-rr-arrow-small-left"></i>
+            </Fragment>
     )}
-    const navRight  = ({children}) => {
-
+    const navRight  = ({children}) => { console.log("[ RE-CALLED ] : navRight")
         var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
         return (
         <Fragment>
@@ -541,7 +332,7 @@ const prepareWorkers = (useTimelogContext) => {
         </Fragment>
     )}
     const header = (handler) => {
-
+        console.log("[ RE-CALLED ] : header")
         return (
             <div class="header" id="header_main">
                 <div className="nav_left"> {navLeft(handler) || null}</div>
@@ -551,36 +342,28 @@ const prepareWorkers = (useTimelogContext) => {
         )
     }
 
-    const renderCanvas = () => {
-        var he = header()
-        var co = content()
-        return (
-            <Fragment>
-                {he}
-                {co}
-            </Fragment>
-        )
-    }
+    // Можно конечно попробовать рендерит ьвсё прямо здесь.. а уже потом оборачивать в контекст отловщика ошибок и т.д.
+    // const renderCanvas = () => {
+    //     var he = header()
+    //     var co = content()
+    //     return (
+    //         <Fragment>
+    //             {he}
+    //             {co}
+    //         </Fragment>
+    //     )
+    // }
+
     const render = () => {
+        console.log("[ RE-CALLED ] : render")
         return AppCanvas({
-                renderCanvas: renderCanvas2,
+                renderCanvas: renderContent,
                 pageTitle: state.pageTitle,
                 navLeft: navLeft,
                 navRight: navRight,
                 head: header
             })
-
     }
-    const oldrender = () => {
-        // console.log(123)
-        return PageComponent({
-            renderCanvas: renderCanvas2,
-            pageTitle: state.pageTitle,
-            navLeft: navLeft,
-            navRight: navRight
-        })
-    }
-
     return render()
 
 }

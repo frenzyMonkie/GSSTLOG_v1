@@ -1,7 +1,18 @@
+
+
 // Компонент "Насосы"
 const CalendarPro = () => {
+    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
+    const pageTitle = () => {
+        try {
+            var title = useTimelogContext.current.worker.name
+        } catch (e) {
+            var title = "ОШИБКА ЧТЕНИЯ КОНТЕКСТА"
+        }
+        return title
+    }
     const state = {
-        pageTitle: "Захаров Виктор Анатольевич",
+        pageTitle: pageTitle(),
         currentObject: "",
         currentObjectCustoms: {sectors: [], },
         formData: {},
@@ -44,9 +55,7 @@ const CalendarPro = () => {
     }
     const renderCanvas = () => {
         return (
-            <Fragment>
             <CalendarProCanvas />
-            </Fragment>
     )}
     const render = () => {
         // context = usePageContext()

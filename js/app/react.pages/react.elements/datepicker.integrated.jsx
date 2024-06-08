@@ -1,9 +1,9 @@
 
-    const multidatepicker = (that) => {
-        console.log("that", that)
-        // <div>Дневные смены</div>
-        // <div>Дежурство</div>
+    const multidatepicker = (useTimeLogContext) => {
+        console.log("useTimeLogContext", useTimeLogContext)
         $('#date_range').datepicker({
+            // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
+            timenodes: useTimeLogContext.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
             range: 'multiple', // режим - выбор нескольких дат
@@ -27,24 +27,20 @@
                 // Сформировать (из предварительно заполненных и сохраненных в useState & cookies блоков, preview + presend-select) -> Отправить (-> jsonify -> post request) -> Подтверждение (Статус доставки) -> История (список отправленных)
                 // var extensionRange = $('#date_range').datepicker('widget').data('datepickerExtensionRange');
                 // if (extensionRange.datesText) console.log(extensionRange.datesText);
-                // that.setState({dates: extensionRange.datesText})
                 var tnodes = []
-                console.log(that)
-                console.log(that.context.currentWorker)
-                console.log(that.props.calendarData)
+
                 // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
                 // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
-                var smena = "День" // that.context.smena
-                var workType = "Дежурство" // that.context.worktype
-                var foocusedName = Object.keys(that.state)[0] //"Смешной Андрей Яковлевич" // that.context.currentWorker
+                if (extensionRange.datesText) {
+                    extensionRange.datesText.forEach(element => {
+                        tnodes.push({date: element, hours: "some", "smena": useTimeLogContext.current.smena, "workType": useTimeLogContext.current.workType})
+                    });
+                    // var ret = {}
+                    // ret[focusedName] = tnodes
+                    useTimeLogContext.current.timenodes = tnodes
+                }
 
-                extensionRange.datesText.forEach(element => {
-                    tnodes.push({date: element, hours: "some", "smena": smena, "workType": workType})
-                });
-                var ret = {}
-                ret[foocusedName] = tnodes
-                that.setState(ret)
-                console.log("Datepicker inner ", that.state)
+                console.log("Datepicker inner ", useTimeLogContext)
             }
             });
     }
@@ -80,94 +76,138 @@ const filters = (props) => {
 // $('#date_range').find(".ui-datepicker-current-day").removeClass("ui-datepicker-current-day"); // this actually removes the highlight
 // объект расширения (хранит состояние календаря)
 
-class MultidateCalendar extends Component {
-    constructor(props) {
-        super(props);
-        this.initialState = []
-        this.state = this.initialState;
-    }
+// class MultidateCalendar extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.initialState = []
+//         this.state = this.initialState;
+//     }
 
 
-    onSave = event => {
+//     onSave = event => {
+//         event.preventDefault();
+//         this.props.handleSubmit(this.state);
+//         console.log("onSave", this.state)
+//         // this.setState(this.initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
+//     }
+
+//     componentDidMount() {
+//         console.log(1, this.props.useTimelogContext.workers[0][0])
+//         const calendarData = this.props.useTimelogContext.workers[0][0];
+
+//         // const { currentWorker } = this.props
+//         // Предполагается пустой или заполненный ммассив данных на входе.
+//         // Сымитируем оба варианта.
+//         // calendar_data_empty = [{
+//         //     id: "",
+//         //     name: "some",
+//         //     data: [{
+//         //       category: "",
+//         //       timenodes: [{ date: "", hours: "" }]
+//         //     }]
+//         // }]
+//         // calendar_data_loaded = [{
+//         //     id: "1",
+//         //     name: "Леонид Диснеевич Каневский",
+//         //     data: [{
+//         //         workshift: 1,
+//         //         category: "Дежурство",
+//         //         timenodes: [{ date: "28.04.2024", hours: "24" },{ date: "29.04.2024", hours: "12" }]
+//         //     },{
+//         //         workshift: 1,
+//         //         category: "Монтаж",
+//         //         timenodes: [{ date: "29.04.2024", hours: "12" }]
+//         //     }]
+//         // },{
+//         //     id: "2",
+//         //     name: "Жорик Капитулович Вартанов",
+//         //     data: [{
+//         //         workshift: 1,
+//         //         category: "Замывка",
+//         //         timenodes: [{ date: "28.04.2024", hours: "12" }]
+//         //     }]
+//         // }]
+//         // var arr = []
+//         // calendarData.forEach(element => {
+//         //   arr.push(element)
+//         // });
+//         // if (arr.includes(currentWorker)) {
+//         //   // 1. Найти объект где currentWorker
+//         //   // calendarData[calendarData.indexOf(currentWorker)].data[someindex]
+//         //   // 2. Обновить его перечень данных
+//         //   // this.setState([...this.state].pop(calendarData.indexOf(currentWorker)), element.data.timenodes)
+//         // } else {
+//         //     console.log(arr)
+//         //   this.setState([...this.state], element.data.timenodes) // Указывать на id выбранного человека
+//         // }
+//         this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
+//         console.log(123, this.props.useTimeLogContext)
+//         multidatepicker(this, this.props.useTimeLogContext)
+//     }
+
+//     render() {
+//             // const { characterData, removeCharacter } = props;
+//             return (
+//                 <form onSubmit={this.onSave}>
+//                     <div>
+//                         <div id="date_range"></div>
+//                         <br/>
+//                         {/* <textarea name="multipleDate"></textarea>
+//                         <button type="submit"  class="calendar_approve">
+//                             Добавить
+//                         </button> */}
+//                     </div>
+//                 </form>
+//         );
+//     }
+// }
+const MultidateCalendar = (props) => {
+    // console.log("123", props)
+    var initialState = []
+    var state = initialState;
+
+    // При сохранении, выходе, изменении параметров workType, smena - нужно сохранять current.timenodes в контекст соответствующего рабочего, в т.ч. в базу данных.
+
+    const onSave = event => {
+
         event.preventDefault();
-        this.props.handleSubmit(this.state);
-        console.log("onSave", this.state)
-        // this.setState(this.initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
+        props.handleSubmit(state);
+        console.log("onSave", state)
+        // this.setState(initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
     }
 
-    componentDidMount() {
-        console.log(1, this.props.useTimelogContext[0][0])
-        const calendarData = this.props.useTimelogContext[0][0];
+    useEffect(() => { // Устанавливаем пресетные значения
+        const onMount = async () => {
+            // console.log(1, props.useTimelogContext.workers[0][0])
+            // const calendarData = props.useTimelogContext.workers[0][0];
+            // this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
+            // console.log(123, props.useTimeLogContext)
+            multidatepicker(props.useTimeLogContext)
+        };
+        onMount()
+    }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
 
-        // const { currentWorker } = this.props
-        // Предполагается пустой или заполненный ммассив данных на входе.
-        // Сымитируем оба варианта.
-        // calendar_data_empty = [{
-        //     id: "",
-        //     name: "some",
-        //     data: [{
-        //       category: "",
-        //       timenodes: [{ date: "", hours: "" }]
-        //     }]
-        // }]
-        // calendar_data_loaded = [{
-        //     id: "1",
-        //     name: "Леонид Диснеевич Каневский",
-        //     data: [{
-        //         workshift: 1,
-        //         category: "Дежурство",
-        //         timenodes: [{ date: "28.04.2024", hours: "24" },{ date: "29.04.2024", hours: "12" }]
-        //     },{
-        //         workshift: 1,
-        //         category: "Монтаж",
-        //         timenodes: [{ date: "29.04.2024", hours: "12" }]
-        //     }]
-        // },{
-        //     id: "2",
-        //     name: "Жорик Капитулович Вартанов",
-        //     data: [{
-        //         workshift: 1,
-        //         category: "Замывка",
-        //         timenodes: [{ date: "28.04.2024", hours: "12" }]
-        //     }]
-        // }]
-        // var arr = []
-        // calendarData.forEach(element => {
-        //   arr.push(element)
-        // });
-        // if (arr.includes(currentWorker)) {
-        //   // 1. Найти объект где currentWorker
-        //   // calendarData[calendarData.indexOf(currentWorker)].data[someindex]
-        //   // 2. Обновить его перечень данных
-        //   // this.setState([...this.state].pop(calendarData.indexOf(currentWorker)), element.data.timenodes)
-        // } else {
-        //     console.log(arr)
-        //   this.setState([...this.state], element.data.timenodes) // Указывать на id выбранного человека
-        // }
-        this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
-        multidatepicker(this)
+    const render = () => {
+            // const { characterData, removeCharacter } = props;
+            return (
+                <form onSubmit={onSave}>
+                    <div>
+                        <div id="date_range"></div>
+                        <br/>
+                        {/* <textarea name="multipleDate"></textarea>
+                        <button type="submit"  class="calendar_approve">
+                            Добавить
+                        </button> */}
+                    </div>
+                </form>
+        );
     }
-
-    render() {
-        // const { characterData, removeCharacter } = props;
-        return (
-            <form onSubmit={this.onSave}>
-                <div>
-                    <div id="date_range"></div>
-                    <br/>
-                    {/* <textarea name="multipleDate"></textarea>
-                    <button type="submit"  class="calendar_approve">
-                        Добавить
-                    </button> */}
-                </div>
-            </form>
-    );
-}
+    return render();
 }
 
 
 const Calendar = () => {
-    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
+    const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
     const state = {
         // Номер проводки (ключ), Дата внесения, номер записи
         // номер записи (ключ),  Дата отчёта, Ответственный, Объект, Сотрудник, Смена, Вид работ, Часы.
@@ -221,7 +261,7 @@ const Calendar = () => {
     }
     const parseContextNames = (useTimelogContext) => {
         var ret = [] // Просто выдираем имена из контекста
-        for (var uniqueWorker of useTimelogContext) {
+        for (var uniqueWorker of useTimelogContext.workers) {
             ret.push(uniqueWorker.name)
         }
         return ret
@@ -232,7 +272,7 @@ const Calendar = () => {
         const { calendar_data } = state; // Извлекаем ссылку на calendar_data из реестра.
         console.log(calendar_data)
 
-        useTimelogContext.push([...calendar_data]) // Некие данные загружены. Пушим их в контекст.
+        // useTimelogContext.workers.push([...calendar_data]) // Некие данные загружены. Пушим их в контекст.
         // var currentWorker = Object.keys(useTimelogContext[0][0])[0] // Ищем выбранного рабочего (здесь необяхательно, из контекста можно вытащить потом)
         // console.log(currentWorker)
 
@@ -242,7 +282,7 @@ const Calendar = () => {
                                     // currentWorker={currentWorker}
                                     // calendarData={calendar_data}
                                     handleSubmit={handleSubmit_calendar}
-                                    useTimelogContext = {useTimelogContext} />
+                                    useTimeLogContext = {useTimeLogContext} />
                                     {/* <Form
                                     //   characterData={characters}
                                         handleSubmit={this.handleSubmit} /> */}
