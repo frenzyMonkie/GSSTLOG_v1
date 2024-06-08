@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <title>Геоспец</title>
 
@@ -18,6 +18,10 @@
 
     <!-- Компоненты -->
 
+    <link rel="stylesheet" href="./css/css.components/buttons_grid.css">
+    <link rel="stylesheet" href="./css/css.components/popup.css">
+
+
     <!-- Стили библиотек (сторонних компонентов) -->
     <link rel="stylesheet" href="./css/css.libs/jquery-ui.css"> <!-- Базовый стиль календаря (основа) -->
     <!-- <link rel="stylesheet" href="./css/multidate.css"> --> <!-- Сделать дополнение стиля вместо хардкодинга -->
@@ -32,7 +36,7 @@
     <!-- <link rel="stylesheet" href="typo_perfect4th.css"> -->
 
     <link rel="stylesheet" href="./css/css.components/timelog.css">
-
+    <link rel="stylesheet" href="./css/css.components/calendar.css">
 
     <!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-regular-rounded/css/uicons-regular-rounded.css'> -->
 
@@ -42,9 +46,8 @@
 
     <!-- // jQuery -->
     <script src="./js/libs/jquery/jquery-3.7.1.min.js"></script>
-    <script src="./js/libs/jquery/jquery-ui-datepicker.js"></script>
-    <script src="./js/libs/jquery/jquery-ui-datepicker-ru.js"></script>
-    <script src="./js/libs/jquery/jquery.datepicker.extension.range.min.js"></script>
+    <!-- <script src="./js/libs/jquery/jquery-ui.min-1.13.3.js"></script> -->
+
 
     <!-- // Babel -->
     <script src="./js/libs/babel/babel.min.js"></script>
@@ -83,6 +86,13 @@
 
     <!-- Elements -->
     <script src="./js/app/react.pages/react.elements/search.filter.jsx" type='text/babel'></script>
+    <!-- // jQuery datepicker -->
+    <script src="./js/libs/jquery/jquery-ui-datepicker.js"></script>
+    <script src="./js/libs/jquery/jquery-ui-datepicker-ru.js"></script>
+    <script src="./js/libs/jquery/jquery.datepicker.extension.range.min.js"></script>
+    <script src="./js/app/react.pages/react.modulePages/subpages/TimeLog.CalendarProMax.jsx" type='text/babel'></script>
+    <script src="./js/app/react.pages/react.elements/datepicker.integrated.jsx" type='text/babel'></script>
+
 
     <!-- Pages -->
     <script src="./js/app/react.pages/AppLayout.jsx" type='text/babel'></script>
