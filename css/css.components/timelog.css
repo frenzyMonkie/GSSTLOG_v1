@@ -3,10 +3,11 @@
     color: white;
     outline: none;
     border: none;
-    padding: 9px 20px;
+    padding: 9px 10px;
     border-radius: 6px;
     cursor: pointer;
     font-size: .7rem;
+    box-shadow: 0 0 3px 1px rgb(206, 206, 206);
 }
 .change_workers.ready {
     background-color: rgb(63 205 106);
