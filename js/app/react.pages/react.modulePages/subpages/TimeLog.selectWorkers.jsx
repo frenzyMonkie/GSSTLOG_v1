@@ -145,7 +145,7 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
                                 <p class="task_item_header nomargin title_m">{newWorker.name}</p>
                                 <p class="task_item_info label_s">{newWorker.band}</p>
                             </div>
-                            <i className="task_item_arr fi fi-br-angle-small-right"></i>
+                            <i className="task_item_arr fi fi-br-angle-small-right "></i>
                     </div>
         );
 }
