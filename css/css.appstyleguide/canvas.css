@@ -26,17 +26,17 @@ body {
 
 /* Хедер, футер */
 .header {
-    /* display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between; */
+    display: flex;
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
     position: sticky;
     top: 0;
     z-index: 999;
-    display: grid;
+    /* display: grid;
     grid-template-columns: minmax(40px, 1fr) 3fr 1fr;
     gap: 20px;
-    grid-template-areas: "a b c";
+    grid-template-areas: "a b c"; */
     /* width: 100%; */
     /* margin: auto; */
     padding: 9px 0 7px 0;
@@ -47,20 +47,22 @@ body {
 }
 .header .nav_left {
     /* margin: auto; */
-    margin: 0 0 0 10px;
+    margin: 0 0 0 13px;
     position: relative;
     min-height: 100%;
     grid-area: a;
     align-self: center;
-
+    min-width: calc(100vw / 15);
+    min-height: calc(100vw / 15);
 }
 .header .nav_right {
     margin-left: auto;
-    padding: 0 10px 0 0;
+    margin: 0 13px 0 0;
     position: relative;
-
     grid-area: c;
     align-self: center;
+    min-width: calc(100vw / 20);
+    min-height: calc(100vw / 20);
 }
 .header i {
     cursor: pointer;
@@ -76,7 +78,7 @@ body {
 
 }
 .header .nav_left .fi-rr-arrow-small-left {
-    scale: .74;
+    /* scale: .74; */
     /* padding: 0 25px; */
 }
 .header_title {

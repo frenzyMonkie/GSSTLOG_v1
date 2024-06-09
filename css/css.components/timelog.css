@@ -8,14 +8,18 @@
     cursor: pointer;
     font-size: .7rem;
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
+    min-width: 4rem;
 }
 .change_workers.ready {
     background-color: rgb(63 205 106);
 }
 .timelog_object {
     font-weight: 400;
+    font-size: calc(100vw / 24);
+    line-height: calc(100vw / 16);
 
 }
 .timelog_month {
-    font-size: .7rem;
+    /* font-size: .7rem; */
+    font-size: calc(100vw / 29);
 }

@@ -1,21 +1,43 @@
 .calendFilters {
     margin: auto;
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: .5fr 1fr;
     /* text-align: center; */
     background-color: #f6f6f6;
-    padding: 0 0 0 calc(100vw / 20);
+    /* padding: 0 0 0 calc(100vw / 20); */
 }
 .calendFilter {
     /* padding: 0.8rem; */
-    padding: calc(127vw / 29) 0;
+    padding: calc(127vw / 29) 0 calc(127vw / 29) calc(100vw / 20);
     text-align: left;
     font-size: calc(100vw / 32);
     font-size: calc(100vw / 26);
     font-weight: 600;
     cursor: pointer;
+    /* display: grid;
+    grid-template-columns: 1fr 50fr; */
     /* border-bottom: 18px #ffffff solid;
     border-top: 27px #fff solid; */
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin-right: auto;
+}
+.calendFilter#calendar_workername {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
+}
+.calendFilter .workername {
+    display: block;
+    font-weight: 400;
+    font-size: calc(100vw / 28);
+}
+.calendarFilterSection {
+    display: flex;
+    flex-direction: column;
 }
 .ui-datepicker-calendar tbody:before {
     line-height: .8rem;
@@ -23,3 +45,15 @@
     color:white;
     display:block;
   }
+.calendar_menu_arr {
+    min-width: 21px;
+    min-width: calc(100vw / 28);
+    min-height: calc(100vw / 28);
+}
+#calendar_workername {
+    font-size: calc(100vw / 24);
+    /* padding: calc(182vw / 29) 0 calc(196vw / 29) calc(100vw / 20); */
+    /* padding: 0 0 0 calc(100vw / 20); */
+    background-color: #fafafa;
+    width: 100%;
+}
