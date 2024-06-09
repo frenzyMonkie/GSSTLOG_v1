@@ -346,6 +346,7 @@ button.ui-button::-moz-focus-inner {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
     /* border-bottom-right-radius: 42px; */
@@ -355,7 +356,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
-	top: 1px;
+	/* top: 1px; */
 }
 .ui-datepicker .ui-datepicker-prev {
 	left: 2px;
@@ -365,23 +366,28 @@ button.ui-button::-moz-focus-inner {
 	right: 2px;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
-	left: 1px;
+	/* left: 1px; */
 }
 .ui-datepicker .ui-datepicker-next-hover {
-	right: 1px;
+	/* right: 1px; */
 }
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span,
 .ui-datepicker .ui-datepicker-prev i,
 .ui-datepicker .ui-datepicker-next i {
-	/* display: block;
+	display: block;
 	position: absolute;
-	left: 50%;
+	/* left: 50%;
 	margin-left: -8px;
 	top: 50%;
 	margin-top: -8px; */
-    display: block;
+    /* display: block; */
     margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
 }
 .ui-datepicker .ui-datepicker-title {
 	/* margin: .45em 2.5em 0 1em; */
