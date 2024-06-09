@@ -3,16 +3,16 @@
 // Компонент "Насосы"
 const CalendarPro = () => {
     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-    const pageTitle = () => {
-        try {
-            var title = useTimelogContext.current.worker.name
-        } catch (e) {
-            var title = "ОШИБКА ЧТЕНИЯ КОНТЕКСТА"
-        }
-        return title
-    }
+    // const pageTitle = () => {
+    //     try {
+    //         var title = useTimelogContext.current.worker.name
+    //     } catch (e) {
+    //         var title = "ОШИБКА ЧТЕНИЯ КОНТЕКСТА"
+    //     }
+    //     return title
+    // }
     const state = {
-        pageTitle: pageTitle(),
+        pageTitle: "Внесение данных",
         currentObject: "",
         currentObjectCustoms: {sectors: [], },
         formData: {},

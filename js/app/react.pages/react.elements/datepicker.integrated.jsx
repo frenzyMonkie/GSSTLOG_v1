@@ -3,6 +3,7 @@
         console.log("useTimeLogContext", useTimeLogContext)
         $('#date_range').datepicker({
             // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
+            useTimeLogContext: useTimeLogContext,
             timenodes: useTimeLogContext.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
@@ -57,10 +58,13 @@ var onClick = (w) => {
     console.log("Для этого нужно использовать useContext с готовым useState внутри")
 }
 
-const filters = (props) => {
-
+const filters = (useTimeLogContext) => {
+    // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
+    var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
+    var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + useTimeLogContext.current.worker.name + "</div></div>"
     return (
-        "<div class='calendFilters'><div class='calendFilter' id='smena' onclick='onClick()'>Дневные смены</div><div class='calendFilter' id='worktype' onclick='onClick()'>Дежурство</div></div>"
+        "<div class='calendFilters'>" + name + "<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"
     )
 }
 // filters используется в jquery.datepicker при формировании канваса. можно канвас вытянуть сюда например вместо внедрения туда, не суть.

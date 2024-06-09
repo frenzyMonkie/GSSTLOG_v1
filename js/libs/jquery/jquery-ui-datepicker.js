@@ -150,6 +150,8 @@ function Datepicker() {
 	};
 	this._defaults = { // Global defaults for all the date picker instances
         init: true,
+        useTimeLogContext: null,
+        timenodes: [],
 		showOn: "focus", // "focus" for popup on focus,
 			// "button" for trigger button, or "both" for either
 		showAnim: "fadeIn", // Name of jQuery animation for popup
@@ -1779,6 +1781,8 @@ $.extend( Datepicker.prototype, {
 			cornerClass, calender, thead, day, daysInMonth, leadDays, curRows, numRows,
 			printDate, dRow, tbody, daySettings, otherMonth, unselectable,
 			tempDate = new Date(),
+            useTimeLogContext = null,
+            timenodes = null,
 			today = this._daylightSavingAdjust(
 				new Date( tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() ) ), // clear time
 			isRTL = this._get( inst, "isRTL" ),
@@ -1829,7 +1833,7 @@ $.extend( Datepicker.prototype, {
 					title: prevText
 				} )
 				.append(
-					$( "<span>" )
+					$( "<i>" )
 						.addClass( "ui-icon ui-icon-circle-triangle-" +
 							( isRTL ? "e" : "w" ) )
 						.text( prevText )
@@ -1843,7 +1847,7 @@ $.extend( Datepicker.prototype, {
 					title: prevText
 				} )
 				.append(
-					$( "<span>" )
+					$( "<i>" )
 						.addClass( "ui-icon ui-icon-circle-triangle-" +
 							( isRTL ? "e" : "w" ) )
 						.text( prevText )
@@ -1864,7 +1868,7 @@ $.extend( Datepicker.prototype, {
 					title: nextText
 				} )
 				.append(
-					$( "<span>" )
+					$( "<i>" )
 						.addClass( "ui-icon ui-icon-circle-triangle-" +
 							( isRTL ? "w" : "e" ) )
 						.text( nextText )
@@ -1878,7 +1882,7 @@ $.extend( Datepicker.prototype, {
 					title: nextText
 				} )
 				.append(
-					$( "<span>" )
+					$( "<i>" )
 						.attr( "class", "ui-icon ui-icon-circle-triangle-" +
 							( isRTL ? "w" : "e" ) )
 						.text( nextText )
@@ -1921,7 +1925,8 @@ $.extend( Datepicker.prototype, {
 
 		firstDay = parseInt( this._get( inst, "firstDay" ), 10 );
 		firstDay = ( isNaN( firstDay ) ? 0 : firstDay );
-
+        useTimeLogContext = this._get( inst, "useTimeLogContext" );
+        timenodes = this._get( inst, "timenodes" );
 		showWeek = this._get( inst, "showWeek" );
 		dayNames = this._get( inst, "dayNames" );
 		dayNamesMin = this._get( inst, "dayNamesMin" );
@@ -1957,7 +1962,7 @@ $.extend( Datepicker.prototype, {
 					calender += "'>";
 				}
 				// var filters = "<div class='calendFilters'><div class='calendFilter'>Дневные смены</div><div class='calendFilter'>Дежурство</div></div>"
-				calender += filters() + "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
+				calender += filters(useTimeLogContext) + "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
 
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
 					row > 0 || col > 0, monthNames, monthNamesShort ) + // draw month headers
