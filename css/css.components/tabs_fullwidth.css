@@ -184,12 +184,16 @@
     grid-area: searchbox;
   }
 
-  .tab-wrap .task_item i {
-    margin: 0 15px 0 0;
-    scale: .83;
+  .tab-wrap .task_item i.fi-br-check {
+    margin: 0 17px 0 0;
+    scale: .74;
     display: none;
   }
-
+  .tab-wrap .task_item i.fi-br-angle-small-right {
+    display: block;
+    scale: 1.3;
+    margin: 0 11px 0 0;
+  }
   .tab-wrap .task_item i.selected {
     display: block;
   }

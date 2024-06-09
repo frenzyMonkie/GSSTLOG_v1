@@ -41,11 +41,7 @@
 
 }
 .task_item {
-    padding: 12px 0px 8px 13px;
-    padding: 6px 0px 2px 13px;
-    padding: 7px 0px 6px 13px;
-    padding: 19px 0px 8px 13px;
-    /* padding: 11px 0px 14px 13px; */
+
 
     /* background-color: rgb(252, 252, 252); */
     display: flex;
@@ -61,6 +57,9 @@
     /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.33), ; */
 
 }
+/* .task_item:first-child {
+    padding: 12px 0 0 0;
+} */
 .task_item:hover {
     background-color: rgb(236, 236, 236);
 }
@@ -68,17 +67,23 @@
     /* border-radius: 0 0 5px, 5px; */
 }
 .task_item_text {
-
+    padding: 12px 0px 8px 13px;
+    padding: 6px 0px 2px 13px;
+    padding: 7px 0px 5px 13px;
+    padding: 15px 0px 16px 13px;
+    /* padding: 19px 0px 8px 13px; */
+    /* padding: 11px 0px 14px 13px; */
     height: fit-content;
-    max-width: 76%;
+    max-width: 86%;
 }
 .task_item_header {
-    word-wrap:break-word;
+    word-wrap:break-all;
     -webkit-line-clamp: 1; /* Число отображаемых строк */
     display: -webkit-box; /* Включаем флексбоксы */
     -webkit-box-orient: vertical; /* Вертикальная ориентация */
     overflow: hidden; /* Обрезаем всё за пределами блока */
     margin: 0 0 3px 0;
+    /* margin: 0 0 5px 0; */
     color: #474646;
     letter-spacing: -.44px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
@@ -90,7 +95,7 @@
 } */
 .task_item_info {
     color: #777777;
-    letter-spacing: -.34px;
+    letter-spacing: -.14px;
 }
 .task_item_info span {
     color:rgb(109, 109, 109);

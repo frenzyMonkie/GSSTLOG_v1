@@ -1,3 +1,4 @@
+/* https://www.flaticon.com/icon-fonts-most-downloaded?weight=bold+solid&corner=straight&type=uicon */
 .fi {
     background-repeat: no-repeat;
     background-size: contain;
@@ -23,7 +24,7 @@
 
 .fi-br-angle-small-right {
     display: block;
-    background-image: url(../../icons/nav/angle-small-right.svg);
+    background-image: url(../../icons/nav/fi-bs-angle-small-right.svg);
     height: 18px;
 
 }
@@ -45,6 +46,9 @@
 .fi-br-check {
     display: block;
     background-image: url(../../icons/nav/selected_check.svg);
+    /* background-image: url(../../icons/nav/fi-rs-check-circle.svg);
+    background-image: url(../../icons/nav/fi-bs-check-circle.svg);
+    background-image: url(../../icons/nav/fi-ss-check-circle.svg); */
     height: 34px;
     fill: rgb(177, 177, 177);
 

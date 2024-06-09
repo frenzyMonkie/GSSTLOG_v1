@@ -40,9 +40,10 @@ body {
     /* width: 100%; */
     /* margin: auto; */
     padding: 9px 0 7px 0;
-
+    min-height: 61px;
     background-color: var(--bg-main);
-    border-bottom: var(--border-header-sep);
+    /* border-bottom: var(--border-header-sep); */
+    box-shadow: 0 0 3px 1px rgb(206, 206, 206);
 }
 .header .nav_left {
     /* margin: auto; */
@@ -79,9 +80,11 @@ body {
     /* padding: 0 25px; */
 }
 .header_title {
-    font-size: .88rem;
+    /* font-size: .88rem; */
+    font-size: calc(100vw / 30);
     line-height: 1rem;
-    font-weight: 100;
+    line-height: calc(100vw / 31);
+    font-weight: 500;
     text-align: center;
     margin: auto;
     letter-spacing: -.44px;
