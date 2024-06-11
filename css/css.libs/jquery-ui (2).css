@@ -313,6 +313,9 @@ button.ui-button::-moz-focus-inner {
 .ui-checkboxradio-disabled {
 	pointer-events: none;
 }
+.hasDatepicker {
+    background: #fafafa;
+}
 .ui-datepicker {
 	width: 17em;
 	/* padding: .3em .3em 1.8em .3em; */
@@ -320,6 +323,8 @@ button.ui-button::-moz-focus-inner {
     /* border-radius: 50px; */
 	margin: 0 auto;
 	width: 100%;
+    scale: .92 1;
+    background: #fafafa;
 
 }
 .ui-datepicker .ui-datepicker-header {
@@ -334,7 +339,7 @@ button.ui-button::-moz-focus-inner {
     /* justify-content: center; */
     align-items: center;
     cursor: default;
-
+    scale: 1.08;
 }
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
@@ -394,7 +399,8 @@ button.ui-button::-moz-focus-inner {
 	/* line-height: 1.8em; */
 	/* text-align: center; */
     padding: 0 0 0 calc(100vw/20);
-    font-size: calc(100vw/20);
+    font-size: calc(100vw/24);
+
 }
 .ui-datepicker .ui-datepicker-title select {
 	font-size: 1em;
@@ -966,7 +972,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
 	/* border: 1px solid #dddddd; */
-	background: #ffffff;
+	/* background: #ffffff; */
 	color: #333333;
 }
 .ui-widget-content a {
@@ -1002,15 +1008,16 @@ html .ui-button.ui-state-disabled:active {
     font-size: calc(100vw/22.3);
 	color: #454545;
     /* text-align: center; */
-    width: calc(100vw/7.7);
-    height: calc(100vw/7.7);
+    /* width: calc(100vw / 8); */
+    height: calc(100vw / 8);
     /* margin: auto 0; */
     display: flex;
     justify-content: center;
     align-items: center;
-	/* padding: 10% 3%; */
-	/* padding: 11% 9%; */
-    border-bottom: 1px solid #f3f3f3;
+	padding: 10% 3%;
+	padding: 11% 9%;
+    border-bottom: 1px solid #b5bab1;
+    border-bottom: 1px solid #ececec;
 
 }
 .ui-datepicker td span,
@@ -1020,6 +1027,7 @@ html .ui-button.ui-state-disabled:active {
 	/* text-align: right; */
 	text-decoration: none;
     border-radius: 17px;
+    background: #fafafa;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -1103,10 +1111,11 @@ td.selected > a{
 .ui-widget-header .ui-state-highlight {
     box-sizing: border-box;
 	/* outline: 7px solid #fd6c6c; */
-	border: calc(100vw/100) solid #fd6c6c;
+	/* border: calc(100vw/100) solid #fd6c6c; */
 	/* background: #b5bab1; */
 	/* color: #ffffff; */
-    color: #000000;
+    color: #fd6c6c;
+    /* border-bottom: 1px solid #b5bab1; */
     /* border-radius: 28px; */
 	/* display: flex;
 	justify-content: center;
