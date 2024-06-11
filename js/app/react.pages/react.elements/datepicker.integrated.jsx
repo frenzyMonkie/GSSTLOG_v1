@@ -63,7 +63,7 @@ const filters = (useTimeLogContext) => {
     var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
     var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + useTimeLogContext.current.worker.name + "</div></div>"
-    var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div></div>"
+    var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div>"
 
     return (
         "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"

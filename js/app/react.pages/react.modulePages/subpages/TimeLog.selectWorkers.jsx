@@ -31,7 +31,7 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: <Fragment> <span class="timelog_object">Силикатный пр-д</span><br/></Fragment>,
+        pageTitle: "Списки сотрудников",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
@@ -68,6 +68,7 @@ const TimeLogSelectWorkers  = () => {
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
+        setFilterParam("Выбранные")
     }
     function search(items) {
         console.log("[ RE-CALLED ] : search", items)
@@ -236,14 +237,16 @@ const renderContent = () => {
                                     ))}
                                 </div>
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
+    var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>Силикатный пр-д</div></div>
     const selectmodeCanvas = <Fragment>
+                                {object}
                                 <div className="grid">
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все</div></label>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label>
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
-                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot" >Выбранные</div></label>
+                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
                                     <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
-                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot"  >Свой список</div></label>
+                                    <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot">Избранное</div></label>
                                     {sbar}
                                     {nameList_selectmode}
                                 </div>
@@ -327,7 +330,8 @@ const prepareWorkers = () => {
             </Fragment>
     )}
     const navRight  = ({children}) => { console.log("[ RE-CALLED ] : navRight")
-        var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
+        // var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
+        var btn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         return (
         <Fragment>
         {/* <i class="header_save fi fi-rs-disk"></i> */}
