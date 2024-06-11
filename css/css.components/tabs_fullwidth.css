@@ -68,6 +68,7 @@
     color: #3b3b3b;
     border-bottom: none;
     /* padding: 16px 0px 16px 0px; */
+    border-bottom: 2px #ff611e9e solid ;
   }
   .tab:checked + label .label_bordbot {
     /* padding: 16px 0px 16px 0px; */
@@ -81,10 +82,11 @@
 
 
   .tab + label {
-    border-bottom: 2px rgb(101 80 149) solid;
-    border-bottom: 2px rgb(94 176 164) solid;
-    border-bottom: 2px #ff611e9e solid ;
+    /* border-bottom: 2px rgb(101 80 149) solid; */
+    /* border-bottom: 2px rgb(94 176 164) solid; */
+    /* border-bottom: 2px #ff611e9e solid ; */
     /* border-bottom: 2px #51d777b8 solid; */
+    border-bottom: 2px #f3f3f3 solid ;
     /* box-shadow: 0 -1px 0 #eee inset; */
     /* border-radius: 6px 6px 0 0; */
     cursor: pointer;
