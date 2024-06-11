@@ -33,7 +33,7 @@
     flex-direction: column;
     align-items: start;
     /* justify-content: end; */
-
+    /* animation: moving .4s ease; */
 }
 .calendFilter .workername,
 .calendFilter .obj {
@@ -78,7 +78,7 @@
 .workerselectObject {
     padding: calc(100vw / 29) 0 calc(100vw / 29) calc(100vw / 20);
     font-weight: 700;
-
+    /* animation: moving .4s ease; */
 }
 .workerselectObject .obj {
     font-weight: 400;

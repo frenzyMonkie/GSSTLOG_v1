@@ -8,6 +8,10 @@
     --border-sep: 1px rgb(207, 207, 207) solid;
     --border-header-sep: 1px rgb(144, 144, 144) solid;
 }
+@keyframes moving {
+    from{transform:translateX(50px);opacity: 0;}
+    to{transform:translateX(0px);opacity: 1;}
+}
 
 html {
     /* position:absolute;

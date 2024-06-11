@@ -40,6 +40,9 @@
     margin: 0 auto;
 
 }
+.tab__content:not(#tab__chosen_workers) .task_item {
+    animation: moving .46s ease;
+}
 .task_item {
 
 
