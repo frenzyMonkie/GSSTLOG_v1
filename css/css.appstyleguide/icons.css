@@ -61,7 +61,7 @@
     fill: rgb(177, 177, 177);
 }
 .task_item_arr {
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 .icons {
     display: flex;
