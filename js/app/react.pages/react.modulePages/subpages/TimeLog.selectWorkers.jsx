@@ -31,7 +31,7 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: "Списки сотрудников",
+        pageTitle: "Табель объекта",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
@@ -252,6 +252,7 @@ const renderContent = () => {
                                 </div>
                             </Fragment>
     const mainCanvas = <Fragment>
+                            {object}
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                             {nameList_mainmode}
                         </Fragment>

@@ -104,7 +104,7 @@ const Layout = () => {
                 <div class="nav_main" id="nav_main">
                     <div class="menu menu_s">
                         <div onClick={() => goPage("/")} class="menu_item_s" id="presets">
-                            {menuSelected == "/" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
+                            {menuSelected == "/" ? <i class="fi fi-br-convert-shapes-selected"></i> : <i class="fi fi-br-convert-shapes"></i>}
                             <div class={menuSelected == "/" ? "menu_selected" : null }>Главная</div>
                         </div>
                         <div onClick={() => goPage("/ReportCorrectionPage")} class="menu_item_s" id="report_corrections">
