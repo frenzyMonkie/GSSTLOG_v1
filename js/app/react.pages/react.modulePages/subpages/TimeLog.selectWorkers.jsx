@@ -31,7 +31,7 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: <Fragment> <span class="timelog_object">Силикатный пр-д</span><br/> <span class="timelog_month">Апрель 2024</span></Fragment>,
+        pageTitle: <Fragment> <span class="timelog_object">Силикатный пр-д</span><br/></Fragment>,
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
@@ -157,11 +157,14 @@ const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected
         setNameSelected( !nameSelected );
     }; // Тоггл галочки выбора
     let iconClass = "task_item_arr fi fi-br-check"
+    let itemClass = "task_item"
+    let itemWokerBandClass = "task_item_info label_s"
+    let itemWokerNameClass = "task_item_header nomargin title_m"
     return (
-        <div class="task_item" onClick={toggleWorkerisSelected}>
+        <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleWorkerisSelected}>
                             <div class="task_item_text">
-                                <p class="task_item_header nomargin title_m">{newWorker.name}</p>
-                                <p class="task_item_info label_s">{newWorker.band}</p>
+                                <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newWorker.name}</p>
+                                <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newWorker.band}</p>
                             </div>
                             <i className={nameSelected == false ? iconClass : iconClass + " selected"}></i>
                     </div>
@@ -240,7 +243,7 @@ const renderContent = () => {
                                     <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot"  >Свой список</div></label>
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все(иконки?) </div></label>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все</div></label>
                                     {sbar}
                                     {nameList_selectmode}
                                 </div>

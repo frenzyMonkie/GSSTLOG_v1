@@ -12,7 +12,7 @@ const CalendarPro = () => {
     //     return title
     // }
     const state = {
-        pageTitle: "Внесение данных",
+        pageTitle: "Табель сотрудника",
         currentObject: "",
         currentObjectCustoms: {sectors: [], },
         formData: {},
