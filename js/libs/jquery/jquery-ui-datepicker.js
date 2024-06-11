@@ -1962,8 +1962,8 @@ $.extend( Datepicker.prototype, {
 					calender += "'>";
 				}
 				// var filters = "<div class='calendFilters'><div class='calendFilter'>Дневные смены</div><div class='calendFilter'>Дежурство</div></div>"
-				calender += filters(useTimeLogContext) + "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
-
+				calender += // += filters(useTimeLogContext)
+                    "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
 					row > 0 || col > 0, monthNames, monthNamesShort ) + // draw month headers
                     ( /all|left/.test( cornerClass ) && row === 0 ? ( isRTL ? next : prev ) : "" ) +

@@ -58,7 +58,7 @@ var onClick = (w) => {
     console.log("Для этого нужно использовать useContext с готовым useState внутри")
 }
 
-const filters = (useTimeLogContext) => {
+const filters_inject = (useTimeLogContext) => {
     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
     var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
     var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
@@ -67,6 +67,17 @@ const filters = (useTimeLogContext) => {
 
     return (
         "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"
+    )
+}
+const filters = (useTimeLogContext) => {
+    // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div></div>
+    var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div></div>
+    var name = <div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div></div>
+    var object = <div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div><div>Силикатный пр-д</div></div>
+
+    return (
+        <div class='calendFilters'>{name}{object}<div class='calendarFilterSection'>{wtype}{smena}</div></div>
     )
 }
 // filters используется в jquery.datepicker при формировании канваса. можно канвас вытянуть сюда например вместо внедрения туда, не суть.
@@ -173,7 +184,7 @@ const MultidateCalendar = (props) => {
     var state = initialState;
 
     // При сохранении, выходе, изменении параметров workType, smena - нужно сохранять current.timenodes в контекст соответствующего рабочего, в т.ч. в базу данных.
-
+    const useTimeLogContext = props.useTimeLogContext
     const onSave = event => {
 
         event.preventDefault();
@@ -192,11 +203,14 @@ const MultidateCalendar = (props) => {
         };
         onMount()
     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-
+    console.log(props.useTimeLogContext)
+    const headInfo = filters(useTimeLogContext)
     const render = () => {
             // const { characterData, removeCharacter } = props;
             return (
-                <form onSubmit={onSave}>
+                <Fragment>
+                {headInfo}
+                    <form onSubmit={onSave}>
                     <div>
                         <div id="date_range"></div>
                         <br/>
@@ -206,6 +220,8 @@ const MultidateCalendar = (props) => {
                         </button> */}
                     </div>
                 </form>
+                </Fragment>
+
         );
     }
     return render();
