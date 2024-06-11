@@ -44,8 +44,6 @@
     animation: moving .46s ease;
 }
 .task_item {
-    position: relative;
-    z-index: 0;
     /* background-color: rgb(252, 252, 252); */
     display: flex;
     flex-direction: row;
