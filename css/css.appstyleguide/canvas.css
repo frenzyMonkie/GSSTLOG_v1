@@ -4,6 +4,7 @@
     box-sizing: border-box;
     --bg-main: rgb(252, 252, 252);
     --bg-accent: rgb(190, 190, 190);
+    --bg-accent: rgb(255, 255, 255);
     --border-sep: 1px rgba(0, 0, 0, 0.253) solid;
     --border-sep: 1px rgb(207, 207, 207) solid;
     --border-header-sep: 1px rgb(144, 144, 144) solid;
@@ -107,8 +108,10 @@ body {
     height: fit-content;
     margin: auto;
     background-color: var(--bg-main);
-    border-top: var(--border-sep);
+    /* border-top: var(--border-sep); */
     z-index: 999;
+    box-shadow: 0px -2px 4px 0px #0000000f;
+    /* box-shadow: 0 0 3px 1px rgb(206, 206, 206); */
 }
 .nav_main .menu_item_s {
     display: flex;
