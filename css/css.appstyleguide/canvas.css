@@ -58,6 +58,8 @@ body {
 .header .nav_right {
     margin-left: auto;
     margin: 0 13px 0 0;
+    margin: 0 22px 0 0;
+    margin: 0 17px 0 0;
     position: relative;
     grid-area: c;
     align-self: center;
@@ -77,9 +79,9 @@ body {
     text-align: center;
 
 }
-.header .nav_left .fi-rr-arrow-small-left {
-    /* scale: .74; */
-    /* padding: 0 25px; */
+.header .nav_right .fi-bs-edit  {
+    scale: .9;
+
 }
 .header_title {
     /* font-size: .88rem; */

@@ -12,9 +12,19 @@
 }
 .fi-rs-disk {
     display: block;
-    background-image: url(../../icons/nav/save/fi-rs-disk.svg);
+    background-image: url(../../icons/nav/save/fi-sr-disk.svg);
     height: 26px;
 
+}
+.fi-bs-check-circle {
+    display: block;
+    background-image: url(../../icons/nav/fi-bs-check-circle.svg);
+    height: 26px;
+}
+.fi-bs-edit {
+    display: block;
+    background-image: url(../../icons/nav/fi-bs-edit.svg);
+    height: 26px;
 }
 .fi-ss-notebook {
     display: block;
