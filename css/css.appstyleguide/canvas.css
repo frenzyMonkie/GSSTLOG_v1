@@ -40,7 +40,7 @@ body {
     /* width: 100%; */
     /* margin: auto; */
     padding: 9px 0 7px 0;
-    min-height: 40px;
+    min-height: 48px;
     background-color: var(--bg-main);
     /* border-bottom: var(--border-header-sep); */
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
@@ -110,15 +110,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-.menu_s {
-    background-color: rgb(250, 250, 250);
 
-}
-.menu_item_s > div {
-    margin: 2px 0 0 0;
-    font-size: .7rem;
-    color: rgb(172 172 172);
-}
 /* Мэйн блок */
 .container {
     position: relative;

@@ -12,7 +12,7 @@
 }
 .fi-rs-disk {
     display: block;
-    background-image: url(../../icons/nav/fi-rs-disk.svg);
+    background-image: url(../../icons/nav/save/fi-rs-disk.svg);
     height: 26px;
 
 }
@@ -45,7 +45,7 @@
 }
 .fi-br-convert-shapes-selected {
     display: block;
-    background-image: url(../../icons/nav/fi-br-convert-shapes.svg);
+    background-image: url(../../icons/nav/fi-br-convert-shapes-selected.svg);
     height: 26px;
 }
 .fi-rr-time-watch-calendar {
@@ -80,7 +80,6 @@
     display: block;
     background-image: url(../../icons/nav/input-numeric.svg);
     height: 34px;
-    fill: rgb(177, 177, 177);
 }
 /* .fi-br-align-justify {
     display: block;
@@ -90,7 +89,7 @@
 .fi-rr-list-check {
     height: 36px;
 }
-
+/* css/menu */
 .fi-br-check {
     display: block;
     background-image: url(../../icons/nav/selected_check.svg);
@@ -98,14 +97,21 @@
     background-image: url(../../icons/nav/fi-bs-check-circle.svg);
     background-image: url(../../icons/nav/fi-ss-check-circle.svg); */
     height: 34px;
-    fill: rgb(177, 177, 177);
-
+    opacity: .7;
+}
+.fi-br-check {
+    display: block;
+    background-image: url(../../icons/nav/selected_check-orange.svg);
+    /* background-image: url(../../icons/nav/fi-rs-check-circle.svg);
+    background-image: url(../../icons/nav/fi-bs-check-circle.svg);
+    background-image: url(../../icons/nav/fi-ss-check-circle.svg); */
+    height: 34px;
 }
 .fi-br-cross {
     display: block;
     background-image: url(../../icons/nav/cross.svg);
     height: 34px;
-    fill: rgb(177, 177, 177);
+
 }
 .task_item_arr {
     /* margin-left: auto; */

@@ -102,6 +102,7 @@
     color: #8497ab;
     color: #164f267d;
     color: #40937e;
+    color: #ff611e9e;
     /* color: #4e9cee; */
 }
 .task_item_info {
@@ -218,13 +219,15 @@
     justify-content: center;
     align-content: center;
     padding: 9px 0px 0px;
-    /* min-width: 220px; */
+    padding: 9px 0px 9px;
+    background-color: rgb(250, 250, 250);
 }
 .menu_item_s {
     height: 48px;
     cursor: pointer;
     /* height: 34px; */
-
+    line-height: .6rem;
+    text-align: center;
 }
 .menu_item_s:hover > p {
     color: #474747;
@@ -236,6 +239,13 @@
 }
 .menu_item_s > .menu_selected {
     color: #474747;
+
+}
+.menu_item_s > div {
+    margin: 2px 0 0 0;
+    font-size: .7rem;
+    color: rgb(172 172 172);
+    letter-spacing: -.94px;
 }
 .menu_item_s p {
     margin: auto;
