@@ -72,10 +72,7 @@ const AppCanvas = (props) => {
 // { visible && <LoadSpinner /> } // On/off
 
 const Layout = () => {
-    const goPage = (page) => {
-        setMenuSelected(page)
-        navigate(page);
-    }
+
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
     //
@@ -88,9 +85,8 @@ const Layout = () => {
     const logIn = () => navigate("/login");
     const goHome = () => navigate("/", {replace: true}); // Без записи перехода в историю, может пригодиться.
 
-    const menus = ['/', '/ReportCorrectionPage', '/OldReportsPage', '/SettingsPage']
-    // const menuSelected = "mainpage"
-    const [menuSelected, setMenuSelected] = useState('/')
+    const menus = ['mainpage', 'editpage', 'history', 'settings']
+    const menuSelected = "mainpage"
     return (
         <Fragment>
             <Outlet />
@@ -103,21 +99,21 @@ const Layout = () => {
                 </nav> */}
                 <div class="nav_main" id="nav_main">
                     <div class="menu menu_s">
-                        <div onClick={() => goPage("/")} class="menu_item_s" id="presets">
-                            {menuSelected == "/" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
-                            <div class={menuSelected == "/" ? "menu_selected" : null }>Главная</div>
+                        <div onClick={goMainPage} class="menu_item_s" id="presets">
+                            {menuSelected == "mainpage" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
+                            <div class={menuSelected == "editpage" ? "menu_selected" : null }>Главная</div>
                         </div>
-                        <div onClick={() => goPage("/ReportCorrectionPage")} class="menu_item_s" id="report_corrections">
-                            {menuSelected == "/ReportCorrectionPage" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
-                            <div class={menuSelected == "/ReportCorrectionPage" ? "menu_selected" : null }>Корректировка отчётов</div>
+                        <div onClick={goReportCorrectionPage} class="menu_item_s" id="report_corrections">
+                            {menuSelected == "editpage" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
+                            <div class={menuSelected == "editpage" ? "menu_selected" : null }>Корректировка отчётов</div>
                         </div>
-                        <div onClick={() => goPage("/OldReportsPage")} class="menu_item_s" id="get_reports">
-                            {menuSelected == "/OldReportsPage" ? <i class="fi fi-rr-time-watch-calendar-selected"></i> : <i class="fi fi-rr-time-watch-calendar"></i>}
-                            <div class={menuSelected == "/OldReportsPage" ? "menu_selected" : null }>История отчётов</div>
+                        <div onClick={goOldReportsPage} class="menu_item_s" id="get_reports">
+                            {menuSelected == "history" ? <i class="fi fi-rr-time-watch-calendar-selected"></i> : <i class="fi fi-rr-time-watch-calendar"></i>}
+                            {menuSelected == "history" ? <div>История отчётов</div> : <div class="menu_selected">История отчётов</div>}
                         </div>
-                        <div onClick={() => goPage("/SettingsPage")} class="menu_item_s" id="personal">
-                            {menuSelected == "/SettingsPage" ? <i class="fi fi-sr-admin-alt-selected"></i> : <i class="fi fi-sr-admin-alt"></i>}
-                            <div class={menuSelected == "/SettingsPage" ? "menu_selected" : null }>Настройки</div>
+                        <div onClick={goSettingsPage} class="menu_item_s" id="personal">
+                            {menuSelected == "settings" ? <i class="fi fi-sr-admin-alt-selected"></i> : <i class="fi fi-sr-admin-alt"></i>}
+                            {menuSelected == "settings" ? <div>Настройки</div> : <div class="menu_selected">Настройки</div>}
                         </div>
                     </div>
                 </div>

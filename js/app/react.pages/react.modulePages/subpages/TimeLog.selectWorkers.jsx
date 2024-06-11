@@ -238,12 +238,12 @@ const renderContent = () => {
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
     const selectmodeCanvas = <Fragment>
                                 <div className="grid">
+                                    <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
+                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все</div></label>
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
                                     <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot" >Выбранные</div></label>
                                     <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot"  >Свой список</div></label>
-                                    <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot"  >Все</div></label>
                                     {sbar}
                                     {nameList_selectmode}
                                 </div>
