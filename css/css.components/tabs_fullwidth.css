@@ -135,7 +135,7 @@
     left: 0;
     transform: translateY(-3px);
     /* border-radius: 0 0 6px 6px; */
-
+    box-shadow: 0px -2px 1px 0px #e8e8e8;
     grid-area: list;
     /* margin: 28px 0 0 0; */
     /* padding: 0 0px 0 9px; */
@@ -216,6 +216,11 @@
     "searchbox searchbox searchbox"
     "list list list";
     grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+    "tab1 tab2"
+    "searchbox searchbox"
+    "list list";
+    grid-template-columns: repeat(2, 1fr);
     /* grid-column-gap: 5px; */
     width: 100%;
     /* padding: 0 0px 0 9px; */

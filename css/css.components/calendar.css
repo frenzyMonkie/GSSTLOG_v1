@@ -84,7 +84,7 @@
     font-weight: 400;
 }
 #workerselect_object {
-    font-size: calc(100vw / 32);
+    font-size: calc(100vw / 26);
     background-color: #fafafa;
     width: 100%;
 

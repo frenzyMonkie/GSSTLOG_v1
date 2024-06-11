@@ -56,8 +56,8 @@ body {
     min-height: 100%;
     grid-area: a;
     align-self: center;
-    min-width: calc(100vw / 18);
-    min-height: calc(100vw / 18);
+    min-width: calc(100vw / 13);
+    min-height: calc(100vw / 13);
 }
 .header .nav_right {
     margin-left: auto;
@@ -83,10 +83,9 @@ body {
     text-align: center;
 
 }
-.header .nav_right .fi-bs-edit  {
+/* .header .nav_right .fi-bs-edit  {
     scale: .9;
-
-}
+} */
 .header_title {
     /* font-size: .88rem; */
     font-size: calc(100vw / 27);
