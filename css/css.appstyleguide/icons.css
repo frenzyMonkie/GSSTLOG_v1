@@ -5,15 +5,62 @@
     text-indent: -9999px;
 
 }
+.fi-flame {
+    display: block;
+    background-image: url(../../icons/nav/fi-ss-flame.svg);
+    height: 26px;
+}
 .fi-rs-disk {
     display: block;
-    background-image: url(../../icons/nav/disk.svg);
+    background-image: url(../../icons/nav/fi-rs-disk.svg);
     height: 26px;
 
 }
+.fi-ss-notebook {
+    display: block;
+    background-image: url(../../icons/nav/fi-ss-notebook.svg);
+    height: 26px;
+}
+.fi-ss-notebook-selected {
+    display: block;
+    background-image: url(../../icons/nav/fi-ss-notebook-selected.svg);
+    height: 26px;
+}
+.fi-sr-admin-alt {
+    display: block;
+    background-image: url(../../icons/nav/fi-sr-admin-alt.svg);
+    height: 26px;
+
+}
+.fi-sr-admin-alt-selected {
+    display: block;
+    background-image: url(../../icons/nav/fi-sr-admin-alt-selected.svg);
+    height: 26px;
+
+}
+.fi-br-convert-shapes {
+    display: block;
+    background-image: url(../../icons/nav/fi-br-convert-shapes.svg);
+    height: 26px;
+}
+.fi-br-convert-shapes-selected {
+    display: block;
+    background-image: url(../../icons/nav/fi-br-convert-shapes.svg);
+    height: 26px;
+}
+.fi-rr-time-watch-calendar {
+    display: block;
+    background-image: url(../../icons/nav/fi-rr-time-watch-calendar.svg);
+    height: 26px;
+}
+.fi-rr-time-watch-calendar-selected {
+    display: block;
+    background-image: url(../../icons/nav/fi-rr-time-watch-calendar-selected.svg);
+    height: 26px;
+}
 .fi-rr-receipt {
     display: block;
-    background-image: url(../../icons/nav/receipt.svg);
+    background-image: url(../../icons/nav/fi-rr-receipt.svg);
     height: 26px;
 }
 .fi-rr-arrow-small-left {

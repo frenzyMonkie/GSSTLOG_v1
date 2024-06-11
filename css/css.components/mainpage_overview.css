@@ -97,7 +97,7 @@
     color: rgb(101, 101, 101);
     font-size: 110%;
 } */
-.task_item .selected {
+.task_item_header.selected {
     color: #53ad96;
     color: #8497ab;
     color: #164f267d;
@@ -217,7 +217,7 @@
     --grid-item--min-width: 30px;
     justify-content: center;
     align-content: center;
-    padding: 6px 0px 0px;
+    padding: 9px 0px 0px;
     /* min-width: 220px; */
 }
 .menu_item_s {
@@ -233,6 +233,9 @@
     width: 24px;
     margin: 0 auto;
     fill: #474747;
+}
+.menu_item_s > .menu_selected {
+    color: #474747;
 }
 .menu_item_s p {
     margin: auto;

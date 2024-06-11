@@ -106,19 +106,14 @@ body {
     z-index: 999;
 }
 .nav_main .menu_item_s {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    /* flex-direction: column; */
 }
 .menu_s {
-    background-color: rgb(250, 250, 250);
+    background-color: aqua;
+}
 
-}
-.menu_item_s > div {
-    margin: 2px 0 0 0;
-    font-size: .7rem;
-    color: rgb(172 172 172);
-}
 /* Мэйн блок */
 .container {
     position: relative;
