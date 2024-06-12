@@ -43,10 +43,11 @@ const TimeLogSelectWorkers  = () => {
 
     const [selectMode, setSelectMode] = useState(false)
     var firstLoad = true
-
-
+    // const [btnGridVisible, setBtnGridVisible] = useState(true)
+    // console.log(setBtnGridVisible)
+    // useTimelogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
     var workers = [
-        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true, timenodes: [],},
+        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true, timenodes: [{date: "07.06.2024", hours:"some", smena:"Дневные смены", workType:"Проходка"}],},
         {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
         {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
         {name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true, timenodes: [],},
@@ -114,8 +115,10 @@ const TimeLogSelectWorkers  = () => {
 
     }
 const object = {name: "Амурская", type: "СВП"}
-const [smena, setSmena] = useState("День")
+const [smena, setSmena] = useState("Дневные смены")
 const [workType, setWorkType] = useState(object.type == "123" ? "Дежурство" : "Проходка")
+const [currentObject, setCurrentObject] = useState("Силикатный пр-д");
+useTimelogContext.current.object = currentObject;
 const oneWorkerMainCanvas = (idx, newWorker) => {
     console.log("[ RE-CALLED ] : oneWorkerMainCanvas")
     const editWorker = () => {
@@ -129,10 +132,26 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
         // (при переходе в контекст редактирования ставить true, при выходе/сохранении false,
         // и затем на переходе на новую страницу ставить проверку, что должно быть всегда false, иначе понимаем что прервался режим редактирования,
         // и уже потом в зависимости от контекста страницы ставим true или false для последующих проверок)
+
+        // Здесь добавляем в current только те timenodes, которые соответствуют фильтрам.
+        // При смене фильтра - будут меняться все current значения, в т.ч. timenodes.
+
         useTimelogContext.current.idx = idx;
         useTimelogContext.current.worker = newWorker;
         useTimelogContext.current.smena = smena;
         useTimelogContext.current.workType = workType;
+        let timenodes = []
+        useTimelogContext.workers[idx].timenodes.forEach(node => {
+            console.log(node)
+            if (
+                node.workType == useTimelogContext.current.workType &&
+                node.smena == useTimelogContext.current.smena) {
+                    timenodes.push(node)
+                }
+        });
+        // useTimelogContext.current.timenodes = useTimelogContext.workers[idx].timenodes;
+        useTimelogContext.current.timenodes = timenodes;
+        // CTX - SERVER FILLS DATA
 
         console.log("ok", newWorker)
         console.log("worker",newWorker);
@@ -237,7 +256,7 @@ const renderContent = () => {
                                     ))}
                                 </div>
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
-    var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>Силикатный пр-д</div></div>
+    var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimelogContext.current.object}</div></div>
     const selectmodeCanvas = <Fragment>
                                 {object}
                                 <div className="grid">

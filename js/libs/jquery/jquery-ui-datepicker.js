@@ -243,6 +243,7 @@ $.extend( Datepicker.prototype, {
 			this.uuid += 1;
 			target.id = "dp" + this.uuid;
 		}
+        // START OF INST
 		inst = this._newInst( $( target ), inline );
         // console.log(inst.init)
 		inst.settings = $.extend( {}, settings || {} );
@@ -1130,7 +1131,7 @@ $.extend( Datepicker.prototype, {
 	},
 
 	/* Action for selecting a day. */
-	_selectDay: function( id, month, year, td ) {
+	_selectDay: function(id, month, year, td ) {
 		var inst,
 			target = $( id );
 
@@ -1143,6 +1144,28 @@ $.extend( Datepicker.prototype, {
 		inst.selectedDay = inst.currentDay = parseInt( $( "a", td ).attr( "data-date" ) );
 		inst.selectedMonth = inst.currentMonth = month;
 		inst.selectedYear = inst.currentYear = year;
+        console.log( "hoho", inst.selectedDay, inst.selectedMonth, inst.selectedYear );
+        console.log( "hoho", "Теперь просто нужно здесь подрубить функцию, которая будет менеджерить состояние выбора часов")
+        console.log( "hoho", "1. Будет связываться с useTLCTX для отрисовки заранее выбранного времени")
+        console.log( "hoho", "2. Будет открывать панель с выбором времени, панель привязана к дате и всем остальным фильтрам")
+        let useTimeLogContext = this._get( inst, "useTimeLogContext" );
+        useTimeLogContext.btnGrid[1](true)
+        // !!! Чтобы при нажатии на дату был не ТОГГЛ, а ПРОВЕРКА на "наличие часов на эту дату в контексте".
+
+        // setPanelVisible(true) (onBtnClick => setPanelVisible(false))
+        // Отрисовка
+        // selectedDate = inst.selectedDay + inst.selectedMonth + inst.selectedYear
+        // useTLCTX.current.timenodes.forEach(e => {
+        //     // if (e.date == selectedDate) {
+                        // Через setBtnSelected('h' + e.hours) => className = {btnSelected == "h4" ? "checked" : ""}
+        //              btn['h' + e.hours].toggleClass(selected), otherbtns.removeClass(selected) }
+        //     //  })
+        // Смена даты
+        // newtimenode = {date: selectedDate; hours: btn.value}
+        // useTLCTX.current.timenodes.forEach(e => {
+            // if (e.date == newtimenode.date) {e.hours = newtimenode.hours}
+            //  })
+        console.log( "hoho", "3. Будет обновлять CTX и перерисовывать календарь при изменении времени")
 		this._selectDate( id, this._formatDate( inst,
 			inst.currentDay, inst.currentMonth, inst.currentYear ) );
 
@@ -1756,7 +1779,8 @@ $.extend( Datepicker.prototype, {
 					$.datepicker._gotoToday( id );
 				},
 				selectDay: function() {
-					$.datepicker._selectDay( id, +this.getAttribute( "data-month" ), +this.getAttribute( "data-year" ), this );
+                    // console.log("hohoho", this)
+					$.datepicker._selectDay( id, + this.getAttribute( "data-month" ), + this.getAttribute( "data-year" ), this );
 					return false;
 				},
 				selectMonth: function() {
@@ -1925,7 +1949,9 @@ $.extend( Datepicker.prototype, {
 
 		firstDay = parseInt( this._get( inst, "firstDay" ), 10 );
 		firstDay = ( isNaN( firstDay ) ? 0 : firstDay );
+        // console.log("inst", inst );
         useTimeLogContext = this._get( inst, "useTimeLogContext" );
+        // console.log( useTimeLogContext );
         timenodes = this._get( inst, "timenodes" );
 		showWeek = this._get( inst, "showWeek" );
 		dayNames = this._get( inst, "dayNames" );
@@ -1939,6 +1965,29 @@ $.extend( Datepicker.prototype, {
         // console.log(currentDate, defaultDate, selectedDate)
 		html = "";
         // console.log(inst.init, this.dpDiv.data("datepickerExtensionRange") )
+
+        // onSelect() // Запускаем машинный селект, как если бы это делал человек
+        const addTags = (thisDate, thisMonth, thisYear) => {
+            let success = false;
+            useTimeLogContext.current.timenodes.forEach(CTXelement => {
+                // console.log("useTimeLogContext.timenodes", CTXelement.date.split("."));
+                // console.log(thisDate, thisMonth, thisYear)
+                let date = CTXelement.date.split(".")
+
+                let ctxDate = new Date(date[2], date[1]-1, date[0])
+                let calendarDate = new Date(thisYear, thisMonth, thisDate)
+                // console.log("useTimeLogContext.timenodes", ctxDate);
+                // console.log("calendarDate", calendarDate)
+                // if (date[0] == thisDate && date[1] == thisMonth && date[2] == thisYear) {console.log("Совпадение", CTXelement.date)}
+                if (ctxDate.getTime() == calendarDate.getTime()) {
+                    console.log("Совпадение", ctxDate, calendarDate)
+                    console.log(true)
+                    success = true
+                }
+            })
+            return success
+        }
+
 		for ( row = 0; row < numMonths[ 0 ]; row++ ) {
 			group = "";
 			this.maxRows = 4;
@@ -1986,6 +2035,12 @@ $.extend( Datepicker.prototype, {
 				curRows = Math.ceil( ( leadDays + daysInMonth ) / 7 ); // calculate the number of rows to generate
 				numRows = ( isMultiMonth ? this.maxRows > curRows ? this.maxRows : curRows : curRows ); //If multiple months, use the higher number of rows (see #7043)
 				this.maxRows = numRows;
+                // console.log("generatehtml", useTimeLogContext.current.object)
+                // console.log("generatehtml", useTimeLogContext)
+                // console.log("generatehtml", useTimeLogContext.current.workType)
+                // console.log("generatehtml", useTimeLogContext.current.smena)
+                // console.log("generatehtml", useTimeLogContext.current.worker.name)
+                // console.log("generatehtml", useTimeLogContext.current.worker.timenodes)
 				printDate = this._daylightSavingAdjust( new Date( drawYear, drawMonth, 1 - leadDays ) );
 				for ( dRow = 0; dRow < numRows; dRow++ ) { // create date picker rows
 					calender += "<tr>";
@@ -1998,13 +2053,23 @@ $.extend( Datepicker.prototype, {
 						unselectable = ( otherMonth && !selectOtherMonths ) || !daySettings[ 0 ] ||
 							( minDate && printDate < minDate ) || ( maxDate && printDate > maxDate );
                             // console.log(currentDate)
+
+                        // var cellSelected = addTags(printDate.getDate(), printDate.getMonth(), printDate.getFullYear())
+                        // console.log(cellSelected)
+
 						tbody += "<td class='" +
+                            // (cellSelected ? "selected selected-start selected-end" : "") +
 							( ( dow + firstDay + 6 ) % 7 >= 5 ? " ui-datepicker-week-end" : "" ) + // highlight weekends
 							( otherMonth ? " ui-datepicker-other-month" : "" ) + // highlight days from other months
 
 							( ( printDate.getTime() === selectedDate.getTime() && drawMonth === inst.selectedMonth && inst._keyEvent )  || // user pressed key
 							( defaultDate.getTime() === printDate.getTime() && defaultDate.getTime() === selectedDate.getTime() ) ?
                             // ( inst.init == true && defaultDate != null && defaultDate.getTime() === printDate.getTime() && defaultDate.getTime() === selectedDate.getTime() ) ?
+
+
+                            //1. взять данные, указываемые в data-date, data-month, data-year
+                            //2. Сравнить с данными из CTX, в соответствии с примененными фильтрами: объект, человек, смена, занятие.
+                            //3. Если есть совпадение, то добавить тег "selected selected-start selected-end" для <td>,  "ui-state-active" для <td> > <a>
 
 							// or defaultDate is current printedDate and defaultDate is selectedDate
 							" " + this._dayOverClass : "" ) + // highlight selected day
@@ -2017,7 +2082,7 @@ $.extend( Datepicker.prototype, {
 							( unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'" ) + ">" + // actions
 							( otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
 							( unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
-
+                            // ( cellSelected ? " ui-state-active" : "") + // QWRTY
                             ( printDate.getTime() === today.getTime() ? " ui-state-highlight" : "" ) +
 							( inst.init != false && printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "" ) + // highlight selected day
 							( otherMonth ? " ui-priority-secondary" : "" ) + // distinguish dates from other months
@@ -2290,7 +2355,7 @@ function datepicker_extendRemove( target, props ) {
 					Object - settings for attaching new datepicker functionality
    @return  jQuery object */
 $.fn.datepicker = function( options ) {
-    console.log( "Datepicker")
+    // console.log( "Datepicker")
 	/* Verify an empty collection wasn't passed - Fixes #6976 */
 	if ( !this.length ) {
 		return this;

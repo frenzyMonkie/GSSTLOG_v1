@@ -1,10 +1,13 @@
 
     const multidatepicker = (useTimeLogContext) => {
-        console.log("useTimeLogContext", useTimeLogContext)
+        // console.log("[multidatepicker] useTimeLogContext", useTimeLogContext)
+        // К примеру, здесь добавить все уже указанные ноды времени в extensionRange или куда угодно ещё чтобы они отрисовались.
+
+
         $('#date_range').datepicker({
             // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
             useTimeLogContext: useTimeLogContext,
-            timenodes: useTimeLogContext.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
+            timenodes: useTimeLogContext.current.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
             range: 'multiple', // режим - выбор нескольких дат
@@ -12,9 +15,17 @@
             minDate: new Date('@minDate'),
             minDate: '-3 month', // Есть ли смысл, хз, т.к. для админа нужен выбор любой даты...
             //   range_multiple_max: '30', // макимальное число выбираемых дат
+            onUpdateDatepicker: function (dateText, inst, extensionRange) {
+                // $('[name=multipleDate]').val(extensionRange.datesText.join('\n'));
+
+            },
+            onChangeMonthYear : function () {},
+            onClose: function () {},
             onSelect: function(dateText, inst, extensionRange) {
                 // extensionRange - объект расширения
+                // console.log("extensionRange", extensionRange)
                 $('[name=multipleDate]').val(extensionRange.datesText.join('\n'));
+
                 // console.log(extensionRange.datesText.join(' * ')) // 04.06.2024 * 05.06.2024 * 06.06.2024
                 // console.log(extensionRange.dates) // Wed Jun 05 2024 00:00:00 GMT+0300 (Москва, стандартное время)
                 // console.log(extensionRange.datesText) // ['06.06.2024', '04.06.2024']
@@ -30,6 +41,7 @@
                 // if (extensionRange.datesText) console.log(extensionRange.datesText);
                 var tnodes = []
 
+                // console.log("123", extensionRange)
                 // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
                 // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
                 if (extensionRange.datesText) {
@@ -39,6 +51,7 @@
                     // var ret = {}
                     // ret[focusedName] = tnodes
                     useTimeLogContext.current.timenodes = tnodes
+                     // CTX - USER UPDATES DATA
                 }
 
                 console.log("Datepicker inner ", useTimeLogContext)
@@ -71,10 +84,10 @@ const filters_inject = (useTimeLogContext) => {
 }
 const filters = (useTimeLogContext) => {
     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
-    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div></div>
-    var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div></div>
+    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div>
+    var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
     var name = <div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div></div>
-    var object = <div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div><div>Силикатный пр-д</div></div>
+    var object = <div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
 
     return (
         <div class='calendFilters'>{name}{object}<div class='calendarFilterSection'>{wtype}{smena}</div></div>
@@ -291,8 +304,8 @@ const Calendar = () => {
     const render = () => {
         // const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
         // names = parseContextNames(useTimelogContext)
-        const { calendar_data } = state; // Извлекаем ссылку на calendar_data из реестра.
-        console.log(calendar_data)
+        // const { calendar_data } = state; // Извлекаем ссылку на calendar_data из реестра.
+        // console.log(calendar_data)
 
         // useTimelogContext.workers.push([...calendar_data]) // Некие данные загружены. Пушим их в контекст.
         // var currentWorker = Object.keys(useTimelogContext[0][0])[0] // Ищем выбранного рабочего (здесь необяхательно, из контекста можно вытащить потом)
@@ -300,6 +313,7 @@ const Calendar = () => {
 
         return (
                                 <div className="container">
+                                <ButtonGrid/>
                                 <MultidateCalendar
                                     // currentWorker={currentWorker}
                                     // calendarData={calendar_data}

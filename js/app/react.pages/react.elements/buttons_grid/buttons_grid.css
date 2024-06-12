@@ -16,7 +16,7 @@ body {
   background: #E3F2FD;
 }
 .container {
-  width: 464px;
+  width: 450px;
 }
 .show-modal {
     outline: none;
@@ -49,12 +49,26 @@ body {
     background: #ebe9e0;
   }
 .buttons_grid {
-  display: grid;
+  /* display: grid; */
   /* grid-template-columns: repeat(6, 1fr); */
   /* grid-gap: 17px; */
-  column-gap: 0px;
-  row-gap: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(77px, 1fr));
+  /* column-gap: 0px; */
+  /* row-gap: 8px; */
+  /* grid-template-columns: repeat(auto-fit, minmax(77px, 1fr)); */
+  /* grid-template-areas:
+  "b b b b"
+  "b b b b"
+  "b b b b"
+  "b b b b"
+  "b b b b"
+  "b b b b"
+  "d d q q"; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex-flow: row wrap;
+    max-width: fit-content;
+    justify-content: center;
 }
 .button_hour {
   background-color: #fcfaf7;
@@ -67,16 +81,18 @@ body {
   align-items: center;
   cursor: pointer;
   font-size: 24px;
+  font-weight: 700;
   color: rgb(65, 65, 65);
+  /* grid-area: b; */
 }
 
 .button_hour:hover {
-  font-size: 27px;
-  font-weight: 700;
-  transform: scale(1.125);
-  transition: all .08s ease-out;
+  /* font-size: 27px; */
+  /* font-weight: 700; */
+  /* transform: scale(1.125); */
+  /* transition: all .08s ease-out; */
   /* background-color: rgb(60, 60, 60); */
-  color: rgb(216, 177, 135);
+  /* color: rgb(216, 177, 135); */
   /* color: rgb(204, 135, 101); */
 }
 
@@ -85,5 +101,44 @@ body {
     font-weight: 700;
     /* transform: scale(1.125); */
     color: rgb(109, 201, 185);
-    background-color: rgb(60, 60, 60);
+    color: rgb(255, 255, 255);
+    /* background-color: rgb(60, 60, 60); */
+    background-color: rgb(109, 201, 185);
+}
+.remove {
+    background-color: #fcfaf7;
+    box-shadow: 4px 4px 8px 0px rgb(191 191 191 / 20%);
+
+    height: 70px;
+    border-radius: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+
+    font-weight: 700;
+    font-size: 22px;
+    color: rgb(255, 87, 25);
+    width: 390px;
+    /* grid-area: d; */
+}
+#h0 {
+    color: rgb(255, 87, 25);
+}
+.quit {
+    background-color: #fcfaf7;
+    box-shadow: 4px 4px 8px 0px rgb(191 191 191 / 20%);
+
+    height: 70px;
+    border-radius: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 22px;
+    color: rgb(16, 16, 16);
+    width: 390px;
+    /* grid-area: q; */
 }
