@@ -5,10 +5,12 @@
     /* text-align: center; */
     background-color: #f6f6f6;
     /* padding: 0 0 0 calc(100vw / 20); */
+
 }
 .calendFilter {
     /* padding: 0.8rem; */
-    padding: calc(127vw / 29) 0 calc(127vw / 29) calc(100vw / 20);
+    /* padding: calc(127vw / 29) 0 calc(127vw / 29) calc(100vw / 20); */
+    /* padding: calc(127vw / 29) 0 calc(127vw / 29) calc(100vw / 20); */
     text-align: left;
     font-size: calc(100vw / 32);
     font-size: calc(100vw / 26);
@@ -47,7 +49,11 @@
 .calendarFilterSection {
     /* display: flex; */
     /* flex-direction: column; */
-    box-shadow: inset 0 2px 2px 0px rgb(206, 206, 206);
+
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vw / 20);
+    padding: calc(187vw / 29) 0 calc(180vw / 29) calc(100vw / 20);
 }
 .ui-datepicker-calendar tbody:before {
     line-height: .8rem;
@@ -57,35 +63,45 @@
 
   }
 .calendar_menu_arr {
-    min-width: 21px;
+    min-width: 15px;
+    height: 13px;
     /* min-width: calc(100vw / 28); */
     /* min-height: calc(100vw / 28); */
 }
 #calendar_workername {
-    font-size: calc(100vw / 24);
+    font-size: calc(100vw / 20);
     background-color: #fafafa;
     width: 100%;
+    font-weight: 700;
     padding: calc(132vw / 29) 0 calc(54vw / 29) calc(100vw / 20);
     /* padding: 0 0 0 calc(100vw / 20); */
 }
 #calendar_object {
-    font-size: calc(100vw / 24);
+    font-size: calc(100vw / 20);
     background-color: #fafafa;
     width: 100%;
+    font-weight: 700;
     padding: 0 0 calc(140vw / 29) calc(100vw / 20);
     /* padding: 0 0 0 calc(100vw / 20); */
+    box-shadow: 0 2px 2px 0px rgb(206, 206, 206);
 }
 .workerselectObject {
-    padding: calc(100vw / 29) 0 calc(100vw / 29) calc(100vw / 20);
+    padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
     font-weight: 700;
     /* animation: moving .4s ease; */
+    font-size: calc(100vw / 26);
 }
 .workerselectObject .obj {
     font-weight: 400;
+    font-size: calc(100vw / 26);
+    line-height: calc(100vw / 13);
 }
 #workerselect_object {
-    font-size: calc(100vw / 26);
+    font-size: calc(100vw / 18);
     background-color: #fafafa;
     width: 100%;
 
+}
+#calendar_worktype {
+    /* border-bottom: 1px black solid; */
 }
