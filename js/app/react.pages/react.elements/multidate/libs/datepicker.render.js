@@ -23,7 +23,7 @@
                 that.setState({dates: extensionRange.datesText})
                 var tnodes = []
                 extensionRange.datesText.forEach(element => {
-                    tnodes.push({date: element, hours: "some"})
+                    tnodes.push({date: element, hours: null})
                 });
                 that.setState({timenodes: tnodes})
 

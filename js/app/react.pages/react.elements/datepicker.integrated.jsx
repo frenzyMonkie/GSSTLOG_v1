@@ -40,20 +40,45 @@
                 // var extensionRange = $('#date_range').datepicker('widget').data('datepickerExtensionRange');
                 // if (extensionRange.datesText) console.log(extensionRange.datesText);
                 var tnodes = []
+                // useTimeLogContext.current.timenode = dateText
 
-                // console.log("123", extensionRange)
+                // useTimeLogContext.current.timenodes.forEach(el => {
+                //     console.log(el.date, dateText)
+                //     if (el.date == dateText) {
+                //         console.log(el.hours)
+                //         useTimeLogContext.current.hours =  el.hours
+                //         useTimeLogContext.checkedBtn[1](el.hours)
+                //     }
+                // })
+                // useTimeLogContext.current.timenodes.forEach(el => {
+                //     if (el.hours != null) {}
+                //     if (useTimeLogContext.current.hours != null){
+                //         // Если у timenode.hours != null, то выделяем ячейку и рисуем туда кол-во часов.
+                //         // Иначе - снимаем выделение у ячейки.
+                //     }
+                // })
+
+
+            //    console.log('dateText', useTimeLogContext)
+            //     console.log('extensionRange', extensionRange)
+
                 // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
                 // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
                 if (extensionRange.datesText) {
-                    extensionRange.datesText.forEach(element => {
-                        tnodes.push({date: element, hours: "some", "smena": useTimeLogContext.current.smena, "workType": useTimeLogContext.current.workType})
+                    extensionRange.datesText.forEach(dateText => {
+                        // Взять все выбранные даты, и если есть новая дата, то добавить её. и
+                        useTimeLogContext.current.timenodes.forEach(node => {
+                            tnodes.push(node.date)
+                        })
+                        if (!tnodes.includes(dateText)) {
+                            useTimeLogContext.current.timenodes.push({date: dateText, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
+                        }
+                        // tnodes.push({date: element, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
                     });
-                    // var ret = {}
-                    // ret[focusedName] = tnodes
-                    useTimeLogContext.current.timenodes = tnodes
-                     // CTX - USER UPDATES DATA
-                }
 
+                    // CTX - USER UPDATES DATA
+                }
+                // useTimeLogContext.current.timenodes = tnodes
                 console.log("Datepicker inner ", useTimeLogContext)
             }
             });
@@ -195,9 +220,10 @@ const MultidateCalendar = (props) => {
     // console.log("123", props)
     var initialState = []
     var state = initialState;
-
+    // var [choosingHours, setChoosingHours] = useState(false)
     // При сохранении, выходе, изменении параметров workType, smena - нужно сохранять current.timenodes в контекст соответствующего рабочего, в т.ч. в базу данных.
     const useTimeLogContext = props.useTimeLogContext
+    // useTimeLogContext.choosingHours = [choosingHours, setChoosingHours]
     const onSave = event => {
 
         event.preventDefault();
@@ -206,16 +232,21 @@ const MultidateCalendar = (props) => {
         // this.setState(initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
     }
 
-    useEffect(() => { // Устанавливаем пресетные значения
-        const onMount = async () => {
-            // console.log(1, props.useTimelogContext.workers[0][0])
-            // const calendarData = props.useTimelogContext.workers[0][0];
-            // this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
-            // console.log(123, props.useTimeLogContext)
-            multidatepicker(props.useTimeLogContext)
-        };
-        onMount()
-    }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
+
+        useEffect(() => { // Устанавливаем пресетные значения
+            const onMount = () => {
+                // console.log(1, props.useTimelogContext.workers[0][0])
+                // const calendarData = props.useTimelogContext.workers[0][0];
+                // this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
+                // console.log(123, props.useTimeLogContext)
+                multidatepicker(props.useTimeLogContext)
+            };
+            onMount()
+        }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
+
+
+
+
     console.log(props.useTimeLogContext)
     const headInfo = filters(useTimeLogContext)
     const render = () => {
