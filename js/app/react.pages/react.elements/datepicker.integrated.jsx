@@ -111,11 +111,11 @@ const filters = (useTimeLogContext) => {
     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
     var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div>
     var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
-    var name = <div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div></div>
+    var name = <div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> <div class='band'>Бригада: {useTimeLogContext.current.worker.band}</div></div>
     var object = <div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
 
     return (
-        <div class='calendFilters'>{name}{object}<div class='calendarFilterSection'>{wtype}{smena}</div></div>
+        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{wtype}{smena}</div></div>
     )
 }
 // filters используется в jquery.datepicker при формировании канваса. можно канвас вытянуть сюда например вместо внедрения туда, не суть.

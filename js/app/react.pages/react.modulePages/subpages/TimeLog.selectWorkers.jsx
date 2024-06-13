@@ -47,8 +47,12 @@ const TimeLogSelectWorkers  = () => {
     // console.log(setBtnGridVisible)
     // useTimelogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
     var workers = [
-        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true, timenodes: [{date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Проходка"},
-            {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Проходка"}
+        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true,
+            timenodes: [
+                {date: "06.06.2024", hours: 12, smena:"Ночные смены", workType:"Проходка"},
+                {date: "06.06.2024", hours: 12, smena:"Дневные смены", workType:"Проходка"},
+                {date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Проходка"},
+                {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Проходка"}
         ],},
         {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
         {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
