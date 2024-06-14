@@ -6,30 +6,35 @@ const ButtonGrid = () => {
     const [checkedBtn, setCheckedBtn] = useState(null)
     useTimeLogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
     useTimeLogContext.checkedBtn = [checkedBtn, setCheckedBtn]
-
+    const [currentDate, setCurrentDate] = useState(null)
+    useTimeLogContext.currentDate = [currentDate, setCurrentDate]
     const setCurrentTimenodesByDate = (useTimeLogContext, date, hours) => {
         if (date) useTimeLogContext.current.date = date // Устанавливаем фокус на выбранную дату
+        useTimeLogContext.currentDate[1](date)
         useTimeLogContext.current.timenodes.forEach(el => { // Устанавливаем фокус на хранящееся число отработанных часов для последующей отрисовки
             if (el.smena == useTimeLogContext.current.smena && el.workType == useTimeLogContext.current.workType) {
                 if (el.date == date) {
+
                     useTimeLogContext.current.hours = el.hours
                     setCheckedBtn(el.hours) // Выделяем новую кнопку цветом
                 }
             }
         })
-
+        $('#date_range').datepicker( "refresh" )
         console.log("[ Вход в контекст выбора часов]", useTimeLogContext)
     }
     useTimeLogContext.setCurrentTimenodesByDate = setCurrentTimenodesByDate
 
     const removeHoursData = e => {
         updateDatepicker(e, "remove")
-        cleanupAndRefresh()
+        cleanupAndRefresh();
+        // setTimeout(() => { cleanupAndRefresh(); }, 100);
     }
 
     const handleBtnClick = e => {
         updateDatepicker(e, "update")
-        cleanupAndRefresh()
+        cleanupAndRefresh();
+        // setTimeout(() => {  }, 100);
     }
 
     const cleanupAndRefresh = () => {
@@ -46,28 +51,30 @@ const ButtonGrid = () => {
 
         // Устанавливаем выбранное пользователем кол-во часов
         useTimeLogContext.current.hours = action == "update" ? e.target.textContent : action == "remove" ? null : "QQQ"
-        let hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : "QQQ"
-        let date = useTimeLogContext.current.date
+        let hours = action == "update" ? e.target.textContent : action == "remove" ? null : "QQQ"
+        let date = useTimeLogContext.currentDate[0]
+        console.log("updateDatepicker", useTimeLogContext.current.timenodes)
         useTimeLogContext.current.timenodes.forEach(el => {
+            console.log(el.date, date,  hours)
             el.hours = el.date == date ? hours : el.hours // Устанавливаем выбранное пользователем кол-во часов также в общем списке
             // Фильтруем по фильтрам, проверяем что у элемента уже проставлено значение часов.
             if (el.smena == useTimeLogContext.current.smena && el.workType == useTimeLogContext.current.workType) {
                 if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
+                    console.log("el2", el)
+                    // console.log(useTimeLogContext)
                     let date = el.date.split(".")
                     let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
                     $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
                 }
             }
-            if (el.hours == null) {
-                var index = useTimeLogContext.current.timenodes.indexOf(el);
-                if (index !== -1) {
-                    useTimeLogContext.current.timenodes.splice(index, 1);
-                }
-            }
+                            // if (node.hours == null) {
+                            //     var index = useTimeLogContext.current.timenodes.indexOf(node);
+                            //     if (index !== -1) {
+                            //         useTimeLogContext.current.timenodes.splice(index, 1);
+                            //     }
+                            // }
         })
     }
-
-
 
     return  (
         <Fragment>
@@ -76,6 +83,7 @@ const ButtonGrid = () => {
                     <div class="sheet-overlay"></div>
                     <div class="modal-content">
                         <div class="btn_container">
+                            {currentDate}
                             <div class="buttons_grid">
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "1" ? "button_hour checked" : "button_hour"} id="h1">1</div>
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "2" ? "button_hour checked" : "button_hour"} id="h2">2</div>

@@ -1144,12 +1144,15 @@ $.extend( Datepicker.prototype, {
 		inst.selectedDay = inst.currentDay = parseInt( $( "a", td ).attr( "data-date" ) );
 		inst.selectedMonth = inst.currentMonth = month;
 		inst.selectedYear = inst.currentYear = year;
-        console.log( "hoho", inst.selectedDay, inst.selectedMonth, inst.selectedYear );
+        console.log( "hoho", inst.selectedDay, inst.selectedMonth, inst.selectedYear, this._formatDate( inst,
+			inst.currentDay, inst.currentMonth, inst.currentYear ) );
         console.log( "hoho", "Теперь просто нужно здесь подрубить функцию, которая будет менеджерить состояние выбора часов")
         console.log( "hoho", "1. Будет связываться с useTLCTX для отрисовки заранее выбранного времени")
         console.log( "hoho", "2. Будет открывать панель с выбором времени, панель привязана к дате и всем остальным фильтрам")
         let useTimeLogContext = this._get( inst, "useTimeLogContext" );
-        useTimeLogContext.btnGrid[1](true)
+        useTimeLogContext.btnGrid[1](true) // Отображаем BTN-GRID
+        useTimeLogContext.setCurrentTimenodesByDate(useTimeLogContext, this._formatDate( inst,
+			inst.currentDay, inst.currentMonth, inst.currentYear ))
         // !!! Чтобы при нажатии на дату был не ТОГГЛ, а ПРОВЕРКА на "наличие часов на эту дату в контексте".
 
         // setPanelVisible(true) (onBtnClick => setPanelVisible(false))

@@ -69,10 +69,12 @@
                         // Взять все выбранные даты, и если есть новая дата, то добавить её. и
                         useTimeLogContext.current.timenodes.forEach(node => {
                             tnodes.push(node.date)
+
                         })
                         if (!tnodes.includes(dateText)) {
                             useTimeLogContext.current.timenodes.push({date: dateText, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
                         }
+
                         // tnodes.push({date: element, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
                     });
 
