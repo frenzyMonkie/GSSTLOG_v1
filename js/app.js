@@ -19,11 +19,14 @@ function App () {
             <AppContextProvider>
                 <Routes>
                     <Route path="/" element={<Layout />}>
-                        <Route path="*" element={<NotFound />} />
+                        {/* <Route path="*" element={<NotFound />} /> */}
                         {/* <MainPage/> */}
                         {/* TimeLogSelectWorkers */}
-                        <Route index element={<TimeLogSelectWorkers />} />
+                        <Route index element={<TimeLogSelectObjects />} />
+                        {/* TimeLogSelectObjects */}
                         <Route path="CalendarPro" element={<CalendarPro />} />
+                        <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
+                        <Route path="TimeLogSelectObjects" element={<TimeLogSelectObjects />} />
 
                         <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
                         <Route path="OldReportsPage" element={<OldReportsPage />} />
@@ -41,12 +44,12 @@ function App () {
 
 
 
-                        <Route path="login" element={<LoginPage />} />
+                        {/* <Route path="login" element={<LoginPage />} />
                         <Route path="contacts" element={
                             <RequireAuth>
                                 <Contacts />
                             </RequireAuth>} />
-                        <Route path="protectedсontent" element={<ProtectedContent />} />
+                        <Route path="protectedсontent" element={<ProtectedContent />} /> */}
                     </Route>
                 </Routes>
             </AppContextProvider>

@@ -110,14 +110,31 @@ const filters_inject = (useTimeLogContext) => {
     )
 }
 const filters = (useTimeLogContext) => {
+    const navigate = useNavigate();
     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
-    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div>
+    var objectOnclick =  () => navigate("/TimeLogSelectObjects", {replace: true})
+    var nameOnclick = () => navigate("/TimeLogSelectWorkers", {replace: true})
+    var name = <div class='calendFilter' id='calendar_workername' onClick={nameOnclick}> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> </div>
+    var object = <div class='calendFilter' id='calendar_object' onClick={objectOnclick}><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+
+    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div> // <div class='band'>Бригадир: {useTimeLogContext.current.worker.band}</div>
     var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
-    var name = <div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> <div class='band'>Бригада: {useTimeLogContext.current.worker.band}</div></div>
-    var object = <div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
 
     return (
-        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{wtype}{smena}</div></div>
+        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{smena}{wtype}</div></div>
+    )
+}
+const infoSection = (useTimeLogContext) => {
+    var days = 0, hours = 0
+    useTimeLogContext.current.worker.timenodes.forEach(node => {
+        if (node.hours != null && node.smena == useTimeLogContext.current.smena && node.workType == useTimeLogContext.current.workType) {
+            hours += node.hours
+            days++
+        }
+    }) // Подсчёт кол-ва часов и дней с учётом фильтров
+    var summary =  <div class='calendFilter label_s' id="calendar_summary">В этом месяце: {hours}ч. / {days}дн.</div>
+    return (
+        <div class='calendFilters'><div class='calendarFilterSection'>{summary}</div></div>
     )
 }
 // filters используется в jquery.datepicker при формировании канваса. можно канвас вытянуть сюда например вместо внедрения туда, не суть.
@@ -251,21 +268,23 @@ const MultidateCalendar = (props) => {
 
     console.log(props.useTimeLogContext)
     const headInfo = filters(useTimeLogContext)
+    const summaryInfo = infoSection(useTimeLogContext)
     const render = () => {
             // const { characterData, removeCharacter } = props;
             return (
                 <Fragment>
                 {headInfo}
                     <form onSubmit={onSave}>
-                    <div>
-                        <div id="date_range"></div>
-                        <br/>
-                        {/* <textarea name="multipleDate"></textarea>
-                        <button type="submit"  class="calendar_approve">
-                            Добавить
-                        </button> */}
-                    </div>
-                </form>
+                        <div>
+                            <div id="date_range"></div>
+                            <br/>
+                            {/* <textarea name="multipleDate"></textarea>
+                            <button type="submit"  class="calendar_approve">
+                                Добавить
+                            </button> */}
+                        </div>
+                    </form>
+                {summaryInfo}
                 </Fragment>
 
         );

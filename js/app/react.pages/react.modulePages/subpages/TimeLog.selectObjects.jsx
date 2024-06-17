@@ -1,25 +1,24 @@
 
-const TimeLogContext = React.createContext({
-    objects: [],
-    workers: [],
-    current: {
-        idx: null,
-        worker: null,
-        workType: null,
-        smena: null,
-        timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
-    }})
-const searchBar = (searchQuery, setSearchQuery) => {
+// const TimeLogContext = React.createContext({
+//     workers: [],
+//     current: {
+//         idx: null,
+//         worker: null,
+//         workType: null,
+//         smena: null,
+//         timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
+//     }})
+const searchBarObjects = (searchQuery, setSearchQuery) => {
     console.log("[ RE-CALLED ] : searchBar")
     return <input
-                    key="searchWorkers"
+                    key="searchObjectss"
                     type="search"
                     class="people_search"
                     placeholder="Поиск"
                     defaultValue={searchQuery}
                     onChange={ (e) => setSearchQuery(e.target.value) }  /> // autoFocus
 }
-const TimeLogSelectWorkers  = () => {
+const TimeLogSelectObjects  = () => {
     const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
 
     // Должно быть:
@@ -32,13 +31,13 @@ const TimeLogSelectWorkers  = () => {
             // Либо придумать другое поведение.
 
     const state = {
-        pageTitle: "Табель объекта",
+        pageTitle: "Доступные объекты",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
-        formLabel: "TimeLogWorkerList",
+        formLabel: "TimeLogObjectList",
         backPage: "/TimeLog",
-        nextPage: "/CalendarPro",
+        nextPage: "/TimeLogSelectWorkers",
         const: {Spendables: [], MeasureUnits: [] },
     }
 
@@ -50,10 +49,10 @@ const TimeLogSelectWorkers  = () => {
     var workers = [
         {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true,
             timenodes: [
-                {date: "06.06.2024", hours: 12, smena:"Ночные смены", workType:"Бурение"},
-                {date: "06.06.2024", hours: 12, smena:"Дневные смены", workType:"Бурение"},
-                {date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Замывка"},
-                {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Дежурство"}
+                {date: "06.06.2024", hours: 12, smena:"Ночные смены", workType:"Проходка"},
+                {date: "06.06.2024", hours: 12, smena:"Дневные смены", workType:"Проходка"},
+                {date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Проходка"},
+                {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Проходка"}
         ],},
         {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
         {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
@@ -64,6 +63,18 @@ const TimeLogSelectWorkers  = () => {
         {name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, isSelected: true, timenodes: [],},
         {name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false, timenodes: [],},
     ]
+    var objects = [
+        {name: "Силикатный пр-д", type: "Водопонижение", isSelected: false,},
+        {name: "Амурская", type: "Водопонижение", isSelected: false,},
+        {name: "Кронштадский пр-д", type: "Проходка", isSelected: true,},
+        {name: "Кульнева", type: "ГНБ", isSelected: false,},
+        {name: "Тимирязевская", type: "Проходка", isSelected: true,},
+        {name: "3-я Парковая", type: "Водопонижение", isSelected: false,},
+        {name: "Загорская ГАЭС-2", type: "Водопонижение", isSelected: false,},
+        {name: "Камова 24", type: "Водопонижение", isSelected: true,},
+        {name: "Амбер-Сити", type: "Водопонижение", isSelected: false,},
+        {name: "Ташкентская", type: "Водопонижение", isSelected: false,},
+    ]
 
 
     // https://codepen.io/Spruce_khalifa/pen/GRrWjmR
@@ -71,7 +82,7 @@ const TimeLogSelectWorkers  = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const [searchParam] = useState(["name", "band"]);
+    const [searchParam] = useState(["name", "type"]);
     const [filterParam, setFilterParam] = useState(["Выбранные"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
     const toggleSelectMode = () => {
@@ -83,12 +94,12 @@ const TimeLogSelectWorkers  = () => {
         // console.log(items)
         return items.filter((item) => { // Отобразятся только элементы, по которым прошло true по условиям.
             // Если значение элемента совпадает с указанным в фильтре (напр. избранное или выбранные)
-            // console.log(item)
+            console.log("item", item)
             if (filterParam == "Все") {
                 return searchParam.some((newItem) => {
                     // console.log(item) // Итем со всеми его данными из общего контейнера
                     // console.log(newItem) // нужный ключ. в данном случае "capital"/.capital Нам нужен
-                    // console.log(item[newItem]) название города, для сравнения с введенным в поиске значением. Kabul / Khartoum /  Gitega
+                    // console.log(item[newItem]) // название города, для сравнения с введенным в поиске значением. Kabul / Khartoum /  Gitega
                     return (
                         item[newItem]
                             .toString()
@@ -108,7 +119,9 @@ const TimeLogSelectWorkers  = () => {
                 });
             }
             if (filterParam == "Выбранные" && item.useNameSelected[0]) { // Если в выбранных и итем принадлежит этой категории
+
                 return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
+                    console.log(newItem)
                     return ( // Возвращаем true если есть вхождение набранного текста в очередной айтем.
                         item[newItem]
                             .toString()
@@ -123,10 +136,20 @@ const TimeLogSelectWorkers  = () => {
     }
 const object = {name: "Амурская", type: "СВП"}
 const [smena, setSmena] = useState("Дневные смены")
-const [workType, setWorkType] = useState(object.type == "123" ? "Дежурство" : "Бурение")
-// const [currentObject, setCurrentObject] = useState("Силикатный пр-д");
-// useTimeLogContext.current.object = currentObject;
-const oneWorkerMainCanvas = (idx, newWorker) => {
+const [objType, setObjType] = useState(object.type == "123" ? "Проходка" : "Водопонижение")
+const [currentObject, setCurrentObject] = useState(objects[0].name);
+useTimeLogContext.current.object = currentObject;
+
+
+
+
+
+//////////////////
+
+
+
+
+const oneWorkerMainCanvas = (idx, newObject) => {
     console.log("[ RE-CALLED ] : oneWorkerMainCanvas")
     const editWorker = () => {
 
@@ -144,39 +167,37 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
         // При смене фильтра - будут меняться все current значения, в т.ч. timenodes.
 
         useTimeLogContext.current.idx = idx;
-        useTimeLogContext.current.worker = newWorker;
-        useTimeLogContext.current.smena = smena;
-        useTimeLogContext.current.workType = workType;
-        let timenodes = []
-        useTimeLogContext.workers[idx].timenodes.forEach(node => {
-            console.log(node)
-            if (
-                node.workType == useTimeLogContext.current.workType &&
-                node.smena == useTimeLogContext.current.smena) {
-                    timenodes.push(node)
-                }
-        });
-        // useTimeLogContext.current.timenodes = useTimeLogContext.workers[idx].timenodes;
-        useTimeLogContext.current.timenodes = timenodes;
+        useTimeLogContext.current.object = newObject.name;
+        // useTimeLogContext.current.smena = smena;
+        useTimeLogContext.current.type = objType;
+        // let timenodes = []
+        // useTimeLogContext.objects[idx].timenodes.forEach(node => {
+        //     console.log('[editWorker]', node)
+        //     if (
+        //         node.type == useTimeLogContext.current.type) {
+        //             timenodes.push(node)
+        //         }
+        // });
+        // useTimeLogContext.current.timenodes = useTimeLogContext.objects[idx].timenodes;
+        // useTimeLogContext.current.timenodes = timenodes;
         // CTX - SERVER FILLS DATA
 
-        console.log("ok", newWorker)
-        console.log("worker",newWorker);
-        console.log("contetx", useTimeLogContext.workers);
-        console.log("worker index", useTimeLogContext.workers.indexOf(newWorker));
-        navigate("/CalendarPro", {replace: true})
+        console.log("object",newObject);
+        console.log("contetx", useTimeLogContext.objects);
+        console.log("object index", useTimeLogContext.objects.indexOf(newObject));
+        navigate("/TimeLogSelectWorkers", {replace: true})
     }; // Тоггл галочки
 
 
 
 
-    console.log("ok", newWorker)
+    console.log("ok", newObject)
 
     return (
         <div class="task_item" onClick={editWorker}>
                             <div class="task_item_text">
-                                <p class="task_item_header nomargin title_m">{newWorker.name}</p>
-                                <p class="task_item_info label_s">{newWorker.band}</p>
+                                <p class="task_item_header nomargin title_m">{newObject.name}</p>
+                                <p class="task_item_info label_s">{newObject.type}</p>
                             </div>
                             <i className="task_item_arr fi fi-br-angle-small-right "></i>
                     </div>
@@ -184,9 +205,9 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
 }
 
 
-const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected) => {
+const oneWorkerSelectableCanvas = (idx, newObject, nameSelected, setNameSelected) => {
     console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
-    const toggleWorkerisSelected = () => {
+    const toggleIsSelected = () => {
         setNameSelected( !nameSelected );
     }; // Тоггл галочки выбора
     let iconClass = "task_item_arr fi fi-br-check"
@@ -194,10 +215,10 @@ const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected
     let itemWokerBandClass = "task_item_info label_s"
     let itemWokerNameClass = "task_item_header nomargin title_m"
     return (
-        <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleWorkerisSelected}>
+        <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleIsSelected}>
                             <div class="task_item_text">
-                                <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newWorker.name}</p>
-                                <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newWorker.band}</p>
+                                <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newObject.name}</p>
+                                <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newObject.type}</p>
 
                             </div>
                             <i className={nameSelected == false ? iconClass : iconClass + " selected"}></i>
@@ -206,37 +227,37 @@ const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected
 }
 const parseContextNames = (useTimeLogContext) => {
     console.log("[ RE-CALLED ] : parseContextNames")
+    console.log(useTimeLogContext)
     var ret = [] // Просто выдираем имена из контекста
-    for (var uniqueWorker of useTimeLogContext.workers) {
-        ret.push(uniqueWorker.name)
+    for (var uniqueObject of useTimeLogContext.objects) {
+        ret.push(uniqueObject.name)
     }
     return ret
 }
-const workerCanvasManager = (idx, newWorker, nameSelected, setNameSelected) => {
+const workerCanvasManager = (idx, newObject, nameSelected, setNameSelected) => {
     console.log("[ RE-CALLED ] : workerCanvasManager")
     // useTimeLogContext - нужно здесь обновить TimeLogContext на предмет выбранной ячейки,
     //  чтобы считывать для отображения в календаре и записывать туда корректируемые данные
     // Для этого нужна нормальная структура данных
 
-    var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newWorker, nameSelected, setNameSelected) : oneWorkerMainCanvas(idx, newWorker, nameSelected, setNameSelected)
+    var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newObject, nameSelected, setNameSelected) : oneWorkerMainCanvas(idx, newObject, nameSelected, setNameSelected)
     // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
-    let newWorkerData = {
+    let newObjectData = {
         index: idx, // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         canvas: canvas,
         useNameSelected: [nameSelected, setNameSelected],
-        ...newWorker
+        ...newObject
     }
-
     // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
     // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
     var namesInContext = parseContextNames(useTimeLogContext)
     console.log(useTimeLogContext)
-    if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
-        useTimeLogContext.workers.push(newWorkerData)
+    if (!namesInContext.includes(newObject.name)) { // Если в контексте такого ещё нет, то добавляем его.
+        useTimeLogContext.objects.push(newObjectData)
     } else {
-        var idx = useTimeLogContext.workers.findIndex((element) => element.name == newWorkerData.name)
-        // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
-        useTimeLogContext.workers[idx] = newWorkerData
+        var idx = useTimeLogContext.objects.findIndex((element) => element.name == newObjectData.name)
+        // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newObject
+        useTimeLogContext.objects[idx] = newObjectData
     }
 
     return canvas
@@ -260,26 +281,28 @@ const renderContent = () => {
     prepareWorkers()
 
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
-                                    {search(useTimeLogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {search(useTimeLogContext.objects).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                     ))}
                                 </div>
     const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
-                                    {renderMainMode(useTimeLogContext.workers).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {renderMainMode(useTimeLogContext.objects).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                         // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
                                     ))}
                                 </div>
-    const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
-    var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
-    var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
+    const sbar = React.useMemo(() => searchBarObjects(searchQuery, setSearchQuery));
+    // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+    // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     const selectmodeCanvas = <Fragment>
-                                {object}
+                                {/* {object} */}
                                 <div className="grid">
+
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
                                     <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
                                     <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label>
+
                                     {/* <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot">Избранное</div></label> */}
                                     {sbar}
@@ -287,7 +310,7 @@ const renderContent = () => {
                                 </div>
                             </Fragment>
     const mainCanvas = <Fragment>
-                            {object} {objInfo}
+                            {/* {object} {objInfo} */}
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                             {nameList_mainmode}
                         </Fragment>
@@ -331,11 +354,11 @@ const prepareWorkers = () => {
     if (firstLoad) {
         firstLoad = false
         let idx = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
-        for (var newWorker of workers) { // Формируем список фамилий
-            console.log("newWorker", useTimeLogContext)
+        for (var newObject of objects) { // Формируем список фамилий
+            console.log("created new object", newObject)
             const [selected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-            workerCanvasManager(idx, newWorker, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
-            if (newWorker.isSelected) {
+            workerCanvasManager(idx, newObject, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
+            if (newObject.isSelected) {
                 useEffect(() => { // Устанавливаем пресетные значения
                     const addSelected = async () => {
                         setSelected(true)
@@ -347,27 +370,22 @@ const prepareWorkers = () => {
         }
     } else {
         // console.log(firstLoad)
-        for (var newWorker of useTimeLogContext.workers) {
-            if (newWorker.useNameSelected[0]) { // if (newWorker.isSelected)
+        for (var newObject of useTimeLogContext.objects) {
+            if (newObject.useNameSelected[0]) { // if (newObject.isSelected)
                 useEffect(() => { // Устанавливаем пресетные значения
-                    const addSelected = async () => {newWorker.useNameSelected[1](true)};
+                    const addSelected = async () => {newObject.useNameSelected[1](true)};
                     addSelected()
                     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
 
-                workerCanvasManager(idx, newWorker, newWorker.useNameSelected[0], newWorker.useNameSelected[1]) // Инициализируем сам элемент с логикой и холстом
+                workerCanvasManager(idx, newObject, newObject.useNameSelected[0], newObject.useNameSelected[1]) // Инициализируем сам элемент с логикой и холстом
             }
         }
     }
 }
-    const backToObjectList = () => {
-        navigate("/TimeLogSelectObjects", {replace: true})
-    }
-    const navLeft  = ({children}) => {
-        console.log("[ RE-CALLED ] : navLeft")
-        var btn = <i onClick={backToObjectList} className="header_back fi fi-rr-arrow-small-left"></i>
+    const navLeft  = ({children}) => {console.log("[ RE-CALLED ] : navLeft")
         return (
             <Fragment>
-            {btn}
+            <i class="header_back fi fi-rr-arrow-small-left"></i>
             </Fragment>
     )}
     const navRight  = ({children}) => { console.log("[ RE-CALLED ] : navRight")

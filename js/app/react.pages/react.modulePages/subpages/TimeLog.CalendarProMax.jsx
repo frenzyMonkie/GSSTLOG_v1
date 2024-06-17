@@ -2,6 +2,7 @@
 
 // Компонент "Насосы"
 const CalendarPro = () => {
+    const navigate = useNavigate();
     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
     // const pageTitle = () => {
     //     try {
@@ -32,16 +33,26 @@ const CalendarPro = () => {
     // const onErrEvent = () => {}
     // const onSuccEvent = () => {}
     // const onCautionEvent = () => {}
-
-    const navLeft  = () => {return (
+    const handleQuitTLOG = () => {
+        // Предупредить о сбросе данных и перейти назад, если человек согласен
+        navigate("/TimeLogSelectWorkers", {replace: true})
+    }
+    const navLeft  = (handler) => {
+        var btn = <i onClick={handleQuitTLOG} className="fi fi-rr-arrow-small-left"></i>
+        return (
         <Fragment>
-        <i class="header_back fi fi-rr-arrow-small-left"></i>
+        {btn}
         </Fragment>
     )}
-    const navRight  = () => {return (
-
+    const handleSaveTLOG = () => {
+        // Сохранить данные и перейти назад.
+        navigate("/TimeLogSelectWorkers", {replace: true})
+    }
+    const navRight  = (handler) => {
+        var btn = <i onClick={handleSaveTLOG} className="fi fi-rs-disk"></i>
+        return (
         <Fragment>
-        <i class="header_save fi fi-rs-disk"></i>
+        {btn}
         </Fragment>
     )}
     const header = (handler) => {
