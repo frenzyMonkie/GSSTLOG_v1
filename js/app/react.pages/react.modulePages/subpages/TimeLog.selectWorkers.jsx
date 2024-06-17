@@ -164,12 +164,26 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
         console.log("contetx", useTimelogContext.workers);
         console.log("worker index", useTimelogContext.workers.indexOf(newWorker));
         navigate("/CalendarPro", {replace: true})
-    }; // Тоггл галочки выбора
+    }; // Тоггл галочки
+
+    var days = 0, hours = 0
+    newWorker.timenodes.forEach(node => {
+        if (node.hours != null &&  node.smena == useTimelogContext.current.smena && node.workType == useTimelogContext.current.workType) {
+            hours += node.hours
+            days++
+        }
+    }) // Подсчёт кол-ва часов и дней с учётом фильтров
+
+
+    console.log("ok", newWorker)
+    // var hours = 5
+    // var days = 10
     return (
         <div class="task_item" onClick={editWorker}>
                             <div class="task_item_text">
-                                <p class="task_item_header nomargin title_m">{newWorker.name}</p>
+                                <p class="task_item_header nomargin title_m">{}{newWorker.name}</p>
                                 <p class="task_item_info label_s">{newWorker.band}</p>
+                                <p class="task_item_info label_s">{hours}ч. / {days}дн.</p>
                             </div>
                             <i className="task_item_arr fi fi-br-angle-small-right "></i>
                     </div>
@@ -191,6 +205,7 @@ const oneWorkerSelectableCanvas = (idx, newWorker, nameSelected, setNameSelected
                             <div class="task_item_text">
                                 <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newWorker.name}</p>
                                 <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newWorker.band}</p>
+
                             </div>
                             <i className={nameSelected == false ? iconClass : iconClass + " selected"}></i>
                     </div>
@@ -241,8 +256,8 @@ const workerCanvasManager = (idx, newWorker, nameSelected, setNameSelected) => {
 
 const renderContent = () => {
     console.log("[ RE-CALLED ] : renderContent")
-    const renderEditMode = (ctx) => {
-        console.log("[ RE-CALLED ] : renderEditMode")
+    const renderMainMode = (ctx) => {
+        console.log("[ RE-CALLED ] : renderMainMode")
         return ctx.filter( (item) => {
             if (item.useNameSelected[0]) { return true }
         })
@@ -257,12 +272,14 @@ const renderContent = () => {
                                     ))}
                                 </div>
     const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
-                                    {renderEditMode(useTimelogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {renderMainMode(useTimelogContext.workers).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
+                                        // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
                                     ))}
                                 </div>
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
     var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimelogContext.current.object}</div></div>
+    var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='obj'>Заполнявшие в этом месяце: <br/>Захарченко И.С.</div><div></div></div>
     const selectmodeCanvas = <Fragment>
                                 {object}
                                 <div className="grid">
@@ -277,7 +294,7 @@ const renderContent = () => {
                                 </div>
                             </Fragment>
     const mainCanvas = <Fragment>
-                            {object}
+                            {object} {objInfo}
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                             {nameList_mainmode}
                         </Fragment>
