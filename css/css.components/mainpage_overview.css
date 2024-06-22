@@ -105,6 +105,7 @@
     letter-spacing: -.39px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
+    font-weight: 600;
 }
 /* .task_item_header:first-letter {
     color: rgb(101, 101, 101);
