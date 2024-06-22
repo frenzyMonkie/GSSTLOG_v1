@@ -86,7 +86,7 @@
     max-width: 86%;
 }
 .task_item_header {
-    font-size: 1rem;
+    font-size: .98rem;
     /* .9rem; */
     word-wrap:break-all;
     -webkit-line-clamp: 1; /* Число отображаемых строк */
