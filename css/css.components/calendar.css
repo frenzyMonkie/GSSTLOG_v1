@@ -42,7 +42,7 @@
     display: block;
     font-weight: 400;
     font-size: calc(100vw / 26);
-    line-height: calc(100vw / 13);
+    line-height: calc(100vw / 20);
 
 }
 .writernames {
@@ -57,7 +57,8 @@
     font-size: calc(100vw / 32);
  }
 #workerselect_writernames {
-    padding: calc(100vw / 29) 0 calc(80vw / 21) calc(100vw / 20);
+    /* padding: calc(28vw / 29) 0 calc(105vw / 21) calc(100vw / 20); */
+    padding: 0 0 calc(105vw / 21) calc(100vw / 20);
 }
 .calendFilter .band {
     display: block;
@@ -119,7 +120,7 @@
 .workerselectObject .obj {
     font-weight: 400;
     font-size: calc(100vw / 26);
-    line-height: calc(100vw / 13);
+    line-height: calc(100vw / 20);
 }
 #workerselect_object {
     padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
