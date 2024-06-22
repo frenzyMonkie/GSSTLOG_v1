@@ -48,8 +48,8 @@ body {
     grid-template-areas: "a b c"; */
     /* width: 100%; */
     /* margin: auto; */
-    padding: 9px 0 7px 0;
-    min-height: 48px;
+    /* padding: 9px 0 7px 0; */
+    min-height: 53px;
     background-color: var(--bg-main);
     /* border-bottom: var(--border-header-sep); */
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
