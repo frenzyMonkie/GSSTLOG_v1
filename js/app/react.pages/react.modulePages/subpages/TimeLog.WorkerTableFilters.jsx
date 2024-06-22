@@ -61,7 +61,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         // Подготовка данных
         useTimeLogContext.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
         console.log(useTimeLogContext.filters)
-        const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
+        const nameList_mainmode = <div className="tab__content" id="tab__filters">
                                         {useTimeLogContext.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                             // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
