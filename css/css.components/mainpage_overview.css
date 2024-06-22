@@ -78,6 +78,7 @@
     /* padding: 6px 0px 2px 13px; */
     /* padding: 14px 0px 6px 13px; */
     padding: 8px 0px 6px 13px;
+    padding: 9px 0px 9px 13px;
     /* padding: 7px 0px 5px 13px; */
     /* padding: 15px 0px 16px 13px; */
     /* padding: 19px 0px 8px 13px; */
@@ -93,7 +94,7 @@
     display: -webkit-box; /* Включаем флексбоксы */
     -webkit-box-orient: vertical; /* Вертикальная ориентация */
     overflow: hidden; /* Обрезаем всё за пределами блока */
-    margin: 0 0 3px 0;
+    margin: 0 0 5px 0;
     /* margin: 0 0 9px 0;
     margin: 0 0 2px 0; */
     color: #474646;
@@ -125,6 +126,7 @@
     /* color: #53ad96; */
     /* letter-spacing: -.14px; */
     letter-spacing: .03px;
+    font-weight: 100;
 }
 .task_item_info span {
     color:rgb(109, 109, 109);
