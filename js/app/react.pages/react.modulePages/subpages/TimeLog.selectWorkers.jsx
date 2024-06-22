@@ -295,7 +295,7 @@ const renderContent = () => {
     return (
         <TimeLogContext.Provider>
         <div class="container timelog">
-            <div class="content timelog" id="content_main">
+            <div class="content timelog workers" id="content_main">
                 <div class="tab-wrap">
                     {selectMode ? selectmodeCanvas : mainCanvas}
                 </div>
