@@ -61,8 +61,8 @@ body {
     min-height: 100%;
     grid-area: a;
     align-self: center;
-    min-width: calc(100vw / 13);
-    min-height: calc(100vw / 13);
+    min-width: calc(100vw / 12);
+    min-height: calc(100vw / 12);
 }
 .header .nav_right {
     margin-left: auto;
