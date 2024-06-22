@@ -90,7 +90,7 @@
     margin: 0 0 3px 0;
 }
 .task_item_header {
-    font-size: .98rem;
+    font-size: .94rem;
     /* .9rem; */
     word-wrap:break-all;
     -webkit-line-clamp: 1; /* Число отображаемых строк */
