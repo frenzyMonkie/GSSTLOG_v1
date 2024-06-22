@@ -46,14 +46,14 @@ const CalendarPro = () => {
     )}
     const handleSaveTLOG = () => {
         // Сохранить данные и перейти назад.
-        console.log("useTimelogContext.current.timenodes", useTimelogContext.current.timenodes)
+        // console.log("useTimelogContext.current.timenodes", useTimelogContext.current.timenodes)
         let current = useTimelogContext.current.timenodes
         let idx = useTimelogContext.current.idx
         useTimelogContext.workers[idx].LastSmena = useTimelogContext.current.smena
         useTimelogContext.workers[idx].LastWorkType = useTimelogContext.current.workType
-        console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
+        // console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
         useTimelogContext.workers[useTimelogContext.current.idx].timenodes = structuredClone(current) // Ну примерно так
-        console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
+        // console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
         navigate("/TimeLogSelectWorkers", {replace: true})
 
     }
@@ -166,7 +166,7 @@ const Calendar = () => {
 
     // Для завершения редактирования
     const handleSubmit = character => {
-        console.log(character)
+        // console.log(character)
         // console.log("character", [...this.state.characters, character])
         this.setState({characters: [...this.state.characters, character]});
         }
@@ -186,7 +186,7 @@ const Calendar = () => {
         if (this.state.calendar_data.length > 0) {
             this.state.calendar_data.forEach((block) => {
             if (block.name === new_data.name) {
-            console.log("block.name", new_data.name)
+            // console.log("block.name", new_data.name)
                 this.setState({calendar_data: [...this.state.calendar_data.pop(block), new_data]}); // Что-то не проходит, не совсем понимаю почему
             } else {
             this.setState({calendar_data: [...this.state.calendar_data, new_data]});
@@ -260,7 +260,7 @@ const MultidateCalendar = (props) => {
 
 
 
-    console.log(props.useTimeLogContext)
+    // console.log(props.useTimeLogContext)
     const headInfo = filters(useTimeLogContext)
     const summaryInfo = infoSection(useTimeLogContext)
     const render = () => {

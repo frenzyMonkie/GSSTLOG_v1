@@ -58,7 +58,7 @@ const TimeLogSelectWorkers  = () => {
         // console.log(items)
         return items.filter((item) => { // Отобразятся только элементы, по которым прошло true по условиям.
             // Если значение элемента совпадает с указанным в фильтре (напр. избранное или выбранные)
-            console.log("item", item)
+            // console.log("item", item)
             if (filterParam == "Все") {
                 return searchParam.some((newItem) => {
                     // console.log(item) // Итем со всеми его данными из общего контейнера
@@ -102,7 +102,7 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
     const editWorker = (idx) => {
 
         let newWorker = useTimeLogContext.workers[idx]
-        console.log("newWorker.filters?", newWorker)
+        // console.log("newWorker.filters?", newWorker)
         useTimeLogContext.current.idx = idx;
         useTimeLogContext.current.worker = newWorker;
         // useTimeLogContext.current.smena = useTimeLogContext.current.smena ? useTimeLogContext.current.smena : newWorker.LastSmena
@@ -167,7 +167,7 @@ const workerCanvasManager = (newWorker, idx, nameSelected, setNameSelected) => {
         setSelected = potentialCell ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
         return [selected, setSelected]
     }
-    console.log(newWorker)
+    // console.log(newWorker)
 
     var defaultSmena = "Дневные смены"
     var defaultWorkType = "Бурение"
@@ -215,7 +215,7 @@ const renderContent = () => {
     const renderMainMode = (ctx) => {
         console.log("[ RE-CALLED ] : renderMainMode")
         return ctx.filter( (item) => {
-            console.log("item", item)
+            // console.log("item", item)
             if (item.useNameSelected[0]) { return true }
         })
     }
@@ -228,7 +228,7 @@ const renderContent = () => {
         if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
             useTimeLogContext.workers.push(newWorker)
 
-            console.log("789s", useTimeLogContext.workers)
+            // console.log("789s", useTimeLogContext.workers)
         } else {
             var idx = useTimeLogContext.workers.findIndex((element) => element.name == newWorker.name)
             // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
@@ -237,11 +237,11 @@ const renderContent = () => {
                 LastSmena: useTimeLogContext.workers[idx].LastSmena,
                 LastWorkType: useTimeLogContext.workers[idx].LastWorkType
             }
-            console.log("456s", useTimeLogContext.workers)
+            // console.log("456s", useTimeLogContext.workers)
         }
     }
-    console.log("workerList", workerList)
-    console.log("useTimeLogContext.workers", useTimeLogContext.workers)
+    // console.log("workerList", workerList)
+    // console.log("useTimeLogContext.workers", useTimeLogContext.workers)
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
                                     {search(useTimeLogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
@@ -332,7 +332,7 @@ const prepareWorkers = () => {
         index++
         ret.push(worker)
     }
-    console.log(ret)
+    // console.log(ret)
     return ret
 }
     const backToObjectList = () => {

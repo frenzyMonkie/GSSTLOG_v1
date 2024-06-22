@@ -39,7 +39,7 @@
                 // Сформировать (из предварительно заполненных и сохраненных в useState & cookies блоков, preview + presend-select) -> Отправить (-> jsonify -> post request) -> Подтверждение (Статус доставки) -> История (список отправленных)
                 // var extensionRange = $('#date_range').datepicker('widget').data('datepickerExtensionRange');
                 // if (extensionRange.datesText) console.log(extensionRange.datesText);
-                var tnodes = []
+
                 // useTimeLogContext.current.timenode = dateText
 
                 // useTimeLogContext.current.timenodes.forEach(el => {
@@ -64,27 +64,41 @@
 
                 // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
                 // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
-                if (extensionRange.datesText) {
-                    extensionRange.datesText.forEach(dateText => {
-                        // Взять все выбранные даты, и если есть новая дата, то добавить её. и
-                        useTimeLogContext.current.timenodes.forEach(node => {
-                            tnodes.push(node.date)
 
-                        })
-                        if (!tnodes.includes(dateText)) {
-                            useTimeLogContext.current.timenodes.push({
-                                date: dateText,
-                                object: useTimeLogContext.current.object,
-                                smena: useTimeLogContext.current.smena,
-                                workType: useTimeLogContext.current.workType
-                            })
-                        }
+                // useTimeLogContext.current.timenodes.forEach(item => {
+                //     if (item.hours == null || item.hours == undefined) {
+                //         let index = useTimeLogContext.current.timenodes.indexOf(item);
+                //         if (index !== -1) {
+                //             useTimeLogContext.current.timenodes.splice(index, 1);
+                //         }
+                //     }
+                // })
 
-                        // tnodes.push({date: element, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
-                    });
+                // }) = useTimeLogContext.current.timenodes.filter(item => (item.hours != null && item.hours != undefined));
+                var tnodes = []
+                // console.log('Datepicker dates', extensionRange.datesText)
+                // if (extensionRange.datesText) {
+                //     extensionRange.datesText.forEach(dateText => {
+                //         // Взять все выбранные даты, и если есть новая дата, то добавить её. и
+                //         useTimeLogContext.current.timenodes.forEach(node => {
+                //             tnodes.push(node.date)
+                //         })
+                //         // console.log(tnodes.includes(dateText))
+                //         if (!tnodes.includes(dateText)) {
+                //             useTimeLogContext.current.timenodes.push({
+                //                 date: dateText,
+                //                 object: useTimeLogContext.current.object,
+                //                 smena: useTimeLogContext.current.smena,
+                //                 workType: useTimeLogContext.current.workType
+                //             })
+                //         }
 
-                    // CTX - USER UPDATES DATA
-                }
+                //         // tnodes.push({date: element, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
+                //     });
+
+                //     // CTX - USER UPDATES DATA
+                // }
+                useTimeLogContext.current.date = dateText
                 // useTimeLogContext.current.timenodes = tnodes
                 console.log("Datepicker inner ", useTimeLogContext)
             }

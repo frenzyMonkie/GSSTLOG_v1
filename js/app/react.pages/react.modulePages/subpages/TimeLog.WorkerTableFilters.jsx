@@ -23,7 +23,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
             // setSelectedSmena(useTimeLogContext.current.smena)
             // setSelectedWorkType(useTimeLogContext.current.workType)
             useTimeLogContext.current[filterName] = filterVal;
-            console.log(useTimeLogContext.current[filterName], filterName, filterVal)
+            // console.log(useTimeLogContext.current[filterName], filterName, filterVal)
             navigate("/CalendarPro", {replace: true})
         }; // Тоггл галочки выбора
         let iconClass = "task_item_arr fi fi-br-check"
@@ -41,7 +41,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     }
     const filterCanvasManager = (filterCategory, filterVals) => {
         var ret = []
-        console.log(useTimeLogContext.current[filterCategory])
+        // console.log(useTimeLogContext.current[filterCategory])
         var selected = useTimeLogContext.current[filterCategory]
         for (var filterVal of filterVals) {
             var canvas = oneFilterSelectableCanvas(filterCategory, filterVal, selected)
@@ -60,7 +60,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         console.log("[ RE-CALLED ] : renderContent")
         // Подготовка данных
         useTimeLogContext.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
-        console.log(useTimeLogContext.filters)
+        // console.log(useTimeLogContext.filters)
         const nameList_mainmode = <div className="tab__content" id="tab__filters">
                                         {useTimeLogContext.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
@@ -118,7 +118,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     }
 
     const render = () => {
-        console.log(filterCategory, filterVals)
+        // console.log(filterCategory, filterVals)
         return AppCanvas({
                 renderCanvas: renderContent,
                 pageTitle: state.pageTitle,
