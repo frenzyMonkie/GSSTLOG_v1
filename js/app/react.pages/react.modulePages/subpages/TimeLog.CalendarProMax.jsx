@@ -35,7 +35,7 @@ const CalendarPro = () => {
     // const onCautionEvent = () => {}
     const handleQuitTLOG = () => {
         // Предупредить о сбросе данных и перейти назад, если человек согласен
-        navigate("/TimeLogSelectWorkers", {replace: true})
+        navigate("/TimeLogSelectWorkers", {replace: false})
     }
     const navLeft  = (handler) => {
         var btn = <i onClick={handleQuitTLOG} className="fi fi-rr-arrow-small-left"></i>
@@ -46,9 +46,16 @@ const CalendarPro = () => {
     )}
     const handleSaveTLOG = () => {
         // Сохранить данные и перейти назад.
+        console.log("useTimelogContext.current.timenodes", useTimelogContext.current.timenodes)
+        let current = useTimelogContext.current.timenodes
+        console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
+        useTimelogContext.workers[useTimelogContext.current.idx].timenodes = structuredClone(current) // Ну примерно так
+        console.log("useTimelogContext.workers", useTimelogContext.workers, "useTimelogContext.current.idx", useTimelogContext.current.idx, useTimelogContext.workers[useTimelogContext.current.idx].timenodes)
         navigate("/TimeLogSelectWorkers", {replace: true})
+
     }
-    const navRight  = (handler) => {
+    const navRight  = ({children}) => {
+        // Нужно сделать апдейт в этом моменте useTLCXT.current + .workers.
         var btn = <i onClick={handleSaveTLOG} className="fi fi-rs-disk"></i>
         return (
         <Fragment>

@@ -1,14 +1,22 @@
+var workers = [
+    {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true,
+        timenodes: [
+            {date: "06.06.2024", hours: 12, smena:"Ночные смены", workType:"Бурение"},
+            {date: "06.06.2024", hours: 12, smena:"Дневные смены", workType:"Бурение"},
+            {date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Замывка"},
+            {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Дежурство"}
+    ],},
+    {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
+    {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
+    {name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true, timenodes: [],},
+    {name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true, timenodes: [],},
+    {name: "Нагорный Ламинат Горыныч", band: "Данченко", isFav: false, isSelected: false, timenodes: [],},
+    {name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
+    {name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, isSelected: true, timenodes: [],},
+    {name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false, timenodes: [],},
+]
 
-const TimeLogContext = React.createContext({
-    objects: [],
-    workers: [],
-    current: {
-        idx: null,
-        worker: null,
-        workType: null,
-        smena: null,
-        timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
-    }})
+
 const searchBar = (searchQuery, setSearchQuery) => {
     console.log("[ RE-CALLED ] : searchBar")
     return <input
@@ -43,27 +51,11 @@ const TimeLogSelectWorkers  = () => {
     }
 
     const [selectMode, setSelectMode] = useState(false)
-    var firstLoad = true
+
     // const [btnGridVisible, setBtnGridVisible] = useState(true)
     // console.log(setBtnGridVisible)
     // useTimeLogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
-    var workers = [
-        {name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true,
-            timenodes: [
-                {date: "06.06.2024", hours: 12, smena:"Ночные смены", workType:"Бурение"},
-                {date: "06.06.2024", hours: 12, smena:"Дневные смены", workType:"Бурение"},
-                {date: "07.06.2024", hours: null, smena:"Дневные смены", workType:"Замывка"},
-                {date: "08.06.2024", hours: 8, smena:"Дневные смены", workType:"Дежурство"}
-        ],},
-        {name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false, timenodes: [],},
-        {name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
-        {name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true, timenodes: [],},
-        {name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true, timenodes: [],},
-        {name: "Нагорный Ламинат Горыныч", band: "Данченко", isFav: false, isSelected: false, timenodes: [],},
-        {name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, isSelected: false, timenodes: [],},
-        {name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, isSelected: true, timenodes: [],},
-        {name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false, timenodes: [],},
-    ]
+
 
 
     // https://codepen.io/Spruce_khalifa/pen/GRrWjmR
@@ -83,7 +75,7 @@ const TimeLogSelectWorkers  = () => {
         // console.log(items)
         return items.filter((item) => { // Отобразятся только элементы, по которым прошло true по условиям.
             // Если значение элемента совпадает с указанным в фильтре (напр. избранное или выбранные)
-            // console.log(item)
+            console.log("item", item)
             if (filterParam == "Все") {
                 return searchParam.some((newItem) => {
                     // console.log(item) // Итем со всеми его данными из общего контейнера
@@ -122,13 +114,14 @@ const TimeLogSelectWorkers  = () => {
 
     }
 const object = {name: "Амурская", type: "СВП"}
-const [smena, setSmena] = useState("Дневные смены")
-const [workType, setWorkType] = useState(object.type == "123" ? "Дежурство" : "Бурение")
+// const [smena, setSmena] = useState()
+// const [workType, setWorkType] = useState(object.type == "123" ? "Дежурство" : "Бурение")
+
 // const [currentObject, setCurrentObject] = useState("Силикатный пр-д");
 // useTimeLogContext.current.object = currentObject;
 const oneWorkerMainCanvas = (idx, newWorker) => {
     console.log("[ RE-CALLED ] : oneWorkerMainCanvas")
-    const editWorker = () => {
+    const editWorker = (idx) => {
 
         // При перезагрузке страницы календаря - контекст сбрасывается, всё теряется.
         // Т.е. нужно брать все данные из базы данных вообще? Тогда реактивность будет пропадать.
@@ -142,11 +135,25 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
 
         // Здесь добавляем в current только те timenodes, которые соответствуют фильтрам.
         // При смене фильтра - будут меняться все current значения, в т.ч. timenodes.
-
+        // var lastEditedSmena = newWorker // newWorker.timenodes[idx].smena
+        // var lastEditedWorkType = newWorker
+        console.log(newWorker)
+        let newWorker = useTimeLogContext.workers[idx]
         useTimeLogContext.current.idx = idx;
         useTimeLogContext.current.worker = newWorker;
-        useTimeLogContext.current.smena = smena;
-        useTimeLogContext.current.workType = workType;
+        // useTimeLogContext.current.smena = smena;
+        // useTimeLogContext.current.workType = workType;
+        // useTimeLogContext.current.smena = newWorker.LastSmena // newWorker.useLastSmena[0];
+        // useTimeLogContext.current.smena = newWorker.useLastSmena[0];
+        // useTimeLogContext.current.setSmena = newWorker.useLastSmena[1];
+        // useTimeLogContext.current.workType = newWorker.LastWorkType // newWorker.useLastWorkType[0];
+        // useTimeLogContext.current.workType = newWorker.useLastWorkType[0];
+        // useTimeLogContext.current.setWorkType = newWorker.useLastWorkType[1];
+        console.log("useTimeLogContext.current.smena", useTimeLogContext.current.smena)
+        useTimeLogContext.current.smena = useTimeLogContext.current.smena ? useTimeLogContext.current.smena : newWorker.LastSmena
+        useTimeLogContext.current.workType = useTimeLogContext.current.workType ? useTimeLogContext.current.workType : newWorker.LastWorkType
+        useTimeLogContext.workers[idx].LastSmena = useTimeLogContext.current.smena ? useTimeLogContext.current.smena : useTimeLogContext.workers[idx].LastSmena
+        useTimeLogContext.workers[idx].LastWorkType = useTimeLogContext.current.LastWorkType ? useTimeLogContext.current.LastWorkType : useTimeLogContext.workers[idx].LastWorkType
         let timenodes = []
         useTimeLogContext.workers[idx].timenodes.forEach(node => {
             console.log(node)
@@ -168,12 +175,13 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
     }; // Тоггл галочки
 
 
+    // console.log(newWorker)
 
+    // console.log("ok", newWorker)
 
-    console.log("ok", newWorker)
-
+    // Тут нам нужен явно привязанный кк элементу worker.
     return (
-        <div class="task_item" onClick={editWorker}>
+        <div class="task_item" onClick={() => editWorker(idx)}>
                             <div class="task_item_text">
                                 <p class="task_item_header nomargin title_m">{newWorker.name}</p>
                                 <p class="task_item_info label_s">{newWorker.band}</p>
@@ -212,34 +220,59 @@ const parseContextNames = (useTimeLogContext) => {
     }
     return ret
 }
-const workerCanvasManager = (idx, newWorker, nameSelected, setNameSelected) => {
+const workerCanvasManager = (newWorker, idx, nameSelected, setNameSelected) => {
     console.log("[ RE-CALLED ] : workerCanvasManager")
     // useTimeLogContext - нужно здесь обновить TimeLogContext на предмет выбранной ячейки,
     //  чтобы считывать для отображения в календаре и записывать туда корректируемые данные
     // Для этого нужна нормальная структура данных
 
-    var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newWorker, nameSelected, setNameSelected) : oneWorkerMainCanvas(idx, newWorker, nameSelected, setNameSelected)
-    // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
+    const useCells = (potentialCell, defaultValue) => {
+        var [selected, setSelected] = useState(defaultValue)
+        var [selected2, setSelected2] = potentialCell ? potentialCell : [null, null]
+        selected = potentialCell ? selected2 : selected
+        setSelected = potentialCell ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
+        return [selected, setSelected]
+    }
+    console.log(newWorker)
+    // var [selected, setSelected] = useState(newWorker.isSelected)
+    // var [selected2, setSelected2] = newWorker.useNameSelected ? newWorker.useNameSelected : [null, null]
+    // selected = newWorker.useNameSelected ? selected2 : selected
+    // setSelected = newWorker.useNameSelected ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
+    var defaultSmena = "Дневные смены"
+    var defaultWorkType = "Бурение"
+    var [selected, setSelected] = useCells(newWorker.useNameSelected, newWorker.isSelected)
     let newWorkerData = {
+        ...newWorker,
         index: idx, // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
+        useNameSelected: [selected, setSelected],
+        // useLastSmena: [smena, setSmena],
+        // useLastWorkType: [workType, setWorkType],
+        LastSmena: defaultSmena,
+        LastWorkType: defaultWorkType,
+    }
+
+    var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newWorker, selected, setSelected) : oneWorkerMainCanvas(idx, newWorker, nameSelected, setNameSelected)
+    // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
+    newWorkerData = {
+        ...newWorkerData,
         canvas: canvas,
-        useNameSelected: [nameSelected, setNameSelected],
-        ...newWorker
     }
 
     // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
     // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
-    var namesInContext = parseContextNames(useTimeLogContext)
-    console.log(useTimeLogContext)
-    if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
-        useTimeLogContext.workers.push(newWorkerData)
-    } else {
-        var idx = useTimeLogContext.workers.findIndex((element) => element.name == newWorkerData.name)
-        // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
-        useTimeLogContext.workers[idx] = newWorkerData
-    }
-
-    return canvas
+    // var namesInContext = parseContextNames(useTimeLogContext)
+    // console.log(useTimeLogContext)
+    // if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
+    //     useTimeLogContext.workers.push(newWorkerData)
+    //     console.log("789s", useTimeLogContext.workers)
+    // } else {
+    //     var idx = useTimeLogContext.workers.findIndex((element) => element.name == newWorkerData.name)
+    //     // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
+    //     useTimeLogContext.workers[idx] = newWorkerData
+    //     console.log("456s", useTimeLogContext.workers)
+    // }
+    // Добавляем newWorkerData но происходит запоздание?
+    return newWorkerData
 }
 
 
@@ -252,13 +285,31 @@ const renderContent = () => {
     const renderMainMode = (ctx) => {
         console.log("[ RE-CALLED ] : renderMainMode")
         return ctx.filter( (item) => {
+            console.log("item", item)
             if (item.useNameSelected[0]) { return true }
         })
     }
 
     // Подготовка данных
-    prepareWorkers()
+    var workerList = prepareWorkers()
+    var namesInContext = parseContextNames(useTimeLogContext)
 
+    for (var newWorker of workerList) {
+        if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
+            useTimeLogContext.workers.push(newWorker)
+            console.log("789s", useTimeLogContext.workers)
+        } else {
+            var idx = useTimeLogContext.workers.findIndex((element) => element.name == newWorker.name)
+            // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
+            useTimeLogContext.workers[idx] = newWorker
+            console.log("456s", useTimeLogContext.workers)
+        }
+    }
+    console.log("workerList", workerList)
+    console.log("useTimeLogContext.workers", useTimeLogContext.workers)
+    // var workers = useTimeLogContext.workers
+    // На этом этапе useTimeLogContext.workers не содержит useNameSelected и прочих. Хотя они были добавлены ранее.
+    // Возможно, стоит сначала составлять обычный массив, а потом передавать его в useTimeLogContext
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
                                     {search(useTimeLogContext.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
@@ -294,8 +345,8 @@ const renderContent = () => {
 
     return (
         <TimeLogContext.Provider>
-        <div class="container timelog">
-            <div class="content timelog workers" id="content_main">
+        <div class="timelog">
+            <div class="workers">
                 <div class="tab-wrap">
                     {selectMode ? selectmodeCanvas : mainCanvas}
                 </div>
@@ -328,36 +379,29 @@ const prepareWorkers = () => {
     // интернета не было, он решил начать с телефона, и пока заполнял с телефона, появился интернет, и данные сохранились.
     // Тогда тут нужна проверка на время именно сохранения данных, момент заполнения.
     // И тот который позже всегда должен перезаписывать новый. Иначе могу быть казусы, чисто теоретически, и их надо исключить.
-    if (firstLoad) {
-        firstLoad = false
-        let idx = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
-        for (var newWorker of workers) { // Формируем список фамилий
-            console.log("newWorker", useTimeLogContext)
-            const [selected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-            workerCanvasManager(idx, newWorker, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
-            if (newWorker.isSelected) {
-                useEffect(() => { // Устанавливаем пресетные значения
-                    const addSelected = async () => {
-                        setSelected(true)
-                    };
-                    addSelected()
-                }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-            }
-            idx++
-        }
-    } else {
-        // console.log(firstLoad)
-        for (var newWorker of useTimeLogContext.workers) {
-            if (newWorker.useNameSelected[0]) { // if (newWorker.isSelected)
-                useEffect(() => { // Устанавливаем пресетные значения
-                    const addSelected = async () => {newWorker.useNameSelected[1](true)};
-                    addSelected()
-                    }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
 
-                workerCanvasManager(idx, newWorker, newWorker.useNameSelected[0], newWorker.useNameSelected[1]) // Инициализируем сам элемент с логикой и холстом
-            }
+
+
+    const parseContextNames = (useTimeLogContext) => {
+        console.log("[ RE-CALLED ] : parseContextNames")
+        // console.log(useTimeLogContext)
+        var ret = [] // Просто выдираем имена из контекста
+        for (var uniqueWorker of useTimeLogContext.workers) {
+            ret.push(uniqueWorker.name)
         }
+        return ret
     }
+    var wrks = useTimeLogContext.workers.length == 0 ? workers : useTimeLogContext.workers
+    var alreadyInitializedItems = parseContextNames(useTimeLogContext)
+    let index = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
+    let ret = []
+    for (var newWorker of wrks) {
+        let worker = workerCanvasManager(newWorker, index, alreadyInitializedItems) // Инициализируем сам элемент с логикой и холстом
+        index++
+        ret.push(worker)
+    }
+    console.log(ret)
+    return ret
 }
     const backToObjectList = () => {
         navigate("/TimeLogSelectObjects", {replace: true})

@@ -88,47 +88,104 @@
 
 // Вроде как можно попробовать привязаться через useEffect и getElById("worktype"), getElById("smena")
 // Вариант с интегрировонием (может не пройти) - прокидывать туда jsx-компонент с привязанными хендлерами, которые в свою очередь связаны с контекстом, в котором будет фамилия и сохранение данных.
-var onClick = (w) => {
-    // event.preventDefault();
-    // props.handleSubmit(this.state);
-    // console.log("onSave", this.state)
-    // this.setState(this.initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
-    console.log("Показать боттом-меню выбора ", w)
-    console.log("При выборе из списка - обновить значение в контексте для хранения данных формы, обновить отображаемое значение ", w)
-    console.log("Для этого нужно использовать useContext с готовым useState внутри")
-}
 
-const filters_inject = (useTimeLogContext) => {
-    // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
-    var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
-    var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
-    var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + useTimeLogContext.current.worker.name + "</div></div>"
-    var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div>"
 
-    return (
-        "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"
-    )
-}
+// const filters_inject = (useTimeLogContext) => {
+//     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+//     var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
+//     var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
+//     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + useTimeLogContext.current.worker.name + "</div></div>"
+//     var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div>"
+
+//     return (
+//         "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"
+//     )
+// }
 const filters = (useTimeLogContext) => {
-    const navigate = useNavigate();
-    // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
-    var objectOnclick =  () => navigate("/TimeLogSelectObjects", {replace: true})
-    var nameOnclick = () => navigate("/TimeLogSelectWorkers", {replace: true})
-    var name = <div class='calendFilter' id='calendar_workername' onClick={nameOnclick}> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> </div>
-    var object = <div class='calendFilter' id='calendar_object' onClick={objectOnclick}><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+    // let idx = useTimeLogContext.current.idx
+    // var [smena, setSmena] = useState(useTimeLogContext.workers[idx].LastSmena)
+    // var [workType, setWorkType] = useState(useTimeLogContext.workers[idx].LastWorkType)
+    // useTimeLogContext.current.setSsmena = setSmena
+    // useTimeLogContext.current.setWorkType = setWorkType
+    // useTimeLogContext.current.smena = useTimeLogContext.current.smena ?  useTimeLogContext.current.smena : useTimeLogContext.workers[idx].LastSmena
+    // useTimeLogContext.current.workType = useTimeLogContext.current.workType? useTimeLogContext.current.workType : useTimeLogContext.workers[idx].LastWorkType
+    // useTimeLogContext.workers[idx].LastSmena = useTimeLogContext.current.smena ? useTimeLogContext.current.smena : useTimeLogContext.workers[idx].LastSmena
+    // useTimeLogContext.workers[idx].LastWorkType = useTimeLogContext.current.LastWorkType ? useTimeLogContext.current.LastWorkType : useTimeLogContext.workers[idx].LastWorkType
 
-    var smena = <div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div> // <div class='band'>Бригадир: {useTimeLogContext.current.worker.band}</div>
-    var wtype = <div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
+    const navigate = useNavigate();
+    var onClick = (w) => {
+        // event.preventDefault();
+        // props.handleSubmit(this.state);
+        // console.log("onSave", this.state)
+        // this.setState(this.initialState); // Тут не нужно сбрасывать. Наоборот, значения должны сохраняться.
+        console.log("Показать боттом-меню выбора ", w)
+        console.log("При выборе из списка - обновить значение в контексте для хранения данных формы, обновить отображаемое значение ", w)
+        console.log("Для этого нужно использовать useContext с готовым useState внутри")
+    }
+    // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    // var objectOnclick =  () => navigate("/TimeLogSelectObjects", {replace: true})
+    // var nameOnclick = () => navigate("/TimeLogSelectWorkers", {replace: true})
+    // var name = <div class='calendFilter' id='calendar_workername' onClick={nameOnclick}> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> </div>
+    // var object = <div class='calendFilter' id='calendar_object' onClick={objectOnclick}><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+    var name = <div class='calendFilter' id='calendar_workername'> <div class='workername'>Сотрудник:</div><div>{useTimeLogContext.current.worker.name}</div> </div>
+    var object = <div class='calendFilter' id='calendar_object'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+
+    // Далее, очевидно - сделать связь между выбираемой сменой и обновлением холста календаря.
+    // var smenaOptions = ["Дневные смены", "Ночные смены"]
+    // var workTypeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение"]
+
+
+    // Здесь нужно привязать, последний стык.
+    // {item} должен быть из контекста, а не из массива
+    // {useTimeLogContext.current.smena}
+    // const filterBlock = (items, category) => {
+    //     return items.map((item) => ( // Отрисовать результаты поиска по всему файлу.
+    //         // console.log(useTimeLogContext.current[item])
+    //         // console.log("filteritem", item)
+    //         // Тут получается расхождение - с одной стороны реактивное поведение setState, с другой - проактивное select onChange
+    //         // Либо мы меняем тег option selected при select onChange, и внутри меняем  useTimeLogContext.current.filter,
+    //         // который тогда в свою очередь должен использоваться при проверках того, какие данные календаря рендерить.
+    //         // Т.е. вопрос там, где сам state из useState соединяется с select option. Но нам необязательно рендерить сам стейт, так ведь?
+    //         item == useTimeLogContext.current[category] ? <option key={item}  value={item} selected>{item}</option> : <option key={item} value={item}>{item}</option>
+    //         // {/* <option key={item} value={item}>{item}</option> */}
+
+    //     ))
+    // }
+
+    const handleFilterClick = (target) => {
+        // console.log(e.target.id)
+        // console.log(e.target.value)
+        // const value = e.target.value
+        if (target == "calendar_smena" ) {
+            navigate("/WorkerTableFilter_Smena", {replace: true})
+        } else if (target == "calendar_worktype" ) {
+            navigate("/WorkerTableFilter_WorkType", {replace: true})
+        }
+    }
+
+    // var smenaChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_smena'>
+    //                         {filterBlock(smenaOptions, 'smena')}
+    //                     </select>
+
+    // var wtypeChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_worktype'>
+    //                         {filterBlock(workTypeOptions, 'workType')}
+    //                     </select>
+
+    // var smena = <div class='calendFilter' id='calendar_smena' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div> // <div class='band'>Бригадир: {useTimeLogContext.current.worker.band}</div>
+    // var wtype = <div class='calendFilter' id='calendar_worktype' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
+
+    var smenaChoose =  <div class='calendFilter' id='calendar_smena' onClick={() => handleFilterClick('calendar_smena')}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.smena}</div></div> // <div class='band'>Бригадир: {useTimeLogContext.current.worker.band}</div>
+    var wtypeChoose =  <div class='calendFilter' id='calendar_worktype' onClick={() => handleFilterClick('calendar_worktype')}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{useTimeLogContext.current.workType}</div></div>
 
     return (
-        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{smena}{wtype}</div></div>
+        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{smenaChoose}{wtypeChoose}</div></div>
     )
 }
 const infoSection = (useTimeLogContext) => {
     var days = 0, hours = 0
     useTimeLogContext.current.worker.timenodes.forEach(node => {
         if (node.hours != null && node.smena == useTimeLogContext.current.smena && node.workType == useTimeLogContext.current.workType) {
-            hours += node.hours
+            hours += Number(node.hours)
             days++
         }
     }) // Подсчёт кол-ва часов и дней с учётом фильтров
@@ -244,7 +301,6 @@ const MultidateCalendar = (props) => {
     const useTimeLogContext = props.useTimeLogContext
     // useTimeLogContext.choosingHours = [choosingHours, setChoosingHours]
     const onSave = event => {
-
         event.preventDefault();
         props.handleSubmit(state);
         console.log("onSave", state)

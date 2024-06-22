@@ -1,4 +1,14 @@
-
+const TimeLogContext = React.createContext({
+    current: {
+        idx: null,
+        worker: null,
+        workType: null,
+        smena: null,
+        timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
+    },
+    objects: [],
+    workers: [],
+})
 const AppCanvas = (props) => {
 
     const [loading, setLoading] = useState(false);
@@ -51,7 +61,6 @@ const AppCanvas = (props) => {
     return (
         <Fragment>
         {head}
-
                 <div className="container">
                 { loading ? (
                     <LoadSpinner />
