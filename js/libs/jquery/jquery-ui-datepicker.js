@@ -1151,7 +1151,7 @@ $.extend( Datepicker.prototype, {
         console.log( "hoho", "2. Будет открывать панель с выбором времени, панель привязана к дате и всем остальным фильтрам")
         let useTimeLogContext = this._get( inst, "useTimeLogContext" );
         useTimeLogContext.btnGrid[1](true) // Отображаем BTN-GRID
-        useTimeLogContext.setCurrentTLOGDate(useTimeLogContext, this._formatDate( inst,
+        useTimeLogContext.setCurrentTimenodesByDate(useTimeLogContext, this._formatDate( inst,
 			inst.currentDay, inst.currentMonth, inst.currentYear ))
         // !!! Чтобы при нажатии на дату был не ТОГГЛ, а ПРОВЕРКА на "наличие часов на эту дату в контексте".
 
@@ -1984,7 +1984,7 @@ $.extend( Datepicker.prototype, {
                 // if (date[0] == thisDate && date[1] == thisMonth && date[2] == thisYear) {console.log("Совпадение", CTXelement.date)}
                 if (ctxDate.getTime() == calendarDate.getTime()) {
                     console.log("Совпадение", ctxDate, calendarDate)
-                    // console.log(true)
+                    console.log(true)
                     success = true
                 }
             })

@@ -229,12 +229,12 @@ const TimeLogSelectObjects  = () => {
 
         prepareObjects() // Подготовка данных
         console.log("Элементы готовы. Переходим к собиранию полотна")
-        const nameList_selectmode = <div className="tab__content" id="tab__favourite_objects">
+        const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
                                         {search(useTimeLogContext.objects).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                         ))}
                                     </div>
-        const nameList_mainmode = <div className="tab__content" id="tab__chosen_objects">
+        const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
                                         {renderMainMode(useTimeLogContext.objects).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                             // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
@@ -247,12 +247,12 @@ const TimeLogSelectObjects  = () => {
                                     {/* {object} */}
                                     <div className="grid">
 
-                                        <input type="radio" id="objtab1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
+                                        <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
                                         <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
-                                        <input type="radio" id="objtab3" class="tab" checked={filterParam == "Все" ? true : false}/>
+                                        <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
                                         <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label>
 
-                                        {/* <input type="radio" id="objtab2" class="tab" checked={filterParam == "Избранное" ? true : false}/>
+                                        {/* <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                         <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot">Избранное</div></label> */}
                                         {sbar}
                                         {nameList_selectmode}
@@ -260,14 +260,14 @@ const TimeLogSelectObjects  = () => {
                                 </Fragment>
         const mainCanvas = <Fragment>
                                 {/* {object} {objInfo} */}
-                                <input type="radio" id="objtab0" class="tab" checked/>
+                                <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                                 {nameList_mainmode}
                             </Fragment>
         console.log("Полотно готово к рендеру")
         return (
             <TimeLogContext.Provider>
-            <div class="timelog">
-                <div class="objects">
+            <div class="container timelog">
+                <div class="content timelog" id="content_main">
                     <div class="tab-wrap">
                         {selectMode ? selectmodeCanvas : mainCanvas}
                     </div>

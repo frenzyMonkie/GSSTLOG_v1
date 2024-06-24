@@ -8,28 +8,22 @@ const ButtonGrid = () => {
     useTimeLogContext.checkedBtn = [checkedBtn, setCheckedBtn]
     const [currentDate, setCurrentDate] = useState(null)
     useTimeLogContext.currentDate = [currentDate, setCurrentDate]
-
-    const setCurrentTLOGDate = (useTimeLogContext, date, hours) => {
+    const setCurrentTimenodesByDate = (useTimeLogContext, date, hours) => {
         if (date) useTimeLogContext.current.date = date // Устанавливаем фокус на выбранную дату
         useTimeLogContext.currentDate[1](date)
-        // let date = useTimeLogContext.currentDate[0]
-        let object = useTimeLogContext.current.object
-        let smena = useTimeLogContext.current.smena
-        let workType = useTimeLogContext.current.workType
         useTimeLogContext.current.timenodes.forEach(el => { // Устанавливаем фокус на хранящееся число отработанных часов для последующей отрисовки
-            let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
-            let contextMatch = el.object == object && el.smena == smena && el.workType == workType
-            if (totalMatch) {
-                // if (el.date == date) {
+            if (el.smena == useTimeLogContext.current.smena && el.workType == useTimeLogContext.current.workType) {
+                if (el.date == date) {
+
                     useTimeLogContext.current.hours = el.hours
                     setCheckedBtn(el.hours) // Выделяем новую кнопку цветом
-                // }
+                }
             }
         })
-        // $('#date_range').datepicker( "refresh" )
+        $('#date_range').datepicker( "refresh" )
         console.log("[ Вход в контекст выбора часов]", useTimeLogContext)
     }
-    useTimeLogContext.setCurrentTLOGDate = setCurrentTLOGDate
+    useTimeLogContext.setCurrentTimenodesByDate = setCurrentTimenodesByDate
 
     const removeHoursData = e => {
         updateDatepicker(e, "remove")
@@ -39,11 +33,6 @@ const ButtonGrid = () => {
 
     const handleBtnClick = e => {
         updateDatepicker(e, "update")
-        cleanupAndRefresh();
-        // setTimeout(() => {  }, 100);
-    }
-    const goBack = e => {
-        updateDatepicker(e, "back")
         cleanupAndRefresh();
         // setTimeout(() => {  }, 100);
     }
@@ -60,171 +49,32 @@ const ButtonGrid = () => {
 
     const updateDatepicker = (e, action) => {
 
-        // let date = useTimeLogContext.currentDate[0]
-        let date = useTimeLogContext.current.date
-        let object = useTimeLogContext.current.object
-        let smena = useTimeLogContext.current.smena
-        let workType = useTimeLogContext.current.workType
-
         // Устанавливаем выбранное пользователем кол-во часов
-        // useTimeLogContext.current.hours = action == "update" ? Number(e.target.textContent)
-        // : action == "remove" ? null
-        // : action == "back" ? useTimeLogContext.current.hours
-        // : null
-        let hours = action == "update" ? Number(e.target.textContent)
-        : action == "remove" ? null
-        : action == "back" ? useTimeLogContext.current.hours
-        : null
-
-
-        if (action == "update" || action == "remove") {
-            let totalMatchFound = false
-            useTimeLogContext.current.timenodes.forEach(el => {
-                let filtersMatch =  el.object == object && el.smena == smena && el.workType == workType
-                let totalMatch = el.date == date && filtersMatch
-                totalMatchFound = totalMatch ? true : totalMatch
-
-                el.hours = totalMatch ? hours : el.hours // Устанавливаем выбранное пользователем кол-во часов также в общем списке
-
-                // Фильтруем по фильтрам, проверяем что у элемента уже проставлено значение часов.
-                let shouldBeDrawn = el.hours != null && filtersMatch
-                if (shouldBeDrawn) {
-                    console.log("next", el)
-                    if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
-                        console.log("el2", el)
-                        // console.log(useTimeLogContext)
-                        let date = el.date.split(".")
-                        let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
-                        $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
-                    }
+        useTimeLogContext.current.hours = action == "update" ? e.target.textContent : action == "remove" ? null : "QQQ"
+        let hours = action == "update" ? e.target.textContent : action == "remove" ? null : "QQQ"
+        let date = useTimeLogContext.currentDate[0]
+        console.log("updateDatepicker", useTimeLogContext.current.timenodes)
+        useTimeLogContext.current.timenodes.forEach(el => {
+            console.log(el.date, date,  hours)
+            el.hours = el.date == date ? hours : el.hours // Устанавливаем выбранное пользователем кол-во часов также в общем списке
+            // Фильтруем по фильтрам, проверяем что у элемента уже проставлено значение часов.
+            if (el.smena == useTimeLogContext.current.smena && el.workType == useTimeLogContext.current.workType) {
+                console.log("el2", el)
+                if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
+                    console.log("el2", el)
+                    // console.log(useTimeLogContext)
+                    let date = el.date.split(".")
+                    let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
+                    $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
                 }
-
-            // useTimeLogContext.current.timenodes.forEach(item => {
-            //     if (item.hours == null || item.hours == undefined) {
-            //         let index = useTimeLogContext.current.timenodes.indexOf(item);
-            //         if (index !== -1) {
-            //             useTimeLogContext.current.timenodes.splice(index, 1);
-            //         }
-            //     }
-            // })
-
-            // if (el.hours == null) {
-            //     var index = useTimeLogContext.current.timenodes.indexOf(el);
-            //     console.log(index)
-            //     if (index !== -1) {
-            //         useTimeLogContext.current.timenodes.splice(index, 1);
-            //     }
-            // }
-
-            })
-
-           // Взять все выбранные даты, и если есть новая дата, то добавить её. и
-        //    useTimeLogContext.current.timenodes.forEach(node => {
-        //     tnodes.push(node.date)
-        //     })
-        //     // console.log(tnodes.includes(dateText))
-        //     if (!tnodes.includes(dateText)) {
-        //         useTimeLogContext.current.timenodes.push({
-        //             date: dateText,
-        //             object: useTimeLogContext.current.object,
-        //             smena: useTimeLogContext.current.smena,
-        //             workType: useTimeLogContext.current.workType
-        //         })
-        //     }
-
-            console.log(totalMatchFound, hours)
-            if (!totalMatchFound ) {
-
-                console.log('tmf', totalMatchFound)
-                var el = {
-                    object: useTimeLogContext.current.object,
-                    smena: useTimeLogContext.current.smena,
-                    workType: useTimeLogContext.current.workType,
-                    date: date,
-                    hours: hours,
-                }
-                useTimeLogContext.current.timenodes.push(el)
-                // let contextMatch = el.object == object && el.smena == smena && el.workType == workType && el.hours != null
-                // if (contextMatch) {
-                    if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : (action == "back" && el.date != date) ? true : false) {
-                        // console.log("el2", el)
-                        // console.log(useTimeLogContext)
-                        let date = el.date.split(".")
-                        let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
-                        $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
-                    }
-                // }
-
             }
-        }
-
-
-        // useTimeLogContext.current.timenodes.filter(item => (item.hours != null))
-
-
-
-        //     let hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
-        //     let date = useTimeLogContext.currentDate[0]
-        //     let object = useTimeLogContext.current.object
-        //     let smena = useTimeLogContext.current.smena
-        //     let workType = useTimeLogContext.current.workType
-        //     console.log("updateDatepicker", useTimeLogContext.current.timenodes)
-
-        //     // Устанавливаем выбранное пользователем кол-во часов
-        //     useTimeLogContext.current.hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
-
-        //     var out = []
-        //     useTimeLogContext.current.timenodes.forEach(el => {
-        //         let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
-        //         el.hours = totalMatch ? hours : el.hours
-        //         if (totalMatch) {
-        //             if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
-        //                 console.log("el2", el)
-        //                 let date = el.date.split(".")
-        //                 let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
-        //                 $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
-        //             }
-        //         }
-
-        //     })
-
-        //     let el = []
-        //     if (out.length != 0) {
-        //         el = out[0]
-        //         console.log(out)
-        //         console.log(el.date, date,  hours)
-        //         let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
-        //         el.hours = totalMatch ? hours : el.hours // Устанавливаем выбранное пользователем кол-во часов также в общем списке
-
-        //         // Фильтруем по фильтрам, проверяем что у элемента уже проставлено значение часов.
-        //         if (totalMatch) {
-        //             if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
-        //                 console.log("el2", el)
-        //                 let date = el.date.split(".")
-        //                 let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
-        //                 $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
-        //             }
-        //         }
-        //             // if (node.hours == null) {
-        //             //     var index = useTimeLogContext.current.timenodes.indexOf(node);
-        //             //     if (index !== -1) {
-        //             //         useTimeLogContext.current.timenodes.splice(index, 1);
-        //             //     }
-        //             // }
-        //     } else {
-        //         console.log("date", date)
-        //         el = {
-        //             object: useTimeLogContext.current.object,
-        //             smena: useTimeLogContext.current.smena,
-        //             workType: useTimeLogContext.current.workType,
-        //             date: date,
-        //             hours: hours,
-        //         }
-        //         useTimeLogContext.current.timenodes.push(el)
-        //     }
-
-
-
+                            // if (node.hours == null) {
+                            //     var index = useTimeLogContext.current.timenodes.indexOf(node);
+                            //     if (index !== -1) {
+                            //         useTimeLogContext.current.timenodes.splice(index, 1);
+                            //     }
+                            // }
+        })
     }
 
     return  (
@@ -261,7 +111,7 @@ const ButtonGrid = () => {
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "23" ? "button_hour checked" : "button_hour"} id="h23">23</div>
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "24" ? "button_hour checked" : "button_hour"} id="h24">24</div>
                                 <div onClick={(e) => removeHoursData(e)} class="remove" id="remove">Удалить время</div>
-                                <div onClick={(e) => goBack(e)} class="quit" id="return">Вернуться</div>
+                                <div onClick={() => setBtnGridVisible(!btnGridVisible)} class="quit" id="return">Вернуться</div>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,4 @@
 function App () {
-    var smenaOptions = ["Дневные смены", "Ночные смены"]
-    var workTypeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение"]
 
     // const value = {user, signin, signout}
     // function navigateToContacts() {
@@ -29,8 +27,6 @@ function App () {
                         <Route path="CalendarPro" element={<CalendarPro />} />
                         <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
                         <Route path="TimeLogSelectObjects" element={<TimeLogSelectObjects />} />
-                        <Route path="WorkerTableFilter_Smena" element={<WorkerTableFilter filterCategory="smena" filterVals={smenaOptions} />}/>
-                        <Route path="WorkerTableFilter_WorkType" element={<WorkerTableFilter filterCategory="workType" filterVals={workTypeOptions} />}/>
 
                         <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
                         <Route path="OldReportsPage" element={<OldReportsPage />} />
