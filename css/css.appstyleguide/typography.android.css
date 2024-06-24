@@ -15,7 +15,9 @@ body {
     "GRAD" 0; */
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -.44px;
+    /* letter-spacing: -.44px; */
+    letter-spacing: -.39px;
+
 }
 /* "wght" — font-weight;
 "wdth" — font-stretch;

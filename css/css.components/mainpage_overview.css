@@ -40,6 +40,16 @@
     margin: 0 auto;
 
 }
+
+
+.tab__content:not(#tab__chosen_objects)::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #2aaea4;
+    background-color: #7b7b7b;
+}
 .tab__content:not(#tab__chosen_workers) .task_item {
     animation: moving .46s ease;
 }
@@ -72,7 +82,8 @@
     /* padding: 12px 0px 8px 13px; */
     /* padding: 6px 0px 2px 13px; */
     /* padding: 14px 0px 6px 13px; */
-    padding: 8px 0px 6px 13px;
+    /* padding: 8px 0px 6px 13px; */
+    padding: 9px 0px 9px 15px;
     /* padding: 7px 0px 5px 13px; */
     /* padding: 15px 0px 16px 13px; */
     /* padding: 19px 0px 8px 13px; */
@@ -80,20 +91,31 @@
     height: fit-content;
     max-width: 86%;
 }
+.objects .task_item_text,
+#tab__filters .task_item_text {
+    padding: 16px 0px 14px 15px;
+}
+.objects .task_item_header {
+    margin: 0 0 3px 0;
+}
 .task_item_header {
-    font-size: .9rem;
+    font-size: .94rem;
+    /* font-size: .98rem; */
+    /* .9rem; */
     word-wrap:break-all;
     -webkit-line-clamp: 1; /* Число отображаемых строк */
     display: -webkit-box; /* Включаем флексбоксы */
     -webkit-box-orient: vertical; /* Вертикальная ориентация */
     overflow: hidden; /* Обрезаем всё за пределами блока */
-    margin: 0 0 3px 0;
-    margin: 0 0 9px 0;
-    margin: 0 0 2px 0;
+    margin: 0 0 4px 0;
+    /* margin: 0 0 9px 0;
+    margin: 0 0 2px 0; */
     color: #474646;
-    letter-spacing: -.44px;
+    /* letter-spacing: -.44px; */
+    letter-spacing: -.39px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
+    font-weight: 600;
 }
 /* .task_item_header:first-letter {
     color: rgb(101, 101, 101);
@@ -108,7 +130,8 @@
     /* color: #4e9cee; */
 }
 .task_item_info {
-    font-size: .78rem;
+    /* font-size: .78rem; */
+    font-size: .83rem;
     color: #575757;
     /* color: #469480; */
     /* color: #46abd5; */
@@ -117,6 +140,7 @@
     /* color: #53ad96; */
     /* letter-spacing: -.14px; */
     letter-spacing: .03px;
+    font-weight: 400;
 }
 .task_item_info span {
     color:rgb(109, 109, 109);

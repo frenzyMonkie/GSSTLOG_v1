@@ -12,8 +12,10 @@
 @keyframes moving {
     /* from{transform:translateX(50px);opacity: 0;}
     to{transform:translateX(0px);opacity: 1;} */
-    from{position:relative; right: -50px; opacity: 0;}
-    to{position:relative; right: 0px; opacity: 1;}
+    /* from{position:relative; right: -50px; opacity: 0;}
+    to{position:relative; right: 0px; opacity: 1;} */
+    from{opacity: 0;}
+    to{opacity: 1;}
 }
 
 html {
@@ -46,8 +48,8 @@ body {
     grid-template-areas: "a b c"; */
     /* width: 100%; */
     /* margin: auto; */
-    padding: 9px 0 7px 0;
-    min-height: 48px;
+    /* padding: 9px 0 7px 0; */
+    min-height: 53px;
     background-color: var(--bg-main);
     /* border-bottom: var(--border-header-sep); */
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
@@ -59,8 +61,8 @@ body {
     min-height: 100%;
     grid-area: a;
     align-self: center;
-    min-width: calc(100vw / 13);
-    min-height: calc(100vw / 13);
+    min-width: calc(100vw / 12);
+    min-height: calc(100vw / 12);
 }
 .header .nav_right {
     margin-left: auto;
@@ -91,13 +93,15 @@ body {
 } */
 .header_title {
     /* font-size: .88rem; */
-    font-size: calc(100vw / 27);
+    /* font-size: calc(100vw / 27); */
+    font-size: calc(100vw / 25);
     line-height: 1rem;
     line-height: calc(100vw / 31);
-    font-weight: 500;
+    font-weight: 700;
     text-align: center;
     margin: auto;
     letter-spacing: -.44px;
+    /* letter-spacing: -.39px; */
     cursor: pointer;
     word-break: keep-all;
     grid-area: b;
@@ -129,7 +133,7 @@ body {
     margin: auto;
     background-color: var(--bg-accent);
     /* Чтобы прибить футер к низу */
-
+    animation: moving .08s ease;
 }
 
 .content {
