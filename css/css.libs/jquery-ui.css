@@ -445,7 +445,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-datepicker td {
 	border: 0;
-	padding: calc(100vw/100) 0;
+	padding: calc(100vw/170) 0;
     text-align: center;
     /* padding: .1em 1em; */
     border-radius: 17px;
@@ -1006,8 +1006,10 @@ html .ui-button.ui-state-disabled:active {
     /* text-align: center; */
     /* width: calc(100vw/7.7);
     height: calc(100vw/7.7); */
-	width: calc(100vw/8.6);
-    height: calc(100vw/8.6);
+	/* width: calc(100vw/8.6);
+    height: calc(100vw/8.6); */
+	width: calc(100vw/8.2);
+    height: calc(100vw/8.2);
     /* margin: auto 0; */
     display: flex;
     justify-content: center;
@@ -1073,6 +1075,12 @@ a.ui-button:active,
 .ui-button.ui-state-active:hover {
 	/* border: 1px solid #003eff; */
 	background: #007fff;
+	/* background: #34ae4694; */
+	/* background: #34ae7ba1; */
+	background: #369c60a1;
+	background: #369c60c7;
+	background: #36649cc7;
+	background: #369c7ac7;
 	/* font-weight: normal; */
 	color: #ffffff;
     border-radius: 100%;
