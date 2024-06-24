@@ -4,16 +4,9 @@
     box-sizing: border-box;
     --bg-main: rgb(252, 252, 252);
     --bg-accent: rgb(190, 190, 190);
-    --bg-accent: rgb(255, 255, 255);
     --border-sep: 1px rgba(0, 0, 0, 0.253) solid;
     --border-sep: 1px rgb(207, 207, 207) solid;
     --border-header-sep: 1px rgb(144, 144, 144) solid;
-}
-@keyframes moving {
-    /* from{transform:translateX(50px);opacity: 0;}
-    to{transform:translateX(0px);opacity: 1;} */
-    from{position:relative; right: -50px; opacity: 0;}
-    to{position:relative; right: 0px; opacity: 1;}
 }
 
 html {
@@ -47,7 +40,7 @@ body {
     /* width: 100%; */
     /* margin: auto; */
     padding: 9px 0 7px 0;
-    min-height: 48px;
+    min-height: 40px;
     background-color: var(--bg-main);
     /* border-bottom: var(--border-header-sep); */
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
@@ -59,14 +52,12 @@ body {
     min-height: 100%;
     grid-area: a;
     align-self: center;
-    min-width: calc(100vw / 13);
-    min-height: calc(100vw / 13);
+    min-width: calc(100vw / 18);
+    min-height: calc(100vw / 18);
 }
 .header .nav_right {
     margin-left: auto;
     margin: 0 13px 0 0;
-    margin: 0 22px 0 0;
-    margin: 0 17px 0 0;
     position: relative;
     grid-area: c;
     align-self: center;
@@ -86,9 +77,10 @@ body {
     text-align: center;
 
 }
-/* .header .nav_right .fi-bs-edit  {
-    scale: .9;
-} */
+.header .nav_left .fi-rr-arrow-small-left {
+    /* scale: .74; */
+    /* padding: 0 25px; */
+}
 .header_title {
     /* font-size: .88rem; */
     font-size: calc(100vw / 27);
@@ -110,15 +102,16 @@ body {
     height: fit-content;
     margin: auto;
     background-color: var(--bg-main);
-    /* border-top: var(--border-sep); */
+    border-top: var(--border-sep);
     z-index: 999;
-    box-shadow: 0px -2px 4px 0px #0000000f;
-    /* box-shadow: 0 0 3px 1px rgb(206, 206, 206); */
 }
 .nav_main .menu_item_s {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    /* flex-direction: column; */
+}
+.menu_s {
+    background-color: aqua;
 }
 
 /* Мэйн блок */
