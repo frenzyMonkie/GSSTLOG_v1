@@ -150,7 +150,7 @@ function Datepicker() {
 	};
 	this._defaults = { // Global defaults for all the date picker instances
         init: true,
-        useTimeLogContext: null,
+        TLctx: null,
         timenodes: [],
 		showOn: "focus", // "focus" for popup on focus,
 			// "button" for trigger button, or "both" for either
@@ -1149,9 +1149,9 @@ $.extend( Datepicker.prototype, {
         console.log( "hoho", "Теперь просто нужно здесь подрубить функцию, которая будет менеджерить состояние выбора часов")
         console.log( "hoho", "1. Будет связываться с useTLCTX для отрисовки заранее выбранного времени")
         console.log( "hoho", "2. Будет открывать панель с выбором времени, панель привязана к дате и всем остальным фильтрам")
-        let useTimeLogContext = this._get( inst, "useTimeLogContext" );
-        useTimeLogContext.btnGrid[1](true) // Отображаем BTN-GRID
-        useTimeLogContext.setCurrentTLOGDate(useTimeLogContext, this._formatDate( inst,
+        let TLctx = this._get( inst, "TLctx" );
+        TLctx.btnGrid[1](true) // Отображаем BTN-GRID
+        TLctx.setCurrentTLOGDate(TLctx, this._formatDate( inst,
 			inst.currentDay, inst.currentMonth, inst.currentYear ))
         // // !!! Чтобы при нажатии на дату был не ТОГГЛ, а ПРОВЕРКА на "наличие часов на эту дату в контексте".
 
@@ -1808,7 +1808,7 @@ $.extend( Datepicker.prototype, {
 			cornerClass, calender, thead, day, daysInMonth, leadDays, curRows, numRows,
 			printDate, dRow, tbody, daySettings, otherMonth, unselectable,
 			tempDate = new Date(),
-            useTimeLogContext = null,
+            TLctx = null,
             timenodes = null,
 			today = this._daylightSavingAdjust(
 				new Date( tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() ) ), // clear time
@@ -1953,8 +1953,8 @@ $.extend( Datepicker.prototype, {
 		firstDay = parseInt( this._get( inst, "firstDay" ), 10 );
 		firstDay = ( isNaN( firstDay ) ? 0 : firstDay );
         // console.log("inst", inst );
-        useTimeLogContext = this._get( inst, "useTimeLogContext" );
-        // console.log( useTimeLogContext );
+        TLctx = this._get( inst, "TLctx" );
+        // console.log( TLctx );
         timenodes = this._get( inst, "timenodes" );
 		showWeek = this._get( inst, "showWeek" );
 		dayNames = this._get( inst, "dayNames" );
@@ -1972,14 +1972,14 @@ $.extend( Datepicker.prototype, {
         // onSelect() // Запускаем машинный селект, как если бы это делал человек
         const addTags = (thisDate, thisMonth, thisYear) => {
             let success = false;
-            useTimeLogContext.current.timenodes.forEach(CTXelement => {
-                // console.log("useTimeLogContext.timenodes", CTXelement.date.split("."));
+            TLctx.current.timenodes.forEach(CTXelement => {
+                // console.log("TLctx.timenodes", CTXelement.date.split("."));
                 // console.log(thisDate, thisMonth, thisYear)
                 let date = CTXelement.date.split(".")
 
                 let ctxDate = new Date(date[2], date[1]-1, date[0])
                 let calendarDate = new Date(thisYear, thisMonth, thisDate)
-                // console.log("useTimeLogContext.timenodes", ctxDate);
+                // console.log("TLctx.timenodes", ctxDate);
                 // console.log("calendarDate", calendarDate)
                 // if (date[0] == thisDate && date[1] == thisMonth && date[2] == thisYear) {console.log("Совпадение", CTXelement.date)}
                 if (ctxDate.getTime() == calendarDate.getTime()) {
@@ -2014,7 +2014,7 @@ $.extend( Datepicker.prototype, {
 					calender += "'>";
 				}
 				// var filters = "<div class='calendFilters'><div class='calendFilter'>Дневные смены</div><div class='calendFilter'>Дежурство</div></div>"
-				calender += // += filters(useTimeLogContext)
+				calender += // += filters(TLctx)
                     "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
 					row > 0 || col > 0, monthNames, monthNamesShort ) + // draw month headers
@@ -2038,12 +2038,12 @@ $.extend( Datepicker.prototype, {
 				curRows = Math.ceil( ( leadDays + daysInMonth ) / 7 ); // calculate the number of rows to generate
 				numRows = ( isMultiMonth ? this.maxRows > curRows ? this.maxRows : curRows : curRows ); //If multiple months, use the higher number of rows (see #7043)
 				this.maxRows = numRows;
-                // console.log("generatehtml", useTimeLogContext.current.object)
-                // console.log("generatehtml", useTimeLogContext)
-                // console.log("generatehtml", useTimeLogContext.current.workType)
-                // console.log("generatehtml", useTimeLogContext.current.smena)
-                // console.log("generatehtml", useTimeLogContext.current.worker.name)
-                // console.log("generatehtml", useTimeLogContext.current.worker.timenodes)
+                // console.log("generatehtml", TLctx.current.object)
+                // console.log("generatehtml", TLctx)
+                // console.log("generatehtml", TLctx.current.workType)
+                // console.log("generatehtml", TLctx.current.smena)
+                // console.log("generatehtml", TLctx.current.worker.name)
+                // console.log("generatehtml", TLctx.current.worker.timenodes)
 				printDate = this._daylightSavingAdjust( new Date( drawYear, drawMonth, 1 - leadDays ) );
 				for ( dRow = 0; dRow < numRows; dRow++ ) { // create date picker rows
 					calender += "<tr>";

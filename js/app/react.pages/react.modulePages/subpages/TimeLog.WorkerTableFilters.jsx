@@ -1,11 +1,11 @@
 const WorkerTableFilter = ({ filterCategory, filterVals }) => {
-    const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const navigate = useNavigate();
     // const [selectedSmena, setSelectedSmena] = useState("Дневные смены")
     // const [selectedWorkType, setSelectedWorkType] = useState("Дежурство")
-    useTimeLogContext.filters = {}
-    // useTimeLogContext.filters['smena'] = [selectedSmena, setSelectedSmena]
-    // useTimeLogContext.filters['workType'] = [selectedWorkType, setSelectedWorkType]
+    TLctx.filters = {}
+    // TLctx.filters['smena'] = [selectedSmena, setSelectedSmena]
+    // TLctx.filters['workType'] = [selectedWorkType, setSelectedWorkType]
     const state = {
         pageTitle: "Тип работ",
         currentObject: "",
@@ -20,10 +20,10 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
         const applyFilter = (filterName, filterVal) => {
                     // Это уже при клике
-            // setSelectedSmena(useTimeLogContext.current.smena)
-            // setSelectedWorkType(useTimeLogContext.current.workType)
-            useTimeLogContext.current[filterName] = filterVal;
-            // console.log(useTimeLogContext.current[filterName], filterName, filterVal)
+            // setSelectedSmena(TLctx.current.smena)
+            // setSelectedWorkType(TLctx.current.workType)
+            TLctx.current[filterName] = filterVal;
+            // console.log(TLctx.current[filterName], filterName, filterVal)
             navigate("/CalendarPro", {replace: true})
         }; // Тоггл галочки выбора
         let iconClass = "task_item_arr fi fi-br-check"
@@ -41,8 +41,8 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     }
     const filterCanvasManager = (filterCategory, filterVals) => {
         var ret = []
-        // console.log(useTimeLogContext.current[filterCategory])
-        var selected = useTimeLogContext.current[filterCategory]
+        // console.log(TLctx.current[filterCategory])
+        var selected = TLctx.current[filterCategory]
         for (var filterVal of filterVals) {
             var canvas = oneFilterSelectableCanvas(filterCategory, filterVal, selected)
             // var isSelected = filterVal == selected ? true : false
@@ -59,10 +59,10 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     const renderContent = () => {
         console.log("[ RE-CALLED ] : renderContent")
         // Подготовка данных
-        useTimeLogContext.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
-        // console.log(useTimeLogContext.filters)
+        TLctx.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
+        // console.log(TLctx.filters)
         const nameList_mainmode = <div className="tab__content" id="tab__filters">
-                                        {useTimeLogContext.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
+                                        {TLctx.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                             // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
                                         ))}

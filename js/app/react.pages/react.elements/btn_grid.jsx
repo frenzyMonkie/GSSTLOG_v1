@@ -1,35 +1,35 @@
 
 
 const ButtonGrid = () => {
-    const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const [btnGridVisible, setBtnGridVisible] = useState(false)
     const [checkedBtn, setCheckedBtn] = useState(null)
-    useTimeLogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
-    useTimeLogContext.checkedBtn = [checkedBtn, setCheckedBtn]
+    TLctx.btnGrid = [btnGridVisible, setBtnGridVisible]
+    TLctx.checkedBtn = [checkedBtn, setCheckedBtn]
     const [currentDate, setCurrentDate] = useState(null)
-    useTimeLogContext.currentDate = [currentDate, setCurrentDate]
+    TLctx.currentDate = [currentDate, setCurrentDate]
 
-    const setCurrentTLOGDate = (useTimeLogContext, date, hours) => {
-        if (date) useTimeLogContext.current.date = date // Устанавливаем фокус на выбранную дату
-        useTimeLogContext.currentDate[1](date)
-        // let date = useTimeLogContext.currentDate[0]
-        let object = useTimeLogContext.current.object
-        let smena = useTimeLogContext.current.smena
-        let workType = useTimeLogContext.current.workType
-        useTimeLogContext.current.timenodes.forEach(item => { // Устанавливаем фокус на хранящееся число отработанных часов для последующей отрисовки
+    const setCurrentTLOGDate = (TLctx, date, hours) => {
+        if (date) TLctx.current.date = date // Устанавливаем фокус на выбранную дату
+        TLctx.currentDate[1](date)
+        // let date = TLctx.currentDate[0]
+        let object = TLctx.current.object
+        let smena = TLctx.current.smena
+        let workType = TLctx.current.workType
+        TLctx.current.timenodes.forEach(item => { // Устанавливаем фокус на хранящееся число отработанных часов для последующей отрисовки
             let totalMatch = item.date == date && item.object == object && item.smena == smena && item.workType == workType
             let contextMatch = item.object == object && item.smena == smena && item.workType == workType
             if (totalMatch) {
                 // if (item.date == date) {
-                    useTimeLogContext.current.hours = item.hours
+                    TLctx.current.hours = item.hours
                     setCheckedBtn(item.hours) // Выделяем новую кнопку цветом
                 // }
             }
         })
         $('#date_range').datepicker( "refresh" )
-        console.log("[ Вход в контекст выбора часов]", useTimeLogContext)
+        console.log("[ Вход в контекст выбора часов]", TLctx)
     }
-    useTimeLogContext.setCurrentTLOGDate = setCurrentTLOGDate
+    TLctx.setCurrentTLOGDate = setCurrentTLOGDate
 
     const removeHoursData = e => {
         updateDatepicker(e, "remove")
@@ -50,33 +50,33 @@ const ButtonGrid = () => {
 
     const cleanupAndRefresh = () => {
         // Поскольку выходим из контекста выбора, обнуляем и обновляем всё что требуется
-        useTimeLogContext.current.date = null
-        useTimeLogContext.current.hours = null
+        TLctx.current.date = null
+        TLctx.current.hours = null
 
         setCheckedBtn(null) // Выделяем выбранную пользователем кнопку цветом
         setBtnGridVisible(false) // Убираем панель
-        console.log("[ Выход из контекста выбора часов]", useTimeLogContext)
+        console.log("[ Выход из контекста выбора часов]", TLctx)
         $('#date_range').datepicker( "refresh" )
 
     }
 
     const updateDatepicker = (e, action) => {
 
-        // let date = useTimeLogContext.currentDate[0]
-        let currentDate = useTimeLogContext.current.date
-        let object = useTimeLogContext.current.object
-        let smena = useTimeLogContext.current.smena
-        let workType = useTimeLogContext.current.workType
+        // let date = TLctx.currentDate[0]
+        let currentDate = TLctx.current.date
+        let object = TLctx.current.object
+        let smena = TLctx.current.smena
+        let workType = TLctx.current.workType
 
         // Устанавливаем выбранное пользователем кол-во часов
         let newHours = action == "update" ? Number(e.target.textContent)
         : action == "remove" ? null
-        : action == "back" ? useTimeLogContext.current.hours
+        : action == "back" ? TLctx.current.hours
         : null
-        useTimeLogContext.current.hoursAction = action
+        TLctx.current.hoursAction = action
 
         let totalMatchFound = false
-        useTimeLogContext.current.timenodes.forEach(item => {
+        TLctx.current.timenodes.forEach(item => {
             let filtersMatch = item.object == object && item.smena == smena && item.workType == workType
             let totalMatch = item.date == currentDate && filtersMatch
             totalMatchFound = totalMatch ? true : totalMatchFound
@@ -87,7 +87,7 @@ const ButtonGrid = () => {
                 // console.log("next", item)
                 if (action == "update" ? (item.hours != null) : action == "remove" ? (item.date != currentDate) : action == "back" ? true : false) {
                     // console.log("next", item)
-                    // console.log(useTimeLogContext)
+                    // console.log(TLctx)
                     let date = item.date.split(".")
                     let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
                     $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
@@ -100,9 +100,9 @@ const ButtonGrid = () => {
             var item = {
                 date: currentDate,
                 hours: newHours,
-                object: useTimeLogContext.current.object,
-                smena: useTimeLogContext.current.smena,
-                workType: useTimeLogContext.current.workType,
+                object: TLctx.current.object,
+                smena: TLctx.current.smena,
+                workType: TLctx.current.workType,
             }
 
             // let contextMatch = el.object == object && el.smena == smena && el.workType == workType && el.hours != null
@@ -110,65 +110,62 @@ const ButtonGrid = () => {
                 if (action == "update" ? (item.hours != null) : action == "remove" ? (item.date != currentDate) : action == "back" ? true : false) {
                     // console.log('tmf', totalMatchFound)
                     // console.log("el2", el)
-                    // console.log(useTimeLogContext)
+                    // console.log(TLctx)
                     let date = item.date.split(".")
                     let e = new Date(date[2], date[1]-1, date[0]) // e - очередная дата в формате new Date()
                     $('#date_range').datepicker( "setDate", e )  // Устанавливаем для календаря отрисовку выбранной даты со всеми классами
-                    useTimeLogContext.current.timenodes.push(item)
+                    TLctx.current.timenodes.push(item)
                 }
             // }
         }
         // $('#date_range').datepicker( "setDate", null ) // Для перезапуска и отправки ??
 
-            // useTimeLogContext.current.timenodes.forEach(item => {
+            // TLctx.current.timenodes.forEach(item => {
             //     if (item.hours == null || item.hours == undefined) {
-            //         let index = useTimeLogContext.current.timenodes.indexOf(item);
+            //         let index = TLctx.current.timenodes.indexOf(item);
             //         if (index !== -1) {
-            //             useTimeLogContext.current.timenodes.splice(index, 1);
+            //             TLctx.current.timenodes.splice(index, 1);
             //         }
             //     }
             // })
 
             // if (el.hours == null) {
-            //     var index = useTimeLogContext.current.timenodes.indexOf(el);
+            //     var index = TLctx.current.timenodes.indexOf(el);
             //     console.log(index)
             //     if (index !== -1) {
-            //         useTimeLogContext.current.timenodes.splice(index, 1);
+            //         TLctx.current.timenodes.splice(index, 1);
             //     }
             // }
 
 
 
         // Взять все выбранные даты, и если есть новая дата, то добавить её. и
-     //    useTimeLogContext.current.timenodes.forEach(node => {
+     //    TLctx.current.timenodes.forEach(node => {
      //     tnodes.push(node.date)
      //     })
      //     // console.log(tnodes.includes(dateText))
      //     if (!tnodes.includes(dateText)) {
-     //         useTimeLogContext.current.timenodes.push({
+     //         TLctx.current.timenodes.push({
      //             date: dateText,
-     //             object: useTimeLogContext.current.object,
-     //             smena: useTimeLogContext.current.smena,
-     //             workType: useTimeLogContext.current.workType
+     //             object: TLctx.current.object,
+     //             smena: TLctx.current.smena,
+     //             workType: TLctx.current.workType
      //         })
      //     }
 
-        // useTimeLogContext.current.timenodes.filter(item => (item.hours != null))
-
-
 
         //     let hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
-        //     let date = useTimeLogContext.currentDate[0]
-        //     let object = useTimeLogContext.current.object
-        //     let smena = useTimeLogContext.current.smena
-        //     let workType = useTimeLogContext.current.workType
-        //     console.log("updateDatepicker", useTimeLogContext.current.timenodes)
+        //     let date = TLctx.currentDate[0]
+        //     let object = TLctx.current.object
+        //     let smena = TLctx.current.smena
+        //     let workType = TLctx.current.workType
+        //     console.log("updateDatepicker", TLctx.current.timenodes)
 
         //     // Устанавливаем выбранное пользователем кол-во часов
-        //     useTimeLogContext.current.hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
+        //     TLctx.current.hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
 
         //     var out = []
-        //     useTimeLogContext.current.timenodes.forEach(el => {
+        //     TLctx.current.timenodes.forEach(el => {
         //         let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
         //         el.hours = totalMatch ? hours : el.hours
         //         if (totalMatch) {
@@ -200,21 +197,21 @@ const ButtonGrid = () => {
         //             }
         //         }
         //             // if (node.hours == null) {
-        //             //     var index = useTimeLogContext.current.timenodes.indexOf(node);
+        //             //     var index = TLctx.current.timenodes.indexOf(node);
         //             //     if (index !== -1) {
-        //             //         useTimeLogContext.current.timenodes.splice(index, 1);
+        //             //         TLctx.current.timenodes.splice(index, 1);
         //             //     }
         //             // }
         //     } else {
         //         console.log("date", date)
         //         el = {
-        //             object: useTimeLogContext.current.object,
-        //             smena: useTimeLogContext.current.smena,
-        //             workType: useTimeLogContext.current.workType,
+        //             object: TLctx.current.object,
+        //             smena: TLctx.current.smena,
+        //             workType: TLctx.current.workType,
         //             date: date,
         //             hours: hours,
         //         }
-        //         useTimeLogContext.current.timenodes.push(el)
+        //         TLctx.current.timenodes.push(el)
         //     }
 
 

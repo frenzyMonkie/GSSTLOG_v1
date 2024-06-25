@@ -11,7 +11,7 @@ const searchBar = (searchQuery, setSearchQuery) => {
                     onChange={ (e) => setSearchQuery(e.target.value) }  /> // autoFocus
 }
 const TimeLogSelectWorkers  = () => {
-    const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
+    const TLctx = React.useContext(TimeLogContext) // Берем контекст
 
     // Должно быть:
     // 1. Заходим и видим список фамилий. При нажатии на любую - попадаем уже в индивидуальный отчёт.
@@ -103,8 +103,8 @@ const oneWorkerMainCanvas = (newWorker) => {
     const editWorker = () => {
         console.log("ok", newWorker)
         console.log("worker",newWorker);
-        console.log("contetx", useTimelogContext);
-        console.log("worker index", useTimelogContext.indexOf(newWorker));
+        console.log("contetx", TLctx);
+        console.log("worker index", TLctx.indexOf(newWorker));
         navigate("/CalendarPro", {replace: true})
     }; // Тоггл галочки выбора
     return (
@@ -134,15 +134,15 @@ const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => 
                     </div>
       );
 }
-const parseContextNames = (useTimelogContext) => {
+const parseContextNames = (TLctx) => {
     var ret = [] // Просто выдираем имена из контекста
-    for (var uniqueWorker of useTimelogContext) {
+    for (var uniqueWorker of TLctx) {
         ret.push(uniqueWorker.name)
     }
     return ret
 }
 const workerCanvasManager = (newWorker, nameSelected, setNameSelected) => {
-    // useTimelogContext - нужно здесь обновить TimeLogContext на предмет выбранной ячейки,
+    // TLctx - нужно здесь обновить TimeLogContext на предмет выбранной ячейки,
     //  чтобы считывать для отображения в календаре и записывать туда корректируемые данные
     // Для этого нужна нормальная структура данных
 
@@ -156,14 +156,14 @@ const workerCanvasManager = (newWorker, nameSelected, setNameSelected) => {
 
     // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
     // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
-    var namesInContext = parseContextNames(useTimelogContext)
+    var namesInContext = parseContextNames(TLctx)
     if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
-        useTimelogContext.push(newWorkerData)
+        TLctx.push(newWorkerData)
     } else {
-        console.log(useTimelogContext)
-        var idx = useTimelogContext.findIndex((element) => element.name == newWorkerData.name)
+        console.log(TLctx)
+        var idx = TLctx.findIndex((element) => element.name == newWorkerData.name)
         // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
-        useTimelogContext[idx] = newWorkerData
+        TLctx[idx] = newWorkerData
     }
 
     return canvas
@@ -183,12 +183,12 @@ const renderCanvas2 = () => {
     prepareWorkers()
 
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
-                                    {search(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {search(TLctx).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                     ))}
                                 </div>
     const nameList_mainmode = <div className="tab__content" id="tab__chosen_workers">
-                                    {renderEditMode(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                    {renderEditMode(TLctx).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                         item.canvas
                                     ))}
                                 </div>
@@ -197,7 +197,7 @@ const renderCanvas2 = () => {
     //     firstLoad = false
     //     for (var newWorker of workers) { // Формируем список фамилий
     //         const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-    //         var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
+    //         var listItemCanvas = workerCanvasManager(TLctx, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
     //         // Распределяем созданные элементы ФИО в разные вкладки
     //         // if (newWorker.isSelected) {
     //             selectedWorkersCanvas.push(listItemCanvas)
@@ -212,11 +212,11 @@ const renderCanvas2 = () => {
 
     // if (!firstLoad) {
     //     var selectedWorkersCanvas = []
-    //     for (var newWorker of useTimelogContext) {
+    //     for (var newWorker of TLctx) {
     //         if (newWorker.useState[0]) {
-    //         // 1. Взять listItemCanvas и добавить в useTimelogContext вместо uniqueName.
+    //         // 1. Взять listItemCanvas и добавить в TLctx вместо uniqueName.
     //         // console.log(newWorker)
-    //         var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
+    //         var listItemCanvas = workerCanvasManager(TLctx, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
     //         selectedWorkersCanvas.push(listItemCanvas)
     //     }
     // }
@@ -261,20 +261,20 @@ const renderCanvas2 = () => {
 
 //     // Хранилища для ссылок на холсты, которые будут далее собраны на основе данных
 
-//     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
+//     const TLctx = React.useContext(TimeLogContext) // Берем контекст
 
 //     // Сначала нужно определить, что у нас в контексте.
 //     // 1. при смене режима именно контекст - главный
 //     // 2. при инициализации именно входящие данные - главные.
 
-//     prepareWorkers(useTimelogContext)
+//     prepareWorkers(TLctx)
 
 //     if (firstLoad) {
 //         var selectedWorkersCanvas = []
 //         firstLoad = false
 //         for (var newWorker of workers) { // Формируем список фамилий
 //             const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-//             var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
+//             var listItemCanvas = workerCanvasManager(TLctx, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
 //             // Распределяем созданные элементы ФИО в разные вкладки
 //             // if (newWorker.isSelected) {
 //                 selectedWorkersCanvas.push(listItemCanvas)
@@ -289,11 +289,11 @@ const renderCanvas2 = () => {
 
 //     if (!firstLoad) {
 //         var selectedWorkersCanvas = []
-//         for (var newWorker of useTimelogContext) {
+//         for (var newWorker of TLctx) {
 //             if (newWorker.useState[0]) {
-//             // 1. Взять listItemCanvas и добавить в useTimelogContext вместо uniqueName.
+//             // 1. Взять listItemCanvas и добавить в TLctx вместо uniqueName.
 //             // console.log(newWorker)
-//             var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
+//             var listItemCanvas = workerCanvasManager(TLctx, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
 //             selectedWorkersCanvas.push(listItemCanvas)
 //         }
 //     }
@@ -325,9 +325,9 @@ const renderCanvas2 = () => {
 // }
 
 // const renderWorker = (newWorker) => {
-//     return useTimelogContext.filter((item) => {
+//     return TLctx.filter((item) => {
 //         console.log(item.canvas, newWorker)
-//         if (useTimelogContext.includes(newWorker)) {
+//         if (TLctx.includes(newWorker)) {
 //             return
 //         }
 //     });
@@ -368,15 +368,15 @@ const prepareWorkers = () => {
         //     // console.log(allWorkersCanvas)
         }
     } else {
-        for (var newWorker of useTimelogContext) {
+        for (var newWorker of TLctx) {
 
-            // var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
+            // var listItemCanvas = workerCanvasManager(TLctx, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
             if (newWorker.useState[0]) { // if (newWorker.isSelected)
                 useEffect(() => { // Устанавливаем пресетные значения
                     const addSelected = async () => {newWorker.useState[1](true)};
                     addSelected()
                     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
-                var listItemCanvas = workerCanvasManager(useTimelogContext, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
+                var listItemCanvas = workerCanvasManager(TLctx, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
             }
         }
     }
@@ -389,14 +389,14 @@ const prepareWorkers = () => {
 
 
 // const renderSelectmodeCanvas = () => {
-//     const useTimelogContext = React.useContext(TimeLogContext) // Берем контекст
-//     // var {favouriteWorkersCanvas, selectedWorkersCanvas, allWorkersCanvas} = prepareWorkers(useTimelogContext)
-//     prepareWorkers(useTimelogContext)
-//     // console.log(useTimelogContext)
+//     const TLctx = React.useContext(TimeLogContext) // Берем контекст
+//     // var {favouriteWorkersCanvas, selectedWorkersCanvas, allWorkersCanvas} = prepareWorkers(TLctx)
+//     prepareWorkers(TLctx)
+//     // console.log(TLctx)
 
 //     const searchBar = () => (<input type="search" class="people_search" placeholder="Поиск" value={q} onChange={ (e) => cb_SetQ(e.target.value)} autoFocus/>)
 //     const nameList = <div className="tab__content" id="tab__favourite_workers">
-//                                 {search(useTimelogContext).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+//                                 {search(TLctx).map((item) => ( // Отрисовать результаты поиска по всему файлу.
 //                                     item.canvas
 //                                 ))}
 //                             </div>

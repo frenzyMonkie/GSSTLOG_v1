@@ -1,13 +1,13 @@
 
-    const multidatepicker = (useTimeLogContext) => {
-        // console.log("[multidatepicker] useTimeLogContext", useTimeLogContext)
+    const multidatepicker = (TLctx) => {
+        // console.log("[multidatepicker] TLctx", TLctx)
         // К примеру, здесь добавить все уже указанные ноды времени в extensionRange или куда угодно ещё чтобы они отрисовались.
 
 
         $('#date_range').datepicker({
             // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
-            useTimeLogContext: useTimeLogContext,
-            timenodes: useTimeLogContext.current.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
+            TLctx: TLctx,
+            timenodes: TLctx.current.timenodes, // Нужно залезать в исходный код календаря и механически проставлять туда классы "selected" на основе входящих timenodes.
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
             range: 'multiple', // режим - выбор нескольких дат
@@ -40,67 +40,67 @@
                 // var extensionRange = $('#date_range').datepicker('widget').data('datepickerExtensionRange');
                 // if (extensionRange.datesText) console.log(extensionRange.datesText);
 
-                // useTimeLogContext.current.timenode = dateText
+                // TLctx.current.timenode = dateText
 
-                // useTimeLogContext.current.timenodes.forEach(el => {
+                // TLctx.current.timenodes.forEach(el => {
                 //     console.log(el.date, dateText)
                 //     if (el.date == dateText) {
                 //         console.log(el.hours)
-                //         useTimeLogContext.current.hours =  el.hours
-                //         useTimeLogContext.checkedBtn[1](el.hours)
+                //         TLctx.current.hours =  el.hours
+                //         TLctx.checkedBtn[1](el.hours)
                 //     }
                 // })
-                // useTimeLogContext.current.timenodes.forEach(el => {
+                // TLctx.current.timenodes.forEach(el => {
                 //     if (el.hours != null) {}
-                //     if (useTimeLogContext.current.hours != null){
+                //     if (TLctx.current.hours != null){
                 //         // Если у timenode.hours != null, то выделяем ячейку и рисуем туда кол-во часов.
                 //         // Иначе - снимаем выделение у ячейки.
                 //     }
                 // })
 
 
-            //    console.log('dateText', useTimeLogContext)
+            //    console.log('dateText', TLctx)
             //     console.log('extensionRange', extensionRange)
 
                 // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
                 // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
 
-                // useTimeLogContext.current.timenodes.forEach(item => {
+                // TLctx.current.timenodes.forEach(item => {
                 //     if (item.hours == null || item.hours == undefined) {
-                //         let index = useTimeLogContext.current.timenodes.indexOf(item);
+                //         let index = TLctx.current.timenodes.indexOf(item);
                 //         if (index !== -1) {
-                //             useTimeLogContext.current.timenodes.splice(index, 1);
+                //             TLctx.current.timenodes.splice(index, 1);
                 //         }
                 //     }
                 // })
 
-                // }) = useTimeLogContext.current.timenodes.filter(item => (item.hours != null && item.hours != undefined));
+                // }) = TLctx.current.timenodes.filter(item => (item.hours != null && item.hours != undefined));
                 var tnodes = []
                 // console.log('Datepicker dates', extensionRange.datesText)
                 // if (extensionRange.datesText) {
                 //     extensionRange.datesText.forEach(dateText => {
                 //         // Взять все выбранные даты, и если есть новая дата, то добавить её. и
-                //         useTimeLogContext.current.timenodes.forEach(node => {
+                //         TLctx.current.timenodes.forEach(node => {
                 //             tnodes.push(node.date)
                 //         })
                 //         // console.log(tnodes.includes(dateText))
                 //         if (!tnodes.includes(dateText)) {
-                //             useTimeLogContext.current.timenodes.push({
+                //             TLctx.current.timenodes.push({
                 //                 date: dateText,
-                //                 object: useTimeLogContext.current.object,
-                //                 smena: useTimeLogContext.current.smena,
-                //                 workType: useTimeLogContext.current.workType
+                //                 object: TLctx.current.object,
+                //                 smena: TLctx.current.smena,
+                //                 workType: TLctx.current.workType
                 //             })
                 //         }
 
-                //         // tnodes.push({date: element, smena: useTimeLogContext.current.smena, workType: useTimeLogContext.current.workType})
+                //         // tnodes.push({date: element, smena: TLctx.current.smena, workType: TLctx.current.workType})
                 //     });
 
                 //     // CTX - USER UPDATES DATA
                 // }
-                useTimeLogContext.current.date = dateText
-                // useTimeLogContext.current.timenodes = tnodes
-                console.log("Datepicker inner ", useTimeLogContext)
+                TLctx.current.date = dateText
+                // TLctx.current.timenodes = tnodes
+                console.log("Datepicker inner ", TLctx)
                 // $('#date_range').datepicker( "refresh" )
             }
             });
@@ -110,11 +110,11 @@
 // Вариант с интегрировонием (может не пройти) - прокидывать туда jsx-компонент с привязанными хендлерами, которые в свою очередь связаны с контекстом, в котором будет фамилия и сохранение данных.
 
 
-// const filters_inject = (useTimeLogContext) => {
-//     // const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+// const filters_inject = (TLctx) => {
+//     // const TLctx = React.useContext(TimeLogContext) // Берем контекст
 //     var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
 //     var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
-//     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + useTimeLogContext.current.worker.name + "</div></div>"
+//     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + TLctx.current.worker.name + "</div></div>"
 //     var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div>"
 
 //     return (
@@ -151,8 +151,8 @@
 //     }
 
 //     componentDidMount() {
-//         console.log(1, this.props.useTimelogContext.workers[0][0])
-//         const calendarData = this.props.useTimelogContext.workers[0][0];
+//         console.log(1, this.props.TLctx.workers[0][0])
+//         const calendarData = this.props.TLctx.workers[0][0];
 
 //         // const { currentWorker } = this.props
 //         // Предполагается пустой или заполненный ммассив данных на входе.
@@ -200,8 +200,8 @@
 //         //   this.setState([...this.state], element.data.timenodes) // Указывать на id выбранного человека
 //         // }
 //         this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
-//         console.log(123, this.props.useTimeLogContext)
-//         multidatepicker(this, this.props.useTimeLogContext)
+//         console.log(123, this.props.TLctx)
+//         multidatepicker(this, this.props.TLctx)
 //     }
 
 //     render() {

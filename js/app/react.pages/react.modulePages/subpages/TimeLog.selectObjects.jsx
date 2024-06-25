@@ -13,7 +13,7 @@ var objects = [
 
 
 const TimeLogSelectObjects  = () => {
-    const useTimeLogContext = React.useContext(TimeLogContext) // Берем контекст
+    const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const state = {
         pageTitle: "Доступные объекты",
         currentObject: "",
@@ -27,7 +27,7 @@ const TimeLogSelectObjects  = () => {
 
     // const [btnGridVisible, setBtnGridVisible] = useState(true)
     // console.log(setBtnGridVisible)
-    // useTimeLogContext.btnGrid = [btnGridVisible, setBtnGridVisible]
+    // TLctx.btnGrid = [btnGridVisible, setBtnGridVisible]
 
     // https://codepen.io/Spruce_khalifa/pen/GRrWjmR
     const [selectMode, setSelectMode] = useState(false)
@@ -103,14 +103,14 @@ const TimeLogSelectObjects  = () => {
     const objectItemMainCanvas = (newObject, idx) => {
         console.log("[ RE-CALLED ] : objectItemMainCanvas")
         const editObjectTable = () => {
-            useTimeLogContext.current.idx = idx;
-            useTimeLogContext.current.object = newObject.name;
-            useTimeLogContext.current.type = newObject.type;
+            TLctx.current.idx = idx;
+            TLctx.current.object = newObject.name;
+            TLctx.current.type = newObject.type;
 
             // CTX - SERVER FILLS DATA
             // console.log("object",newObject);
-            // console.log("contetx", useTimeLogContext.objects);
-            // console.log("object index", useTimeLogContext.objects.indexOf(newObject));
+            // console.log("contetx", TLctx.objects);
+            // console.log("object index", TLctx.objects.indexOf(newObject));
             navigate("/TimeLogSelectWorkers", {replace: true})
         }; // При клике на объект - переходим в полотно выбора рабочих с фильтрами на этот объект.
 
@@ -157,10 +157,16 @@ const TimeLogSelectObjects  = () => {
         // Да точняк. из-за того что тут кондишанл создание юзстейт / выбор уже существующего, может быть такое что кол-во именно ВЫЗОВОВ функции useState разное, хотя кол-во самих [val, seVal] одинаковое.
         // Хотя странно что двойной рендер не выдал ошибку в этом случае.
         // https://www.dhiwise.com/post/dealing-with-fewer-hooks-than-expected-in-rendered-output
-        var [selected, setSelected] = useState(newObject.isSelected)
-        var [selected2, setSelected2] = newObject.useNameSelected ? newObject.useNameSelected : [null, null]
-        selected = newObject.useNameSelected ? selected2 : selected
-        setSelected = newObject.useNameSelected ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
+        // var [selected, setSelected] = useCells(newObject, newObject.isSelected)
+
+        // console.log('potentialCell', newObject )
+        newObject.isSelected = newObject.useNameSelected ? newObject.useNameSelected[0] : newObject.isSelected
+        let [selected, setSelected] = useState(newObject.isSelected)
+        // newObject.useNameSelected ? newObject.useNameSelected : [sel, setSel]
+        // var [selected, setSelected] = useState(newObject.isSelected)
+        // var [selected2, setSelected2] = newObject.useNameSelected ? newObject.useNameSelected : [null, null]
+        // selected = newObject.useNameSelected ? selected2 : selected
+        // setSelected = newObject.useNameSelected ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
         // var [selected, setSelected] = newObject.useNameSelected ? newObject.useNameSelected : useState(newObject.isSelected)
         // console.log(newObject.useNameSelected ? true : false, newObject)
         console.log('selectMode', selectMode)
@@ -176,13 +182,13 @@ const TimeLogSelectObjects  = () => {
 
         // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
         if (!alreadyInitializedItems.includes(newObject.name)) { // Если в контексте такого ещё нет, то добавляем его.
-            useTimeLogContext.objects.push(newObjectData)
+            TLctx.objects.push(newObjectData)
             console.log("not yet initializedItem. newObjectData:", newObjectData)
 
         } else { // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newObject
             console.log("already initializedItem. SelectMode: ", selectMode,  "newObjectData:", newObjectData)
-            var idx = useTimeLogContext.objects.findIndex((element) => element.name == newObjectData.name)
-            useTimeLogContext.objects[idx] = newObjectData
+            var idx = TLctx.objects.findIndex((element) => element.name == newObjectData.name)
+            TLctx.objects[idx] = newObjectData
 
         }
 
@@ -196,17 +202,17 @@ const TimeLogSelectObjects  = () => {
         /// При первом рендере кладем воркеров в контекст и используем контекст
         // Во всех остальных - используем контекст.
         console.log("[ RE-CALLED ] : prepareObjects")
-        const parseContextNames = (useTimeLogContext) => {
+        const parseContextNames = (TLctx) => {
             console.log("[ RE-CALLED ] : parseContextNames")
-            // console.log(useTimeLogContext)
+            // console.log(TLctx)
             var ret = [] // Просто выдираем имена из контекста
-            for (var uniqueObject of useTimeLogContext.objects) {
+            for (var uniqueObject of TLctx.objects) {
                 ret.push(uniqueObject.name)
             }
             return ret
         }
-        var obj = useTimeLogContext.objects.length == 0 ? objects : useTimeLogContext.objects
-        var alreadyInitializedItems = parseContextNames(useTimeLogContext)
+        var obj = TLctx.objects.length == 0 ? objects : TLctx.objects
+        var alreadyInitializedItems = parseContextNames(TLctx)
         let index = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         for (var newObject of obj) {
             objectCanvasManager(newObject, index, alreadyInitializedItems) // Инициализируем сам элемент с логикой и холстом
@@ -230,18 +236,18 @@ const TimeLogSelectObjects  = () => {
         prepareObjects() // Подготовка данных
         console.log("Элементы готовы. Переходим к собиранию полотна")
         const nameList_selectmode = <div className="tab__content" id="tab__favourite_objects">
-                                        {search(useTimeLogContext.objects).map((item) => ( // Отрисовать результаты поиска по всему файлу.
+                                        {search(TLctx.objects).map((item) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                         ))}
                                     </div>
         const nameList_mainmode = <div className="tab__content" id="tab__chosen_objects">
-                                        {renderMainMode(useTimeLogContext.objects).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
+                                        {renderMainMode(TLctx.objects).map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                             // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
                                         ))}
                                     </div>
         const sbar = React.useMemo(() => searchBarObjects(searchQuery, setSearchQuery));
-        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{useTimeLogContext.current.object}</div></div>
+        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}

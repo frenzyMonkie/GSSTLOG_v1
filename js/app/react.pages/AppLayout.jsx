@@ -114,11 +114,11 @@ const Layout = () => {
                     <div class="menu menu_s">
                         <div onClick={() => goPage("/")} class="menu_item_s" id="presets">
                             {menuSelected == "/" ? <i class="fi fi-br-convert-shapes-selected"></i> : <i class="fi fi-br-convert-shapes"></i>}
-                            <div class={menuSelected == "/" ? "menu_selected" : null }>Главная</div>
+                            <div class={menuSelected == "/" ? "menu_selected" : null }>Учёт времени</div>
                         </div>
                         <div onClick={() => goPage("/ReportCorrectionPage")} class="menu_item_s" id="report_corrections">
                             {menuSelected == "/ReportCorrectionPage" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
-                            <div class={menuSelected == "/ReportCorrectionPage" ? "menu_selected" : null }>Корректировка отчётов</div>
+                            <div class={menuSelected == "/ReportCorrectionPage" ? "menu_selected" : null }> Отчёты </div>
                         </div>
                         <div onClick={() => goPage("/OldReportsPage")} class="menu_item_s" id="get_reports">
                             {menuSelected == "/OldReportsPage" ? <i class="fi fi-rr-time-watch-calendar-selected"></i> : <i class="fi fi-rr-time-watch-calendar"></i>}
