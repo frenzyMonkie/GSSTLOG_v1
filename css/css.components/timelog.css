@@ -23,3 +23,26 @@
     /* font-size: .7rem; */
     font-size: calc(100vw / 29);
 }
+.timelog_main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(100vw/20);
+    margin-top: calc(100vw/20);
+    font-size: calc(100vw/20);
+    font-weight: 600;
+}
+.timelog_main_section {
+    cursor: pointer;
+    width: calc(100vw/1.2);
+    height: calc(100vw / 3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(240 240 240);
+    border-radius: calc(100vw/20);
+    box-shadow: #b5b5b5 0px 2px 2px;
+
+}

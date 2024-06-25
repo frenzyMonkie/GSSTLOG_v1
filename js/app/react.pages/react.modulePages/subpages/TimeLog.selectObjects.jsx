@@ -287,7 +287,7 @@ const TimeLogSelectObjects  = () => {
     const navLeft  = (handler) => {console.log("[ RE-CALLED ] : navLeft")
         return (
             <Fragment>
-            <i class="header_back fi fi-rr-arrow-small-left"></i>
+            <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => navigate("/FillDataMain", {replace: true})}></i>
             </Fragment>
     )}
     const navRight  = (handler) => { console.log("[ RE-CALLED ] : navRight")

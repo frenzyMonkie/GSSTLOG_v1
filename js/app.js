@@ -24,7 +24,7 @@ function App () {
                         {/* <Route path="*" element={<NotFound />} /> */}
                         {/* <MainPage/> */}
                         {/* TimeLogSelectWorkers */}
-                        <Route index element={<TimeLogSelectObjects />} />
+                        <Route index element={<FillDataMain />} />
                         {/* TimeLogSelectObjects */}
                         <Route path="CalendarPro" element={<CalendarPro />} />
                         <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
@@ -41,7 +41,7 @@ function App () {
                         <Route path="PumpLog" element={<PumpLog />} />
                         <Route path="SpendingLog" element={<SpendingLog />} />
                         <Route path="StageLog" element={<StageLog />} />
-                        <Route path="TimeLog" element={<TimeLog />} />
+                        <Route path="FillDataMain" element={<FillDataMain />} />
                         <Route path="VehicleLog" element={<VehicleLog />} />
                         <Route path="WaterLog" element={<WaterLog />} />
                         <Route path="WorkLog" element={<WorkLog />} />
