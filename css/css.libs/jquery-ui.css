@@ -359,7 +359,7 @@ button.ui-button::-moz-focus-inner {
 	/* top: 1px; */
 }
 .ui-datepicker .ui-datepicker-prev {
-	left: calc(100vw / -90);
+	/* left: calc(100vw / -90); */
     rotate: 180deg;
 }
 .ui-datepicker .ui-datepicker-next {
@@ -1200,8 +1200,8 @@ td.selected > a{
 .ui-widget-header .ui-icon {
 	background-image: url("../../icons/nav/angle-small-right.svg");
 	/* scale: .7; */
-    width: calc(100vw/15);
-    height: calc(100vw/15);
+    width: calc(100vw/13);
+    height: calc(100vw/13);
     display: block;
 
 }
