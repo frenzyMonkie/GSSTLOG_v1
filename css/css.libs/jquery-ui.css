@@ -395,7 +395,7 @@ button.ui-button::-moz-focus-inner {
 	/* line-height: 1.8em; */
 	/* text-align: center; */
     padding: 0 0 0 calc(80vw/20);
-    font-size: calc(100vw/20);
+    font-size: calc(100vw/18);
 }
 .ui-datepicker .ui-datepicker-title select {
 	font-size: 1em;
@@ -1001,7 +1001,7 @@ html .ui-button.ui-state-disabled:active {
 	/* border: 1px solid #c5c5c5; */
 	/* background: #f6f6f6; */
 	font-weight: 700;
-    font-size: calc(100vw/22.3);
+    font-size: calc(100vw/17);
 	color: #454545;
     /* text-align: center; */
     /* width: calc(100vw/7.7);
