@@ -11,7 +11,7 @@
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
             range: 'multiple', // режим - выбор нескольких дат
-            maxDate: "+0",
+            maxDate: "+12month",
             minDate: new Date('@minDate'),
             minDate: '-3 month', // Есть ли смысл, хз, т.к. для админа нужен выбор любой даты...
             //   range_multiple_max: '30', // макимальное число выбираемых дат

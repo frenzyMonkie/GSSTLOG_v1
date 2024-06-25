@@ -376,15 +376,26 @@ const filters = (TLctx) => {
     )
 }
 const infoSection = (TLctx) => {
-    var days = 0, hours = 0
+    // 1. Нужно посчитать суммы по каждым категориям, типу работ и сменам.
+    // 2. Нужно чтобы такой переподсчет проводился при старте окна и отдельно, при закрытии btn-grid. И через setState обновлялись бы значения.
+    var days = 0, hours = 0, wt = []
     TLctx.current.worker.timenodes.forEach(node => {
         if (node.hours != null && node.smena == TLctx.current.smena && node.workType == TLctx.current.workType) {
             hours += Number(node.hours)
             days++
+
         }
+        if (node.hours != null && !wt.includes(node.workType + ": " + node.smena)) {
+            wt.push(node.workType + ": " + node.smena )
+        }
+
     }) // Подсчёт кол-ва часов и дней с учётом фильтров
-    var summary =  <div class='calendFilter label_s' id="calendar_summary">В этом месяце: {hours}ч. / {days}дн.</div>
+
+
+    let timeSum = <div class='calendFilter label_s' id="calendar_summary">В этом месяце: {hours}ч. / {days}дн.</div>
+    let workSum = wt.map( w => <div class='calendFilter label_s' id="calendar_summary">{w}</div>)
+    // var [summary, setSummary] = useState(null)
     return (
-        <div class='calendFilters'><div class='calendarFilterSection'>{summary}</div></div>
+        <div class='calendFilters'><div class='calendarFilterSection'>{timeSum}{workSum}</div></div>
     )
 }
