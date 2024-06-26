@@ -116,6 +116,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100vw;
 }
 .toprow i {
     width: 2rem;
@@ -123,8 +124,8 @@
 
 }
 .toprow label {
-    padding: 0 12px 0 15px;
+    padding: 0 15px 0 22px;
 }
 .objects .toprow label {
-    padding: 0 12px 0 22px;
+    padding: 0 15px 0 22px;
 }
