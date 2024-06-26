@@ -260,8 +260,10 @@ const renderContent = () => {
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
     var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
     var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
+    var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
     const selectmodeCanvas = <Fragment>
                                 {object}
+
                                 <div className="grid">
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
                                     <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
@@ -276,7 +278,12 @@ const renderContent = () => {
     const mainCanvas = <Fragment>
                             {object} {objInfo}
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
+                            <div class="grid_header workers">
+                                    <div>Список сотрудников</div>
+                                    {editWorkerListbtn}
+                            </div>
                             {nameList_mainmode}
+
                         </Fragment>
 
     return (
@@ -377,7 +384,7 @@ const prepareWorkers = () => {
     )}
     const navRight  = ({children}) => { console.log("[ RE-CALLED ] : navRight")
         // var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
-        var btn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
+        var btn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : null //  <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         return (
         <Fragment>
         {/* <i class="header_save fi fi-rs-disk"></i> */}

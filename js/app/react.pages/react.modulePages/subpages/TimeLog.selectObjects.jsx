@@ -15,7 +15,7 @@ var objects = [
 const TimeLogSelectObjects  = () => {
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const state = {
-        pageTitle: "Доступные объекты",
+        pageTitle: "Табели объектов",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},

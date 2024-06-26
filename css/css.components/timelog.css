@@ -84,3 +84,24 @@
     letter-spacing: -0.5px;
     line-height: calc(100vw/60);
 }
+
+.grid_header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 20px 0 15px;
+    border-top: #d1d1d171 2px solid;
+    /* border-top: #2aaea4 2px solid; */
+    border-bottom: #d1d1d171  2px solid;
+    /* border-bottom: #2aaea4 2px solid; */
+    font-size: 1.1rem;
+    font-weight: 600;
+    /* background-color: #f0f0f0; */
+    z-index: 1000;
+}
+.grid_header i{
+  min-width: 2rem;
+  min-height: 2rem;
+}
