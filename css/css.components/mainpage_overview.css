@@ -93,13 +93,15 @@
 }
 .objects .task_item_text,
 #tab__filters .task_item_text {
-    padding: 16px 0px 14px 15px;
+    /* padding: 16px 0px 14px 15px; */
+    padding: 28px 0px 28px 22px;
 }
 .objects .task_item_header {
     margin: 0 0 3px 0;
 }
 .task_item_header {
     font-size: .94rem;
+    font-size: 1.3rem;
     /* font-size: .98rem; */
     /* .9rem; */
     word-wrap:break-all;
@@ -132,6 +134,7 @@
 .task_item_info {
     /* font-size: .78rem; */
     font-size: .83rem;
+    font-size: 1.15rem;
     color: #575757;
     /* color: #469480; */
     /* color: #46abd5; */
@@ -147,7 +150,7 @@
     font-weight: 600;
 }
 .task_item i {
-    width: 26px;
+    width: 30px;
     margin: 0 10px 0 0;
     flex-shrink: 0;
 }
