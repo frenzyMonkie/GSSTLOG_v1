@@ -110,3 +110,21 @@
     min-height: 2rem;
     padding: 0 20px 0 22px;
 }
+
+
+.toprow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.toprow i {
+    width: 2rem;
+    height: 2rem;
+
+}
+.toprow label {
+    padding: 0 12px 0 15px;
+}
+.objects .toprow label {
+    padding: 0 12px 0 22px;
+}
