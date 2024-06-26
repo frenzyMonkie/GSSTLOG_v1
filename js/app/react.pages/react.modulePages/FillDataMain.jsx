@@ -33,16 +33,23 @@ const FillDataMain = () => {
 
     const renderContent = () => {
         console.log("[ RE-CALLED ] : renderContent")
-        // prepareTimelog() // Подготовка данных
         return (
-            <div class="timelog_main">
-                <div class="timelog_main_section" onClick = {() => navigate("/TimeLogSelectObjects", {replace: true})}>
-                    Учёт рабочего времени
+            <div class="menu_main">
+                <div class="main_section" onClick = {() => navigate("/TimeLogSelectObjects", {replace: true})}>
+                    <i class="main_section_icon fi fi-ss-user-helmet-safety"></i>
+                    <div class="main_section_text">Учёт рабочего времени<span><br/> Неотправленных табелей: 4</span></div>
+                    <i class="fi fi-sr-caret-right"></i>
                 </div>
-                <div class="timelog_main_section" onClick = {() => navigate("/", {replace: true})}>
-                    Отчёты по объектам
+                <div class="main_section" onClick = {() => navigate("/", {replace: true})}>
+                <i class="main_section_icon fi fi-ss-employee-man-alt "></i>
+                    <div class="main_section_text">Учёт рабочего времени ИТР <br/></div>
+                    <i class="fi fi-sr-caret-right"></i>
                 </div>
-                <div class="timelog_main_section">
+                <div class="main_section">
+                    <i class="main_section_icon fi fi-ss-notebook-main"></i>
+                    <div class="main_section_text">Отчёты по объектам <span><br/>Ожидают заполения: 4 </span></div>
+
+                    <i class="fi fi-sr-caret-right"></i>
                 </div>
             </div>
         )

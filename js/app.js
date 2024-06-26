@@ -2,63 +2,47 @@ function App () {
     var smenaOptions = ["Дневные смены", "Ночные смены"]
     var workTypeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение"]
 
-    // const value = {user, signin, signout}
-    // function navigateToContacts() {
-    //   // 👇️ Navigate to /contacts
-    //   navigate('/contacts');
-    // };
+    return (
+        <AuthProvider>
+        <AppContextProvider>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    {/* <Route path="*" element={<NotFound />} /> */}
+                    <Route index element={<FillDataMain />} />
 
-    // function navigateHome() {
-    //   // 👇️ Navigate to /
-    //   navigate('/');
-    // };
+                    <Route path="CalendarPro" element={<CalendarPro />} />
+                    <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
+                    <Route path="TimeLogSelectObjects" element={<TimeLogSelectObjects />} />
+                    <Route path="WorkerTableFilter_Smena" element={<WorkerTableFilter filterCategory="smena" filterVals={smenaOptions} />}/>
+                    <Route path="WorkerTableFilter_WorkType" element={<WorkerTableFilter filterCategory="workType" filterVals={workTypeOptions} />}/>
 
-    // render() {
-        // 1. при перезагрузке страницы состояние не сохраняется. Нужны куки.
-        // 2. Назад на одну страницу не работает, нужно -2 при переходе на логин-пейдж
-        return (
-            <AuthProvider>
-            <AppContextProvider>
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        {/* <Route path="*" element={<NotFound />} /> */}
-                        {/* <MainPage/> */}
-                        {/* TimeLogSelectWorkers */}
-                        <Route index element={<FillDataMain />} />
-                        {/* TimeLogSelectObjects */}
-                        <Route path="CalendarPro" element={<CalendarPro />} />
-                        <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
-                        <Route path="TimeLogSelectObjects" element={<TimeLogSelectObjects />} />
-                        <Route path="WorkerTableFilter_Smena" element={<WorkerTableFilter filterCategory="smena" filterVals={smenaOptions} />}/>
-                        <Route path="WorkerTableFilter_WorkType" element={<WorkerTableFilter filterCategory="workType" filterVals={workTypeOptions} />}/>
+                    <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
+                    <Route path="OldReportsPage" element={<OldReportsPage />} />
+                    <Route path="SettingsPage" element={<SettingsPage />} />
+                    <Route path="CustomListsPage" element={<CustomListsPage />} />
 
-                        <Route path="ReportCorrectionPage" element={<ReportCorrectionPage />} />
-                        <Route path="OldReportsPage" element={<OldReportsPage />} />
-                        <Route path="SettingsPage" element={<SettingsPage />} />
-                        <Route path="CustomListsPage" element={<CustomListsPage />} />
-
-                        <Route path="ReportPage" element={<ReportPage />} />
-                        <Route path="PumpLog" element={<PumpLog />} />
-                        <Route path="SpendingLog" element={<SpendingLog />} />
-                        <Route path="StageLog" element={<StageLog />} />
-                        <Route path="FillDataMain" element={<FillDataMain />} />
-                        <Route path="VehicleLog" element={<VehicleLog />} />
-                        <Route path="WaterLog" element={<WaterLog />} />
-                        <Route path="WorkLog" element={<WorkLog />} />
+                    <Route path="ReportPage" element={<ReportPage />} />
+                    <Route path="PumpLog" element={<PumpLog />} />
+                    <Route path="SpendingLog" element={<SpendingLog />} />
+                    <Route path="StageLog" element={<StageLog />} />
+                    <Route path="FillDataMain" element={<FillDataMain />} />
+                    <Route path="VehicleLog" element={<VehicleLog />} />
+                    <Route path="WaterLog" element={<WaterLog />} />
+                    <Route path="WorkLog" element={<WorkLog />} />
 
 
 
-                        {/* <Route path="login" element={<LoginPage />} />
-                        <Route path="contacts" element={
-                            <RequireAuth>
-                                <Contacts />
-                            </RequireAuth>} />
-                        <Route path="protectedсontent" element={<ProtectedContent />} /> */}
-                    </Route>
-                </Routes>
-            </AppContextProvider>
-            </AuthProvider>
-            );
+                    {/* <Route path="login" element={<LoginPage />} />
+                    <Route path="contacts" element={
+                        <RequireAuth>
+                            <Contacts />
+                        </RequireAuth>} />
+                    <Route path="protectedсontent" element={<ProtectedContent />} /> */}
+                </Route>
+            </Routes>
+        </AppContextProvider>
+        </AuthProvider>
+        );
     // }
 
 // </RequireAuth directChild={<Contacts/>} />
