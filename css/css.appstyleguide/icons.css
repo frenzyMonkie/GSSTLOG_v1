@@ -3,96 +3,80 @@
     background-repeat: no-repeat;
     background-size: contain;
     text-indent: -9999px;
-
+    display: block;
+    height: 26px;
+}
+.fi-ss-notebook-main {
+    background-image: url(../../icons/fi-ss-notebook-main.svg);
+}
+.fi-ss-user-helmet-safety {
+    background-image: url(../../icons/fi-ss-user-helmet-safety.svg);
+}
+.fi-ss-employee-man-alt {
+    background-image: url(../../icons/fi-ss-employee-man-alt.svg);
+}
+.fi-bs-menu-dots {
+    background-image: url(../../icons/nav/fi-bs-menu-dots.svg);
+}
+.fi-sr-caret-down {
+    background-image: url(../../icons/nav/fi-sr-caret-down.svg);
+}
+.fi-sr-caret-right {
+    background-image: url(../../icons/nav/fi-sr-caret-right.svg);
 }
 .fi-flame {
-    display: block;
     background-image: url(../../icons/nav/fi-ss-flame.svg);
-    height: 26px;
 }
 .fi-rs-disk {
-    display: block;
     background-image: url(../../icons/nav/save/fi-sr-disk.svg);
-    height: 26px;
-
 }
 .fi-bs-check-circle {
-    display: block;
     background-image: url(../../icons/nav/fi-bs-check-circle.svg);
-    height: 26px;
 }
 .fi-bs-edit {
-    display: block;
     background-image: url(../../icons/nav/fi-bs-edit.svg);
-    height: 26px;
 }
 .fi-ss-notebook {
-    display: block;
     background-image: url(../../icons/nav/fi-ss-notebook.svg);
-    height: 26px;
 }
 .fi-ss-notebook-selected {
-    display: block;
     background-image: url(../../icons/nav/fi-ss-notebook-selected.svg);
-    height: 26px;
 }
 .fi-sr-admin-alt {
-    display: block;
     background-image: url(../../icons/nav/fi-sr-admin-alt.svg);
-    height: 26px;
-
 }
 .fi-sr-admin-alt-selected {
-    display: block;
     background-image: url(../../icons/nav/fi-sr-admin-alt-selected.svg);
-    height: 26px;
-
 }
 .fi-br-convert-shapes {
-    display: block;
     background-image: url(../../icons/nav/fi-br-convert-shapes.svg);
-    height: 26px;
 }
 .fi-br-convert-shapes-selected {
-    display: block;
     background-image: url(../../icons/nav/fi-br-convert-shapes-selected.svg);
-    height: 26px;
 }
 .fi-rr-time-watch-calendar {
-    display: block;
     background-image: url(../../icons/nav/fi-rr-time-watch-calendar.svg);
-    height: 26px;
 }
 .fi-rr-time-watch-calendar-selected {
-    display: block;
     background-image: url(../../icons/nav/fi-rr-time-watch-calendar-selected.svg);
-    height: 26px;
 }
 .fi-rr-receipt {
-    display: block;
     background-image: url(../../icons/nav/fi-rr-receipt.svg);
-    height: 26px;
 }
 .fi-rr-arrow-small-left {
-    display: block;
     background-image: url(../../icons/nav/fi-ss-angle-small-left.svg);
-    height: 26px;
-
 }
 
 .fi-br-angle-small-right {
-    display: block;
     background-image: url(../../icons/nav/fi-bs-angle-small-right.svg);
     height: 18px;
-
 }
 .fi-sr-input-numeric {
-    display: block;
     background-image: url(../../icons/nav/input-numeric.svg);
     height: 34px;
 }
 /* .fi-br-align-justify {
-    display: block;
+
     background-image: url(/icons/align-justify.svg);
     height: 50px;
 } */
@@ -101,7 +85,6 @@
 }
 /* css/menu */
 .fi-br-check {
-    display: block;
     background-image: url(../../icons/nav/selected_check.svg);
     /* background-image: url(../../icons/nav/fi-rs-check-circle.svg);
     background-image: url(../../icons/nav/fi-bs-check-circle.svg);
@@ -110,7 +93,7 @@
     opacity: .7;
 }
 .fi-br-check {
-    display: block;
+
     background-image: url(../../icons/nav/selected_check-orange.svg);
     /* background-image: url(../../icons/nav/fi-rs-check-circle.svg);
     background-image: url(../../icons/nav/fi-bs-check-circle.svg);
@@ -118,10 +101,8 @@
     height: 34px;
 }
 .fi-br-cross {
-    display: block;
     background-image: url(../../icons/nav/cross.svg);
     height: 34px;
-
 }
 .task_item_arr {
     /* margin-left: auto; */
@@ -146,7 +127,6 @@
     overflow: auto;
 }
 .spinner_2 {
-    display: block;
     /* https://icons8.com/preloaders/en/circular/5/ */
     background-repeat: no-repeat;
     background-size: contain;

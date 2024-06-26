@@ -23,26 +23,60 @@
     /* font-size: .7rem; */
     font-size: calc(100vw / 29);
 }
-.timelog_main {
-    height: 100%;
+.menu_main {
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: calc(100vw/20);
-    margin-top: calc(100vw/20);
-    font-size: calc(100vw/20);
-    font-weight: 600;
+    gap: calc(100vw/15);
+
+    position: relative;
+    width: 100%;
+    height: max(100%, 100vh);
 }
-.timelog_main_section {
+.main_section {
     cursor: pointer;
     width: calc(100vw/1.2);
     height: calc(100vw / 3);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240 240 240);
-    border-radius: calc(100vw/20);
+    /* gap: calc(100vw/20); */
+    background-color: #fff;
+    border-radius: calc(100vw/27);
     box-shadow: #b5b5b5 0px 2px 2px;
+    padding: 0 calc(100vw / 20);
 
+}
+/* .main_section:first-child {
+    margin-top: calc(100vw/20);
+} */
+.main_section > i {
+    width: calc(100vw/12);
+    height: calc(100vw/12);
+}
+.main_section .main_section_icon {
+    width: calc(100vw/5);
+    height: calc(100vw/5);
+}
+.main_section > .fi-ss-user-helmet-safety {
+    scale: .75;
+}
+.main_section > .fi-ss-employee-man-alt {
+    scale: .78;
+}
+.main_section > .fi-ss-notebook-main {
+    scale: .6;
+}
+.main_section_text {
+    font-size: calc(100vw/20);
+    font-weight: 600;
+    line-height: calc(100vw/22);
+    letter-spacing: -1.2px;
+    padding: 0 0 0 25px;
+}
+.main_section_text > span {
+    font-size: calc(100vw/30);
+    letter-spacing: -0.5px;
 }

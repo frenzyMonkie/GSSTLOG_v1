@@ -4,7 +4,7 @@
     box-sizing: border-box;
     --bg-main: rgb(252, 252, 252);
     --bg-accent: rgb(190, 190, 190);
-    --bg-accent: rgb(255, 255, 255);
+    --bg-accent: rgb(244 244 244);
     --border-sep: 1px rgba(0, 0, 0, 0.253) solid;
     --border-sep: 1px rgb(207, 207, 207) solid;
     --border-header-sep: 1px rgb(144, 144, 144) solid;
@@ -139,6 +139,7 @@ body {
 .content {
     width: 100%;
     margin: auto;
+    height: max(100%, 100vh);
 }
 
 .hide_sides {
