@@ -39,7 +39,7 @@ const TimeLogSelectObjects  = () => {
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
-        setFilterParam("Выбранные")
+        setFilterParam("Все")
     }
     const searchBarObjects = (searchQuery, setSearchQuery) => {
         console.log("[ RE-CALLED ] : searchBar")

@@ -51,7 +51,7 @@ const TimeLogSelectWorkers  = () => {
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
-        setFilterParam("Выбранные")
+        setFilterParam("Все")
     }
     function search(items) {
         console.log("[ RE-CALLED ] : search", items)
