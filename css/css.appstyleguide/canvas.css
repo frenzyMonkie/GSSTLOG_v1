@@ -139,7 +139,7 @@ body {
 .content {
     width: 100%;
     margin: auto;
-    height: max(100%, 100vh);
+    /* height: max(100%, 100vh); */
 }
 
 .hide_sides {
