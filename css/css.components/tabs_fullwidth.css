@@ -185,8 +185,7 @@
   } */
 
   .people_search {
-    width: 100%;
-    min-width: 100%;
+    width: fit-content;
     height: 51px;
     padding: 0 20px;
     /* margin: 0 0 7px 0; */
