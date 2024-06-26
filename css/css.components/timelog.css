@@ -102,6 +102,11 @@
     z-index: 1000;
 }
 .grid_header i{
-  min-width: 2rem;
+  min-width: 1.73rem;
   min-height: 2rem;
+}
+.objects .grid_header{
+    min-width: 1.73rem;
+    min-height: 2rem;
+    padding: 0 20px 0 22px;
 }
