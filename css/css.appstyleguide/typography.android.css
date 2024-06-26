@@ -5,9 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 body {
     /* font-family: "Roboto", "Open Sans", "Noto Sans", "Roboto Serif", "Noto Serif", serif; */
     font-family: "SF Pro Text";
+    font-family: "Manrope", sans-serif;
+    /* font-family: "Source Sans 3", sans-serif; */
     font-optical-sizing: auto;
     font-style: normal;
     /* font-variation-settings:
