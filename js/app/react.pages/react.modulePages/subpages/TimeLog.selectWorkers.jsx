@@ -267,8 +267,8 @@ const renderContent = () => {
     var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
 
     var toggleFilter = filterParam == "Все"
-    ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
-    : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
+    ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
+    : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
     const selectmodeCanvas = <Fragment>
                                 {object}
 

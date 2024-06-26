@@ -256,8 +256,8 @@ const TimeLogSelectObjects  = () => {
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
 
         var toggleFilter = filterParam == "Все"
-        ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
-        : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
+        ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
+        : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}
                                     <div className="grid">
