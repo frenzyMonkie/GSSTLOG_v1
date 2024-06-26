@@ -84,20 +84,27 @@
     /* padding: 14px 0px 6px 13px; */
     /* padding: 8px 0px 6px 13px; */
     padding: 9px 0px 9px 15px;
+    padding: 18px 0px 18px 15px;
     /* padding: 7px 0px 5px 13px; */
     /* padding: 15px 0px 16px 13px; */
     /* padding: 19px 0px 8px 13px; */
     /* padding: 11px 0px 14px 13px; */
     height: fit-content;
-    max-width: 86%;
+    max-width: 89%;
 }
 .objects .task_item_text,
 #tab__filters .task_item_text {
     /* padding: 16px 0px 14px 15px; */
     padding: 28px 0px 28px 22px;
 }
-.objects .task_item_header {
+/* .objects .task_item_header {
     margin: 0 0 3px 0;
+} */
+.workers .task_item_header {
+    font-size: 1.1rem;
+}
+.workers .task_item_info {
+    font-size: 1rem;
 }
 .task_item_header {
     font-size: .94rem;
@@ -109,7 +116,7 @@
     display: -webkit-box; /* Включаем флексбоксы */
     -webkit-box-orient: vertical; /* Вертикальная ориентация */
     overflow: hidden; /* Обрезаем всё за пределами блока */
-    margin: 0 0 4px 0;
+    margin: 0 0 3px 0;
     /* margin: 0 0 9px 0;
     margin: 0 0 2px 0; */
     color: #474646;
