@@ -49,16 +49,19 @@
     display: block;
     font-weight: 400;
     font-size: calc(100vw / 24);
+    font-size: 1.1rem;
     /* line-height: calc(100vw / 13); */
 
 }
 .writernames > span {
     font-weight: 700;
     font-size: calc(100vw / 24);
+    font-size: 1rem;
  }
 #workerselect_writernames {
     /* padding: calc(28vw / 29) 0 calc(105vw / 21) calc(100vw / 20); */
     padding: 0 0 calc(105vw / 21) calc(100vw / 20);
+    padding: 1rem 0 2rem 15px;
 }
 .calendFilter .band {
     display: block;
@@ -116,15 +119,20 @@
     font-weight: 700;
     /* animation: moving .4s ease; */
     font-size: calc(100vw / 26);
+    font-size: 1.1rem;
 }
 .workerselectObject .obj {
     font-weight: 400;
     font-size: calc(100vw / 24);
+    font-size: 1.1rem;
     line-height: calc(100vw / 20);
+    line-height: 1rem;
 }
 #workerselect_object {
     padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
+    padding: 2rem 0 1rem 15px;
     font-size: calc(100vw / 18);
+    font-size: 1.6rem;
     background-color: #fafafa;
     width: 100%;
     /* cursor: pointer; */
