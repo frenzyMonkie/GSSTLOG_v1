@@ -43,6 +43,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         var ret = []
         // console.log(TLctx.current[filterCategory])
         var selected = TLctx.current[filterCategory]
+
         for (var filterVal of filterVals) {
             var canvas = oneFilterSelectableCanvas(filterCategory, filterVal, selected)
             // var isSelected = filterVal == selected ? true : false
@@ -56,9 +57,16 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         return ret
     }
 
+    const filterFilters = (filterCategory, filterVals) => {
+        filterVals = filterCategory == "smena" && TLctx.current.type == "Водопонижение" ? ["Дневные смены"] : filterVals
+        filterVals = filterCategory == "workType" && TLctx.current.type != "Водопонижение" ? ["Монтаж", "Сварка", "Электрика"] : filterVals
+        return filterVals
+    }
+
     const renderContent = () => {
         console.log("[ RE-CALLED ] : renderContent")
         // Подготовка данных
+        filterVals = filterFilters(filterCategory, filterVals)
         TLctx.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
         // console.log(TLctx.filters)
         const nameList_mainmode = <div className="tab__content" id="tab__filters">

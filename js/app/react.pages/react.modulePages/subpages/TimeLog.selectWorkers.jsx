@@ -236,7 +236,11 @@ const renderContent = () => {
             if (item.useNameSelected[0] && item.selectedInObjects.includes(TLctx.current.object)) { return true }
         })
     }
-
+    const toggleFilterParam = () => {
+        var optionAll = "Все"
+        var optionChosen = "Выбранные"
+        setFilterParam(filterParam == "Все" ? optionChosen : optionAll)
+    }
     // Подготовка данных
     var workerList = prepareWorkers()
 
@@ -261,17 +265,20 @@ const renderContent = () => {
     var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
     var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
+    var toggleFilter = filterParam == "Все"
+    ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
+    : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
     const selectmodeCanvas = <Fragment>
                                 {object}
 
                                 <div className="grid">
                                     <input type="radio" id="tab1" name="tabGroup1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
-                                    <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
+                                    {/* <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label> */}
                                     <input type="radio" id="tab3" name="tabGroup1" class="tab" checked={filterParam == "Все" ? true : false}/>
-                                    <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label>
+                                    {/* <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label> */}
                                     {/* <input type="radio" id="tab2" name="tabGroup1" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                     <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot">Избранное</div></label> */}
-                                    {sbar}
+                                    <div class='toprow'>{toggleFilter}{sbar}</div>
                                     {nameList_selectmode}
                                 </div>
                             </Fragment>
