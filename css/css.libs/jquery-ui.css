@@ -473,7 +473,9 @@ button.ui-button::-moz-focus-inner {
     left: 52%; */
 	bottom: -7%;
     left: 64%;
-	border-radius: calc(100vw/24) 0 0 calc(100vw/24);
+	bottom: 59%;
+    left: 55%;
+	border-radius: calc(100vw/24) calc(100vw/24) calc(100vw/24) calc(100vw/24);
 	background-color: #e4e4e4;
 	background-color: #cdcdcd;
 	background-color: #cbcbcb;
