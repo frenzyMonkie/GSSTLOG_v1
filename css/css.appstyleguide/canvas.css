@@ -29,10 +29,9 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+
 }
-body::-webkit-scrollbar {
-    display: none;
-}
+
 
 /* Хедер, футер */
 .header {

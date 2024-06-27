@@ -142,11 +142,13 @@
     cursor: pointer;
     padding: calc(110vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
     background-color: #fafafa;
+    font-size: calc(100vw/20);
 }
 #calendar_smena  {
     cursor: pointer;
     background-color: #fafafa;
     padding: calc(132vw / 29) 0 calc(78vw / 21) calc(100vw / 20);
+    font-size: calc(100vw/20);
 }
 #calendar_summary {
     font-size: calc(100vw / 23);

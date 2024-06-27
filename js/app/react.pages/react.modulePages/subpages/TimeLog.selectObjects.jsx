@@ -35,11 +35,11 @@ const TimeLogSelectObjects  = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [searchParam] = useState(["name", "type"]);
-    const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
+    const [filterParam, setFilterParam] = useState(["Выбранные"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
-        setFilterParam("Все")
+        setFilterParam("Выбранные")
     }
     const searchBarObjects = (searchQuery, setSearchQuery) => {
         console.log("[ RE-CALLED ] : searchBar")
@@ -232,11 +232,7 @@ const TimeLogSelectObjects  = () => {
                 if (item.useNameSelected[0]) { return true }
             })
         }
-        const toggleFilterParam = () => {
-            var optionAll = "Все"
-            var optionChosen = "Выбранные"
-            setFilterParam(filterParam == "Все" ? optionChosen : optionAll)
-        }
+
         prepareObjects() // Подготовка данных
         console.log("Элементы готовы. Переходим к собиранию полотна")
         const nameList_selectmode = <div className="tab__content" id="tab__favourite_objects">
@@ -254,22 +250,18 @@ const TimeLogSelectObjects  = () => {
         var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
-
-        var toggleFilter = filterParam == "Все"
-        ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
-        : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}
                                     <div className="grid">
 
                                         <input type="radio" id="objtab1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
-                                        {/* <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label> */}
+                                        <label for="tab1" onClick={() => {return setFilterParam("Выбранные")}}><div class="label_bordbot">Выбранные</div></label>
                                         <input type="radio" id="objtab3" class="tab" checked={filterParam == "Все" ? true : false}/>
-                                        {/* <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label> */}
+                                        <label for="tab3" onClick={() => {return setFilterParam("Все")}}><div class="label_bordbot">Все</div></label>
 
                                         {/* <input type="radio" id="objtab2" class="tab" checked={filterParam == "Избранное" ? true : false}/>
                                         <label for="tab2" onClick={() => {return setFilterParam("Избранное")}}><div class="label_bordbot">Избранное</div></label> */}
-                                        <div class='toprow'>{toggleFilter}{sbar}</div>
+                                        {sbar}
                                         {nameList_selectmode}
                                     </div>
                                 </Fragment>

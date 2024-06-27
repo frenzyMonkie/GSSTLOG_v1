@@ -2044,18 +2044,46 @@ $.extend( Datepicker.prototype, {
                 // console.log("generatehtml", TLctx.current.smena)
                 // console.log("generatehtml", TLctx.current.worker.name)
                 // console.log("generatehtml", TLctx.current.worker.timenodes)
+
+
+
+				// }
+
+
 				printDate = this._daylightSavingAdjust( new Date( drawYear, drawMonth, 1 - leadDays ) );
+
+
+				// var hrsCanvas = null
 				for ( dRow = 0; dRow < numRows; dRow++ ) { // create date picker rows
+
 					calender += "<tr>";
 					tbody = ( !showWeek ? "" : "<td class='ui-datepicker-week-col'>" +
 						this._get( inst, "calculateWeek" )( printDate ) + "</td>" );
 					for ( dow = 0; dow < 7; dow++ ) { // create date picker days
+						var hrs = ''
+						console.log(printDate.getDate(), printDate, this._formatDate(inst, printDate))
+						var printDate_formatted = this._formatDate(inst, printDate)
+						for (var tnode of TLctx.current.timenodes) {
+							var contextMatch = tnode.object == TLctx.current.object && tnode.smena == TLctx.current.smena && tnode.workType == TLctx.current.workType
+							var dateMatch = tnode.date == printDate_formatted
+
+							if (contextMatch && dateMatch && tnode.hours ) {
+								var hrs = tnode.hours
+								console.log(tnode.date, printDate_formatted)
+								console.log(tnode.object, TLctx.current.object)
+								console.log(tnode.smena, TLctx.current.smena)
+								console.log(tnode.workType, TLctx.current.workType)
+							}
+						}
+						var hrsCanvas = hrs ? "<div class='outer_hrs'>" + hrs + "</div>" : ""
+
+
 						daySettings = ( beforeShowDay ?
 							beforeShowDay.apply( ( inst.input ? inst.input[ 0 ] : null ), [ printDate ] ) : [ true, "" ] );
 						otherMonth = ( printDate.getMonth() !== drawMonth );
 						unselectable = ( otherMonth && !selectOtherMonths ) || !daySettings[ 0 ] ||
 							( minDate && printDate < minDate ) || ( maxDate && printDate > maxDate );
-                            // console.log(currentDate)
+
 
                         // var cellSelected = addTags(printDate.getDate(), printDate.getMonth(), printDate.getFullYear())
                         // console.log(cellSelected)
@@ -2083,6 +2111,7 @@ $.extend( Datepicker.prototype, {
 							( ( !otherMonth || showOtherMonths ) && daySettings[ 2 ] ? " title='" + daySettings[ 2 ].replace( /'/g, "&#39;" ) + "'" : "" ) + // cell title
 
 							( unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'" ) + ">" + // actions
+							hrsCanvas +
 							( otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
 							( unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
                             // ( cellSelected ? " ui-state-active" : "") + // QWRTY

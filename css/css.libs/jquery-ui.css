@@ -322,6 +322,9 @@ button.ui-button::-moz-focus-inner {
 	width: 96%;
 
 }
+.ui-datepicker-calendar {
+	background: var(--bg-accent);
+}
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
     /* border-top-right-radius: 50px;
@@ -428,7 +431,7 @@ button.ui-button::-moz-focus-inner {
 	font-size: calc(100vw / 39);
 	padding: 1.2rem 0 .8rem 0;
     /* background: #a4c5ff; */
-    background: #fafafa;
+    background: var(--bg-accent);
 	text-align: center;
 	font-weight: bold;
 	border: 0;
@@ -449,9 +452,39 @@ button.ui-button::-moz-focus-inner {
     text-align: center;
     /* padding: .1em 1em; */
     border-radius: 17px;
+	position: relative;
 
 }
+.ui-datepicker td .outer_hrs {
+	position: absolute;
+    /* bottom: -15%;
+    left: -20%;
 
+	bottom: -13%;
+    left: -16%;
+
+	bottom: -9%;
+    left: -13%; */
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: -9%;
+    left: 52%;
+	top: -6%;
+    left: 56%;
+	border-radius: 0 0 0 calc(100vw/38);
+	background-color: #e4e4e4;
+	background-color: #cdcdcd;
+	background-color: #cbcbcb;
+	background-color: var(--bg-accent);
+	color: #002d14;
+	font-size: calc(100vw/28);
+	font-weight: 900;
+	/* z-index: 99; */
+	width: 46%;
+	height: 50%;
+}
 .ui-datepicker .ui-datepicker-buttonpane {
 	background-image: none;
 	margin: .7em 0 0 0;
@@ -976,7 +1009,7 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	/* border: 1px solid #dddddd; */
-	background: #fafafa;
+	background: var(--bg-accent);
 	color: #333333;
 	font-weight: bold;
 }
@@ -1085,6 +1118,8 @@ a.ui-button:active,
 	color: #ffffff;
     border-radius: 100%;
     /* border-radius: 10px; */
+	font-size: calc(100vw/30);
+	font-weight: 900;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {

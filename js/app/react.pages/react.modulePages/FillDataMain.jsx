@@ -37,18 +37,18 @@ const FillDataMain = () => {
             <div class="menu_main">
                 <div class="main_section" onClick = {() => navigate("/TimeLogSelectObjects", {replace: true})}>
                     <i class="main_section_icon fi fi-ss-user-helmet-safety"></i>
-                    <div class="main_section_text">Табели рабочих</div>
+                    <div class="main_section_text">Учёт рабочего времени</div>
                     {/* <span><br/> Неотправленных табелей: 4</span></div> */}
                     <i class="fi fi-sr-caret-right"></i>
                 </div>
                 <div class="main_section" onClick = {() => navigate("/", {replace: true})}>
                 <i class="main_section_icon fi fi-ss-employee-man-alt "></i>
-                    <div class="main_section_text">Табели ИТР<br/></div>
+                    <div class="main_section_text">Учёт рабочего времени ИТР <br/></div>
                     <i class="fi fi-sr-caret-right"></i>
                 </div>
                 <div class="main_section">
                     <i class="main_section_icon fi fi-ss-notebook-main"></i>
-                    <div class="main_section_text">Ежедневный отчёт </div>
+                    <div class="main_section_text">Отчёты по объектам </div>
                     {/* <span><br/>Ожидают заполения: 4 </span></div> */}
                     <i class="fi fi-sr-caret-right"></i>
                 </div>
