@@ -2060,6 +2060,19 @@ $.extend( Datepicker.prototype, {
 					tbody = ( !showWeek ? "" : "<td class='ui-datepicker-week-col'>" +
 						this._get( inst, "calculateWeek" )( printDate ) + "</td>" );
 					for ( dow = 0; dow < 7; dow++ ) { // create date picker days
+
+
+
+						daySettings = ( beforeShowDay ?
+							beforeShowDay.apply( ( inst.input ? inst.input[ 0 ] : null ), [ printDate ] ) : [ true, "" ] );
+						otherMonth = ( printDate.getMonth() !== drawMonth );
+						unselectable = ( otherMonth && !selectOtherMonths ) || !daySettings[ 0 ] ||
+							( minDate && printDate < minDate ) || ( maxDate && printDate > maxDate );
+
+
+                        // var cellSelected = addTags(printDate.getDate(), printDate.getMonth(), printDate.getFullYear())
+                        // console.log(cellSelected)
+
 						var hrs = ''
 						console.log(printDate.getDate(), printDate, this._formatDate(inst, printDate))
 						var printDate_formatted = this._formatDate(inst, printDate)
@@ -2076,17 +2089,6 @@ $.extend( Datepicker.prototype, {
 							}
 						}
 						var hrsCanvas = hrs ? "<div class='outer_hrs'>" + hrs + "</div>" : ""
-
-
-						daySettings = ( beforeShowDay ?
-							beforeShowDay.apply( ( inst.input ? inst.input[ 0 ] : null ), [ printDate ] ) : [ true, "" ] );
-						otherMonth = ( printDate.getMonth() !== drawMonth );
-						unselectable = ( otherMonth && !selectOtherMonths ) || !daySettings[ 0 ] ||
-							( minDate && printDate < minDate ) || ( maxDate && printDate > maxDate );
-
-
-                        // var cellSelected = addTags(printDate.getDate(), printDate.getMonth(), printDate.getFullYear())
-                        // console.log(cellSelected)
 
 						tbody += "<td class='" +
                             // (cellSelected ? "selected selected-start selected-end" : "") +
@@ -2111,7 +2113,7 @@ $.extend( Datepicker.prototype, {
 							( ( !otherMonth || showOtherMonths ) && daySettings[ 2 ] ? " title='" + daySettings[ 2 ].replace( /'/g, "&#39;" ) + "'" : "" ) + // cell title
 
 							( unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'" ) + ">" + // actions
-							hrsCanvas +
+							( unselectable ? "" : hrsCanvas) +
 							( otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
 							( unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
                             // ( cellSelected ? " ui-state-active" : "") + // QWRTY

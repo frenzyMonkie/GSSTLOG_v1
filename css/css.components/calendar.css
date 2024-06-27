@@ -78,7 +78,7 @@
     border-top: 1px rgb(183, 183, 183) solid;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     /* gap: calc(100vw / 20); */
 
 }
@@ -159,4 +159,26 @@
     display: block;
     /* text-align: right; */
     padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) calc(100vw / 20);
+}
+
+.summary {
+    font-size: calc(100vw / 26);
+    font-weight: 700;
+    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) calc(100vw / 20);
+    display: grid;
+    grid-template-columns: .4fr 1fr;
+
+    border-top: 1px black solid;
+}
+.summary_values {
+
+}
+.summary_smena {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: auto;
+}
+.summary_value:not(.smena){
+    margin: auto;
+
 }

@@ -379,23 +379,100 @@ const infoSection = (TLctx) => {
     // 1. Нужно посчитать суммы по каждым категориям, типу работ и сменам.
     // 2. Нужно чтобы такой переподсчет проводился при старте окна и отдельно, при закрытии btn-grid. И через setState обновлялись бы значения.
     var days = 0, hours = 0, wt = []
-    TLctx.current.worker.timenodes.forEach(node => {
-        if (node.hours != null && node.smena == TLctx.current.smena && node.workType == TLctx.current.workType) {
-            hours += Number(node.hours)
-            days++
+    let sumVals = []
 
+    // const applyData = (item, node) => {
+    //     item.workType = node.workType
+    //     item.smena = node.smena
+    //     item.hours += Number(node.hours)
+    //     item.days++
+    // }
+    let newVals = []
+    TLctx.current.worker.timenodes.forEach(node => {
+        // let i = {workType: '', smena: "", days: 0, hours: 0}
+
+        if (node.hours != null && sumVals.length != 0) {
+
+            for (let item of sumVals) {
+                let mainfound = false
+                if (node.workType == item.workType) {
+                    let found = false
+                    console.log('item', item)
+                    for (let d of item.data) {
+                        if (node.smena == d.smena) {
+                            console.log('item', item)
+                            d.hours += Number(node.hours)
+                            d.days++
+                            found = true
+                            mainfound = true
+                        }
+                    }
+                    if (!found) {
+                        let dd = {smena: node.smena, hours: Number(node.hours), days: 1}
+                        item.data.push(dd)
+                        mainfound = true
+                    }
+
+                }
+                if (!mainfound) {
+                    let data = {workType: node.workType, data: [{smena: node.smena, hours: Number(node.hours), days: 1}]}
+                    newVals.push(data)
+                }
+            }
+        } else if (node.hours != null && sumVals.length == 0) {
+            let data = {workType: node.workType, data: [{smena: node.smena, hours: Number(node.hours), days: 1}]}
+            sumVals.push(data)
         }
-        if (node.hours != null && !wt.includes(node.workType + ": " + node.smena)) {
-            wt.push(node.workType + ": " + node.smena )
-        }
+
+
+
+
+        // if (node.hours != null && node.smena == TLctx.current.smena && node.workType == TLctx.current.workType) {
+        //     hours += Number(node.hours)
+        //     days++
+
+        // }
+        // if (node.hours != null && !wt.includes(node.workType + ": " + node.smena)) {
+        //     wt.push(node.workType + ": " + node.smena )
+        // }
 
     }) // Подсчёт кол-ва часов и дней с учётом фильтров
+    sumVals.push(...newVals)
+    console.log('sumVals', sumVals)
+    // data = []
 
+    // Бурение:
+    // Дневные смены:
+    // Ночные смены:
+    let i = {workType: '', data: [{smena: "", days: 0, hours: 0}, {smena: "", days: 0, hours: 0}]}
+    let tableRow = (item, ) => {
+        let mapData = (i) => {
+            return <div class="summary_smena">
+                <div class='summary_value smena'>{i.smena}</div>
+                <div class='summary_value'>{i.days}</div>
+                <div class='summary_value'>{i.hours}</div>
+            </div>
+        }
+        let vals =  <div class="summary_values">
+                        {item.data.map((i) => mapData(i))}
+                    </div>
+        return <div class="summary">
+            <div class='summary_category'>{item.workType}</div>
+            {vals}
+        </div>
+    }
 
-    let timeSum = <div class='calendFilter label_s' id="calendar_summary">В этом месяце: {hours}ч. / {days}дн.</div>
-    let workSum = wt.map( w => <div class='calendFilter label_s' id="calendar_summary">{w}</div>)
+    // Если нет ночных, то дневные растягиваем, вместо 3 секций - 2.
+    let header = [{workType: 'Категория', data: [{smena: "Смена", days: "Смен", hours: "Часов"}]}]
+    let summaryItem = <Fragment>
+                        {header.map( (item) => tableRow(item) )}
+                        {sumVals.map( (item) => tableRow(item) )}
+                    </Fragment>
+
+    // let timeSum = <div class='calendFilter label_s' id="calendar_summary">В этом месяце: <br/> Всего: {hours}ч. / {days}дн.</div>
+    // let workSum = wt.map( w => <div class='calendFilter label_s' id="calendar_summary">{w}</div>)
     // var [summary, setSummary] = useState(null)
     return (
-        <div class='calendFilters'><div class='calendarFilterSection'>{timeSum}{workSum}</div></div>
+        <div class='calendFilters'><div class='calendarFilterSection'>{summaryItem}</div></div>
     )
 }
