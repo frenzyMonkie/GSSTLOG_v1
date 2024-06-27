@@ -469,11 +469,11 @@ button.ui-button::-moz-focus-inner {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	top: -9%;
-    left: 52%;
-	top: -6%;
-    left: 56%;
-	border-radius: 0 0 0 calc(100vw/38);
+	/* top: -9%;
+    left: 52%; */
+	bottom: -7%;
+    left: 64%;
+	border-radius: calc(100vw/24) 0 0 calc(100vw/24);
 	background-color: #e4e4e4;
 	background-color: #cdcdcd;
 	background-color: #cbcbcb;
@@ -482,9 +482,18 @@ button.ui-button::-moz-focus-inner {
 	font-size: calc(100vw/28);
 	font-weight: 900;
 	/* z-index: 99; */
+	width: 60%;
+	height: 53%;
+	width: 45%;
+	height: 39%;
+}
+/* .ui-datepicker td .outer_hrs {
+	top: -6%;
+    left: 56%;
+	border-radius: 0 0 0 calc(100vw/38);
 	width: 46%;
 	height: 50%;
-}
+} */
 .ui-datepicker .ui-datepicker-buttonpane {
 	background-image: none;
 	margin: .7em 0 0 0;

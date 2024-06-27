@@ -157,6 +157,6 @@
     font-weight: 200;
     margin: auto 0;
     display: block;
-    text-align: right;
-    padding: calc(60vw / 20) calc(100vw / 20) calc(60vw / 20) 0;
+    /* text-align: right; */
+    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) calc(100vw / 20);
 }
