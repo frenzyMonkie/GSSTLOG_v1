@@ -47,11 +47,11 @@ const TimeLogSelectWorkers  = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [searchParam] = useState(["name", "band"]);
-    const [filterParam, setFilterParam] = useState(["Выбранные"]); // "Все", "Избранное". "Выбранные"
+    const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
-        setFilterParam("Выбранные")
+        setFilterParam("Все")
     }
     function search(items) {
         console.log("[ RE-CALLED ] : search", items)
@@ -122,7 +122,8 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
                                 <p class="task_item_header nomargin title_m">{newWorker.name}</p>
                                 <p class="task_item_info label_s">{newWorker.band}</p>
                             </div>
-                            <i className="task_item_arr fi fi-br-angle-small-right "></i>
+                            {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
+                            <i className="task_item_arr fi fi-sr-caret-right "></i>
                     </div>
         );
 }
@@ -148,7 +149,8 @@ const oneWorkerSelectableCanvas = (idx, newWorker, selected, setSelected) => {
         setSelected(!selected)
         // изменить на логику if newWorker.selectedInObjects.includes(TLctx.current.object) => setSelected(true) else setSelected(false)
     }; // Тоггл галочки выбора
-    let iconClass = "task_item_arr fi fi-br-check"
+    // let iconClass = "task_item_arr fi fi-br-check"
+    let iconClass = "task_item_arr fi fi-sr-checkbox"
     let itemClass = "task_item"
     let itemWokerBandClass = "task_item_info label_s"
     let itemWokerNameClass = "task_item_header nomargin title_m"
@@ -266,8 +268,8 @@ const renderContent = () => {
     var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
     var toggleFilter = filterParam == "Все"
-    ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
-    : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
+    ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-ss-team-check-alt"></i></label>
+    : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-ss-team-check-alt-selected"></i></label>
     const selectmodeCanvas = <Fragment>
                                 {object}
 

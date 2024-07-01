@@ -117,7 +117,7 @@ const CalendarProCanvas = () => {
                             <p class="title_s">25.04.2024</p>
                         </div>
                     </div> */}
-                    <div class="tasks" id="today_tasks">
+                    {/* <div class="tasks" id="today_tasks"> */}
                         {/* <div class="tasks_header title_m">
                             <div class="tasks_header_left">
                                 <i class="fi fi-rr-receipt"></i>
@@ -137,7 +137,7 @@ const CalendarProCanvas = () => {
                             </div>
                         </div> */}
 
-                    </div>
+                    {/* </div> */}
                     {/* <div class="menu">
                         <div class="menu_item menu_item_thin" id="presets">
                             <p class="title_s"> Назад </p>

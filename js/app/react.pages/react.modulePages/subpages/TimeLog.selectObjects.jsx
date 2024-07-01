@@ -35,11 +35,11 @@ const TimeLogSelectObjects  = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [searchParam] = useState(["name", "type"]);
-    const [filterParam, setFilterParam] = useState(["Выбранные"]); // "Все", "Избранное". "Выбранные"
+    const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
-        setFilterParam("Выбранные")
+        setFilterParam("Все")
     }
     const searchBarObjects = (searchQuery, setSearchQuery) => {
         console.log("[ RE-CALLED ] : searchBar")
@@ -120,7 +120,8 @@ const TimeLogSelectObjects  = () => {
                                     <p class="task_item_header nomargin title_m">{newObject.name}</p>
                                     <p class="task_item_info label_s">{newObject.type}</p>
                                 </div>
-                                <i className="task_item_arr fi fi-br-angle-small-right "></i>
+                                {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
+                                <i className="task_item_arr fi fi-sr-caret-right "></i>
                         </div>
             );
     }
@@ -131,7 +132,8 @@ const TimeLogSelectObjects  = () => {
         const toggleIsSelected = () => {
             setNameSelected( !nameSelected );
         }; // Тоггл галочки выбора
-        let iconClass = "task_item_arr fi fi-br-check"
+        // let iconClass = "task_item_arr fi fi-br-check"
+        let iconClass = "task_item_arr fi fi-sr-checkbox"
         let itemClass = "task_item"
         let itemWokerBandClass = "task_item_info label_s"
         let itemWokerNameClass = "task_item_header nomargin title_m"
@@ -255,8 +257,8 @@ const TimeLogSelectObjects  = () => {
         // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
         var toggleFilter = filterParam == "Все"
-        ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check-default"></i></label>
-        : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-br-check"></i></label>
+        ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check "></i></label>
+        : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check-selected "></i></label>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}
                                     <div className="grid">
