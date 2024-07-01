@@ -123,6 +123,7 @@
     color: #474646;
     /* letter-spacing: -.44px; */
     letter-spacing: -.39px;
+    letter-spacing: -.18px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
     font-weight: 800;
