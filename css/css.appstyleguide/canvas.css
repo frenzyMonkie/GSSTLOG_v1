@@ -96,7 +96,7 @@ body {
 .header_title {
     /* font-size: .88rem; */
     /* font-size: calc(100vw / 27); */
-    font-size: calc(100vw / 25);
+    font-size: calc(100vw / 22);
     line-height: 1rem;
     line-height: calc(100vw / 31);
     font-weight: 700;

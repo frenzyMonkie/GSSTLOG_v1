@@ -448,7 +448,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-datepicker td {
 	border: 0;
-	padding: calc(100vw/170) 0;
+	padding: calc(100vw/75) 0;
     text-align: center;
     /* padding: .1em 1em; */
     border-radius: 17px;
@@ -1054,7 +1054,7 @@ html .ui-button.ui-state-disabled:active {
 	/* border: 1px solid #c5c5c5; */
 	/* background: #f6f6f6; */
 	font-weight: 700;
-    font-size: calc(100vw/20);
+    font-size: calc(100vw/18);
 	color: #454545;
     /* text-align: center; */
     /* width: calc(100vw/7.7);
@@ -1074,7 +1074,7 @@ html .ui-button.ui-state-disabled:active {
 }
 .ui-datepicker td span,
 .ui-datepicker td a {
-	display: block;
+	/* display: block; */
 	/* padding: .2em; */
 	/* text-align: right; */
 	text-decoration: none;
@@ -1166,7 +1166,7 @@ td > a{
 	align-items: center;
 }
 td.selected > a{
-	display: block;
+	/* display: block; */
 }
 
 

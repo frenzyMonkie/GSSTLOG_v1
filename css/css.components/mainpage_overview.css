@@ -109,6 +109,7 @@
 .task_item_header {
     font-size: .94rem;
     font-size: 1.3rem;
+    font-size: 1.17rem;
     /* font-size: .98rem; */
     /* .9rem; */
     word-wrap:break-all;
@@ -124,7 +125,7 @@
     letter-spacing: -.39px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
-    font-weight: 600;
+    font-weight: 800;
     color: #474646;
 }
 /* .task_item_header:first-letter {
@@ -153,7 +154,7 @@
 .task_item_info {
     /* font-size: .78rem; */
     font-size: .83rem;
-    font-size: 1.15rem;
+    font-size: calc(1rem);
     color: #575757;
     /* color: #469480; */
     /* color: #46abd5; */
