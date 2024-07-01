@@ -126,7 +126,8 @@
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
     font-weight: 800;
-    color: #474646;
+    color: #4c4c4c;
+
 }
 /* .task_item_header:first-letter {
     color: rgb(101, 101, 101);
@@ -134,7 +135,13 @@
 } */
 #tab__chosen_workers .task_item_header,
 #tab__chosen_objects .task_item_header {
-    color: #0e263bad;
+    color: #97a3e2;
+    color: #55504a;
+    color: #98907b;
+}
+#tab__chosen_workers .task_item_header {
+    color: #55504a;
+    color: #807c71;
 }
 .task_item_header.selected {
     color: #53ad96;

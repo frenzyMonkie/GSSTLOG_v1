@@ -203,7 +203,12 @@
     /* margin: 0 17px 0 0; */
     margin: 0 calc(100vw/20) 0 0;
     scale: .74;
-    /* display: none; */
+  }
+    #tab__filters i {
+    display: none;
+  }
+  #tab__filters i.selected {
+    display: block;
   }
   .objects .tab-wrap .task_item i {
     margin: 0 calc(100vw/20) 0 0;
