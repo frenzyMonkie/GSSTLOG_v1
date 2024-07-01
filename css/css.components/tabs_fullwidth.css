@@ -186,22 +186,28 @@
 
   .people_search {
     width: 100%;
-    height: 51px;
+    height: 4rem;
     padding: 0 20px;
     /* margin: 0 0 7px 0; */
     background-color: #fff;
     outline: none;
     border: none;
-    border-bottom: rgb(225 225 225) solid 1px;
+    /* border-bottom: rgb(225 225 225) solid 1px; */
     font-size: 1.05rem;
     /* font-size: calc(100vw/28); */
     /* border-top: black solid 1px; */
     grid-area: searchbox;
   }
 
-  .tab-wrap .task_item i.fi-br-check {
-    margin: 0 17px 0 0;
+  .tab-wrap .task_item i {
+    /* margin: 0 17px 0 0; */
+    margin: 0 calc(100vw/20) 0 0;
     scale: .74;
+    display: none;
+  }
+  .objects .tab-wrap .task_item i {
+    margin: 0 calc(100vw/20) 0 0;
+    scale: .94;
     display: none;
   }
   .tab-wrap .task_item i.fi-br-angle-small-right {

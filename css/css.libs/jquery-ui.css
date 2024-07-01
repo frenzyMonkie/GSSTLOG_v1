@@ -475,14 +475,19 @@ button.ui-button::-moz-focus-inner {
     left: 64%;
 	bottom: 59%;
     left: 55%;
+	bottom: 62%;
+    left: 56%;
 	/* bottom: 68%;
     left: -11%; */
 	border-radius: calc(100vw/24) calc(100vw/24) calc(100vw/24) calc(100vw/24);
+	border-radius: calc(100vw/24) calc(100vw/24) calc(100vw/24) 0;
 	background-color: #e4e4e4;
 	background-color: #cdcdcd;
 	background-color: #cbcbcb;
 	background-color: var(--bg-accent);
+	background-color: #369c7ac7;
 	color: #002d14;
+	color: #ffffff;
 	font-size: calc(100vw/28);
 	font-weight: 900;
 	/* z-index: 99; */
@@ -490,6 +495,8 @@ button.ui-button::-moz-focus-inner {
 	height: 53%;
 	width: 45%;
 	height: 39%;
+	width: 50%;
+    height: 52%;
 }
 /* .ui-datepicker td .outer_hrs {
 	top: -6%;
@@ -1120,19 +1127,24 @@ a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
 	/* border: 1px solid #003eff; */
-	background: #007fff;
+	/* background: #007fff; */
 	/* background: #34ae4694; */
 	/* background: #34ae7ba1; */
-	background: #369c60a1;
-	background: #369c60c7;
-	background: #36649cc7;
-	background: #369c7ac7;
+	/* background: #369c60a1; */
+	/* background: #369c60c7; */
+	/* background: #36649cc7; */
+	/* background: #369c7ac7; */
+	background: #ffffffc7;
 	/* font-weight: normal; */
 	color: #ffffff;
+	color: #369c7ac7;
+	color: #000000;
     border-radius: 100%;
     /* border-radius: 10px; */
 	font-size: calc(100vw/30);
 	font-weight: 900;
+	width: calc(100vw/10);
+	height: calc(100vw/10);
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {

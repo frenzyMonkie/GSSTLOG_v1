@@ -6,6 +6,23 @@
     display: block;
     height: 26px;
 }
+
+.fi-sr-checkbox {
+    background-image: url(../../icons/nav/fi-sr-checkbox.svg);
+    display: none;
+}
+.fi-sr-summary-check {
+    background-image: url(../../icons/nav/fi-sr-summary-check.svg);
+}
+.fi-sr-summary-check-selected {
+    background-image: url(../../icons/nav/fi-sr-summary-check-selected.svg);
+}
+.fi-ss-team-check-alt {
+    background-image: url(../../icons/nav/fi-ss-team-check-alt.svg);
+}
+.fi-ss-team-check-alt-selected {
+    background-image: url(../../icons/nav/fi-ss-team-check-alt-selected.svg);
+}
 .fi-ss-notebook-main {
     background-image: url(../../icons/fi-ss-notebook-main.svg);
 }

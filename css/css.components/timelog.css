@@ -116,6 +116,7 @@
     align-items: center;
     /* justify-content: space-between; */
     width: 100vw;
+    height: 4rem;
 }
 .toprow i {
     width: 2rem;
