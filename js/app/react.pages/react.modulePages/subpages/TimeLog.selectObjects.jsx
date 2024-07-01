@@ -253,6 +253,7 @@ const TimeLogSelectObjects  = () => {
                                         ))}
                                     </div>
         const sbar = React.useMemo(() => searchBarObjects(searchQuery, setSearchQuery));
+
         var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
@@ -261,6 +262,13 @@ const TimeLogSelectObjects  = () => {
         : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check-selected "></i></label>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}
+                                    <div class="grid_header objects">
+                                        <Fragment>
+                                            <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => navigate("/FillDataMain", {replace: true})}></i>
+                                        </Fragment>
+                                            <div>Табели</div>
+                                            {editWorkerListbtn}
+                                        </div>
                                     <div className="grid">
 
                                         <input type="radio" id="objtab1" class="tab" checked={filterParam == "Выбранные" ? true : false}/>
@@ -278,7 +286,10 @@ const TimeLogSelectObjects  = () => {
                                 {/* {object} {objInfo} */}
                                 <input type="radio" id="objtab0" class="tab" checked/>
                                 <div class="grid_header objects">
-                                    <div>Список объектов</div>
+                                        <Fragment>
+                                            <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => navigate("/FillDataMain", {replace: true})}></i>
+                                        </Fragment>
+                                    <div>Табели</div>
                                     {editWorkerListbtn}
                                 </div>
                                 {nameList_mainmode}
@@ -315,13 +326,14 @@ const TimeLogSelectObjects  = () => {
     )}
     const header = (handler) => {
         console.log("[ RE-CALLED ] : header")
-        return (
-            <div class="header" id="header_main">
-                <div className="nav_left"> {navLeft(handler) || null}</div>
-                <div class="header_title"> {state.pageTitle || "Нету названия"} </div>
-                <div className="nav_right"> {navRight(handler) || null}</div>
-            </div>
-        )
+        return <Fragment/>
+        // (
+        //     <div class="header" id="header_main">
+        //         <div className="nav_left"> {navLeft(handler) || null}</div>
+        //         <div class="header_title"> {state.pageTitle || "Нету названия"} </div>
+        //         <div className="nav_right"> {navRight(handler) || null}</div>
+        //     </div>
+        // )
     }
 
     // Можно конечно попробовать рендерит ьвсё прямо здесь.. а уже потом оборачивать в контекст отловщика ошибок и т.д.
