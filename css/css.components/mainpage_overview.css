@@ -126,7 +126,7 @@
     letter-spacing: -.39px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
-    font-weight: 600;
+    font-weight: 700;
     color: #474646;
 }
 /* .task_item_header:first-letter {
@@ -135,7 +135,7 @@
 } */
 #tab__chosen_workers .task_item_header,
 #tab__chosen_objects .task_item_header {
-    color: #0e263bad;
+    color: #13251f;
 }
 .task_item_header.selected {
     color: #53ad96;
@@ -155,7 +155,7 @@
 .task_item_info {
     /* font-size: .78rem; */
     font-size: .83rem;
-    font-size: 1.15rem;
+    font-size: 1rem;
     color: #575757;
     /* color: #469480; */
     /* color: #46abd5; */
@@ -164,7 +164,7 @@
     /* color: #53ad96; */
     /* letter-spacing: -.14px; */
     letter-spacing: .03px;
-    font-weight: 400;
+    font-weight: 600;
 }
 .task_item_info span {
     color:rgb(109, 109, 109);

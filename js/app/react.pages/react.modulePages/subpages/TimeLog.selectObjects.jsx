@@ -1,14 +1,14 @@
 var objects = [
-    {name: "Силикатный пр-д", type: "Водопонижение", isSelected: false,},
-    {name: "Амурская", type: "Водопонижение", isSelected: false,},
-    {name: "Кронштадский пр-д", type: "Проходка", isSelected: true,},
-    {name: "Кульнева", type: "ГНБ", isSelected: false,},
-    {name: "Тимирязевская", type: "Проходка", isSelected: true,},
-    {name: "3-я Парковая", type: "Водопонижение", isSelected: false,},
-    {name: "Загорская ГАЭС-2", type: "Водопонижение", isSelected: false,},
-    {name: "Камова 24", type: "Водопонижение", isSelected: true,},
-    {name: "Амбер-Сити", type: "Водопонижение", isSelected: false,},
-    {name: "Ташкентская", type: "Водопонижение", isSelected: false,},
+    {name: "Силикатный пр-д", type: "Водопонижение", contractor:"МСТ", isSelected: false,},
+    {name: "Амурская", type: "Водопонижение", contractor:"Самолёт", isSelected: false,},
+    {name: "Кронштадский пр-д", type: "Проходка", contractor:"ЗИЛ", isSelected: true,},
+    {name: "Кульнева", type: "ГНБ", contractor:"Смайнекс", isSelected: false,},
+    {name: "Тимирязевская", type: "Проходка", contractor:"МСТ", isSelected: true,},
+    {name: "3-я Парковая", type: "Водопонижение", contractor:"МСТ", isSelected: false,},
+    {name: "Загорская ГАЭС-2", type: "Водопонижение", contractor:"Смайнекс", isSelected: false,},
+    {name: "Камова 24", type: "Водопонижение", contractor:"Самолёт", isSelected: true,},
+    {name: "Амбер-Сити", type: "Водопонижение", contractor:"Самолёт", isSelected: false,},
+    {name: "Ташкентская", type: "Водопонижение", contractor:"ЗИЛ", isSelected: false,},
 ] // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
 
 
@@ -118,7 +118,7 @@ const TimeLogSelectObjects  = () => {
             <div class="task_item" onClick={editObjectTable}>
                                 <div class="task_item_text">
                                     <p class="task_item_header nomargin title_m">{newObject.name}</p>
-                                    <p class="task_item_info label_s">{newObject.type}</p>
+                                    <p class="task_item_info label_s">{newObject.contractor}</p>
                                 </div>
                                 {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
                                 <i className="task_item_arr fi fi-sr-caret-right "></i>
