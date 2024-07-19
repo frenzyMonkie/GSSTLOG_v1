@@ -208,9 +208,10 @@
   .objects .tab-wrap .task_item i {
     margin: 0 calc(100vw/20) 0 0;
     scale: .94;
-    display: block;
+    display: none;
   }
-  .workers .tab-wrap .task_item i {
+  #tab__chosen_objects .task_item i,
+  #tab__chosen_workers .task_item i {
     display: block;
   }
   .tab-wrap .task_item i.fi-br-angle-small-right {

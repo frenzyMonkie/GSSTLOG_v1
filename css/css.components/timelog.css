@@ -90,7 +90,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 4rem;
+    height: 3.2rem;
     padding: 0 20px 0 15px;
     border-top: #d1d1d171 2px solid;
     /* border-top: #2aaea4 2px solid; */
@@ -103,12 +103,12 @@
 }
 .grid_header i{
   min-width: 1.73rem;
-  min-height: 2rem;
+  /* min-height: 2rem; */
 }
 .objects .grid_header{
     min-width: 1.73rem;
     min-height: 2rem;
-    padding: 0 20px 0 22px;
+    padding: 0 calc(100vw / 20) 0 22px;
 }
 
 .toprow {
