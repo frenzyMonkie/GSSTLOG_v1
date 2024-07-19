@@ -461,7 +461,7 @@ const infoSection = (TLctx) => {
             {vals}
         </div>
     }
-
+    var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     // Если нет ночных, то дневные растягиваем, вместо 3 секций - 2.
     let header = [{workType: 'Категория', data: [{smena: "Смена", days: "Смен", hours: "Часов"}]}]
     let summaryItem = <Fragment>
@@ -473,6 +473,10 @@ const infoSection = (TLctx) => {
     // let workSum = wt.map( w => <div class='calendFilter label_s' id="calendar_summary">{w}</div>)
     // var [summary, setSummary] = useState(null)
     return (
-        <div class='calendFilters'><div class='calendarFilterSection'>{summaryItem}</div></div>
+        <Fragment>
+            <div class='calendFilters'><div class='calendarFilterSection'>{summaryItem}</div></div>
+            {objInfo}
+        </Fragment>
+
     )
 }

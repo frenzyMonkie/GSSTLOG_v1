@@ -85,6 +85,7 @@
     /* padding: 8px 0px 6px 13px; */
     padding: 9px 0px 9px 15px;
     padding: 18px 0px 18px 15px;
+    padding: 14px 0px 18px 18px;
     /* padding: 7px 0px 5px 13px; */
     /* padding: 15px 0px 16px 13px; */
     /* padding: 19px 0px 8px 13px; */
@@ -95,7 +96,8 @@
 .objects .task_item_text,
 #tab__filters .task_item_text {
     /* padding: 16px 0px 14px 15px; */
-    padding: 28px 0px 28px 22px;
+    padding: 22px 0px 22px 22px;
+    padding: 18px 0px 18px 15px;
 }
 /* .objects .task_item_header {
     margin: 0 0 3px 0;
@@ -109,7 +111,6 @@
 .task_item_header {
     font-size: .94rem;
     font-size: 1.3rem;
-    font-size: 1.17rem;
     /* font-size: .98rem; */
     /* .9rem; */
     word-wrap:break-all;
@@ -123,12 +124,10 @@
     color: #474646;
     /* letter-spacing: -.44px; */
     letter-spacing: -.39px;
-    letter-spacing: -.18px;
     /* Через span можно тогда выделить первую букву, при генерации списков */
     /* display: block; */
-    font-weight: 800;
-    color: #4c4c4c;
-
+    font-weight: 600;
+    color: #474646;
 }
 /* .task_item_header:first-letter {
     color: rgb(101, 101, 101);
@@ -136,13 +135,7 @@
 } */
 #tab__chosen_workers .task_item_header,
 #tab__chosen_objects .task_item_header {
-    color: #97a3e2;
-    color: #55504a;
-    color: #98907b;
-}
-#tab__chosen_workers .task_item_header {
-    color: #55504a;
-    color: #807c71;
+    color: #0e263bad;
 }
 .task_item_header.selected {
     color: #53ad96;
@@ -162,7 +155,7 @@
 .task_item_info {
     /* font-size: .78rem; */
     font-size: .83rem;
-    font-size: calc(1rem);
+    font-size: 1.15rem;
     color: #575757;
     /* color: #469480; */
     /* color: #46abd5; */

@@ -3,7 +3,20 @@
         // console.log("[multidatepicker] TLctx", TLctx)
         // К примеру, здесь добавить все уже указанные ноды времени в extensionRange или куда угодно ещё чтобы они отрисовались.
 
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const firstDate = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+        const secondDate = Date.UTC(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate());
 
+        var maxdayDiff = Math.abs((firstDate.valueOf() - secondDate.valueOf()) / (24 * 60 * 60 * 1000));
+        // console.log(diff)
+        var todayDay = today.getDate() - 1
+        var minDayDiff = '-2m -' + todayDay + "d"
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        console.log(minDayDiff, "MDD")
         $('#date_range').datepicker({
             // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
             TLctx: TLctx,
@@ -11,9 +24,9 @@
             init: true,
             showWeek: false, // При нажатии на номер недели чтобы вся неделя выделялась - сделать...
             range: 'multiple', // режим - выбор нескольких дат
-            maxDate: "+12month",
+            maxDate: maxdayDiff,
             minDate: new Date('@minDate'),
-            minDate: '-3 month', // Есть ли смысл, хз, т.к. для админа нужен выбор любой даты...
+            minDate: minDayDiff, // Есть ли смысл, хз, т.к. для админа нужен выбор любой даты...
             //   range_multiple_max: '30', // макимальное число выбираемых дат
             onUpdateDatepicker: function (dateText, inst, extensionRange) {
                 // $('[name=multipleDate]').val(extensionRange.datesText.join('\n'));

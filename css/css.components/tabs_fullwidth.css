@@ -203,17 +203,12 @@
     /* margin: 0 17px 0 0; */
     margin: 0 calc(100vw/20) 0 0;
     scale: .74;
-  }
-    #tab__filters i {
     display: none;
-  }
-  #tab__filters i.selected {
-    display: block;
   }
   .objects .tab-wrap .task_item i {
     margin: 0 calc(100vw/20) 0 0;
-    scale: .86;
-    /* display: none; */
+    scale: .94;
+    display: none;
   }
   .tab-wrap .task_item i.fi-br-angle-small-right {
     display: block;
