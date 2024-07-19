@@ -13,12 +13,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  /* display: grid;
+  grid-template-rows: 1fr 1fr 1fr; */
+
 }
 
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: auto;
+  /* margin: auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   padding: 20px;
   border: 1px solid #888;
   width: 626px;

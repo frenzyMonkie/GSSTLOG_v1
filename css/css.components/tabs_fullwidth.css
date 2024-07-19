@@ -203,12 +203,18 @@
     /* margin: 0 17px 0 0; */
     margin: 0 calc(100vw/20) 0 0;
     scale: .74;
-    display: none;
+    display: block;
   }
   .objects .tab-wrap .task_item i {
     margin: 0 calc(100vw/20) 0 0;
     scale: .94;
+    display: block;
+  }
+  #tab__filters .task_item i{
     display: none;
+  }
+  #tab__filters .task_item i.selected{
+    display: block;
   }
   #tab__chosen_objects .task_item i,
   #tab__chosen_workers .task_item i {

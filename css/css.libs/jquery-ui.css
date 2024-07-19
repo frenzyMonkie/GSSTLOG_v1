@@ -476,7 +476,7 @@ button.ui-button::-moz-focus-inner {
 	bottom: 59%;
     left: 55%;
 	bottom: 62%;
-    left: 56%;
+    left: 52%;
 	/* bottom: 68%;
     left: -11%; */
 	border-radius: calc(100vw/24) calc(100vw/24) calc(100vw/24) calc(100vw/24);
@@ -485,7 +485,7 @@ button.ui-button::-moz-focus-inner {
 	background-color: #cdcdcd;
 	background-color: #cbcbcb;
 	background-color: var(--bg-accent);
-	background-color: #369c7ac7;
+	background-color: #2ab587;
 	color: #002d14;
 	color: #ffffff;
 	font-size: calc(100vw/28);
@@ -1136,9 +1136,10 @@ a.ui-button:active,
 	/* background: #369c7ac7; */
 	background: #ffffffc7;
 	/* font-weight: normal; */
+	background: #5800ff;
 	color: #ffffff;
-	color: #369c7ac7;
-	color: #000000;
+	/* color: #369c7ac7; */
+	/* color: #000000; */
     border-radius: 100%;
     /* border-radius: 10px; */
 	font-size: calc(100vw/30);

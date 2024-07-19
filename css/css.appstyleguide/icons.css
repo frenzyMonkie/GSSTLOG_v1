@@ -11,6 +11,10 @@
     background-image: url(../../icons/nav/fi-sr-checkbox.svg);
     display: none;
 }
+.fi-sr-checkbox-unchecked {
+    background-image: url(../../icons/nav/fi-sr-checkbox-unchecked.svg);
+    display: none;
+}
 .fi-sr-summary-check {
     background-image: url(../../icons/nav/fi-sr-summary-check.svg);
 }
