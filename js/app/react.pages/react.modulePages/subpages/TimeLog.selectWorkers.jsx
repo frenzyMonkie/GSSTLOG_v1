@@ -151,6 +151,7 @@ const oneWorkerSelectableCanvas = (idx, newWorker, selected, setSelected) => {
     }; // Тоггл галочки выбора
     // let iconClass = "task_item_arr fi fi-br-check"
     let iconClass = "task_item_arr fi fi-sr-checkbox"
+    let iconClassUnchecked = "task_item_arr fi fi-sr-checkbox-unchecked"
     let itemClass = "task_item"
     let itemWokerBandClass = "task_item_info label_s"
     let itemWokerNameClass = "task_item_header nomargin title_m"
@@ -162,7 +163,7 @@ const oneWorkerSelectableCanvas = (idx, newWorker, selected, setSelected) => {
                                 <p className={selected ? itemWokerBandClass + " selected" : itemWokerBandClass}>{newWorker.band}</p>
 
                             </div>
-                            <i className={selected ? iconClass + " selected" : iconClass}></i>
+                            <i className={selected ? iconClass + " selected" : iconClassUnchecked}></i>
                     </div>
       );
 }

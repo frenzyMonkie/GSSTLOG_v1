@@ -223,9 +223,11 @@ const ButtonGrid = () => {
                 <div id="myModal" className={btnGridVisible ? "modal show" : "modal"}>
                 {/* <div id="myModal" class="modal show"> */}
                     <div class="sheet-overlay"></div>
+                    <div class="btn_grid_date">{currentDate}</div>
                     <div class="modal-content">
+
                         <div class="btn_container">
-                            {currentDate}
+
                             <div class="buttons_grid">
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "1" ? "button_hour checked" : "button_hour"} id="h1">1</div>
                                 <div onClick={(e) => handleBtnClick(e)} className={ checkedBtn == "2" ? "button_hour checked" : "button_hour"} id="h2">2</div>

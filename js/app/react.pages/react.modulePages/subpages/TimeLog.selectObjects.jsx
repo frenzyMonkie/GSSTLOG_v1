@@ -134,6 +134,7 @@ const TimeLogSelectObjects  = () => {
         }; // Тоггл галочки выбора
         // let iconClass = "task_item_arr fi fi-br-check"
         let iconClass = "task_item_arr fi fi-sr-checkbox"
+        let iconClassUnchecked = "task_item_arr fi fi-sr-checkbox-unchecked"
         let itemClass = "task_item"
         let itemWokerBandClass = "task_item_info label_s"
         let itemWokerNameClass = "task_item_header nomargin title_m"
@@ -141,10 +142,10 @@ const TimeLogSelectObjects  = () => {
             <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleIsSelected}>
                                 <div class="task_item_text">
                                     <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newObject.name}</p>
-                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newObject.type}</p>
+                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newObject.contractor}</p>
 
                                 </div>
-                                <i className={nameSelected == false ? iconClass : iconClass + " selected"}></i>
+                                <i className={nameSelected == false ? iconClassUnchecked : iconClass + " selected"}></i>
                         </div>
         );
     }
@@ -259,6 +260,11 @@ const TimeLogSelectObjects  = () => {
         var toggleFilter = filterParam == "Все"
         ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check "></i></label>
         : <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check-selected "></i></label>
+        var actionsBar = <div class="timetable_controls">
+            <div class="task_item"><div class="task_item_text">Отправить себе</div></div>
+            <div class="task_item"><div class="task_item_text">Отправить в чат</div></div>
+            <div class="task_item"><div class="task_item_text">Подтвердить месяц</div></div>
+        </div>
         const selectmodeCanvas = <Fragment>
                                     {/* {object} */}
                                     <div className="grid">
@@ -276,9 +282,11 @@ const TimeLogSelectObjects  = () => {
                                 </Fragment>
         const mainCanvas = <Fragment>
                                 {/* {object} {objInfo} */}
+
                                 <input type="radio" id="objtab0" class="tab" checked/>
                                 <div class="grid_header objects">
-                                    <div>Список объектов</div>
+
+                                    <div>Объекты</div>
                                     {editWorkerListbtn}
                                 </div>
                                 {nameList_mainmode}
@@ -288,6 +296,7 @@ const TimeLogSelectObjects  = () => {
             <TimeLogContext.Provider>
             <div class="timelog">
                 <div class="objects">
+                    {/* {actionsBar} */}
                     <div class="tab-wrap">
                         {selectMode ? selectmodeCanvas : mainCanvas}
                     </div>
