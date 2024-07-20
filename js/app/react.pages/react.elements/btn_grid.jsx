@@ -2,12 +2,11 @@
 
 const ButtonGrid = () => {
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
-    const [btnGridVisible, setBtnGridVisible] = useState(false)
+
     const [checkedBtn, setCheckedBtn] = useState(null)
-    TLctx.btnGrid = [btnGridVisible, setBtnGridVisible]
+
     TLctx.checkedBtn = [checkedBtn, setCheckedBtn]
-    const [currentDate, setCurrentDate] = useState(null)
-    TLctx.currentDate = [currentDate, setCurrentDate]
+
 
     const setCurrentTLOGDate = (TLctx, date, hours) => {
         if (date) TLctx.current.date = date // Устанавливаем фокус на выбранную дату
@@ -52,7 +51,7 @@ const ButtonGrid = () => {
         // Поскольку выходим из контекста выбора, обнуляем и обновляем всё что требуется
         TLctx.current.date = null
         TLctx.current.hours = null
-
+        var setBtnGridVisible =  TLctx.btnGrid[1]
         setCheckedBtn(null) // Выделяем выбранную пользователем кнопку цветом
         setBtnGridVisible(false) // Убираем панель
         console.log("[ Выход из контекста выбора часов]", TLctx)
@@ -217,14 +216,14 @@ const ButtonGrid = () => {
 
 
     }
-
+    var btnGridVisible =  TLctx.btnGrid[0]
     return  (
         <Fragment>
                 <div id="myModal" className={btnGridVisible ? "modal show" : "modal"}>
                 {/* <div id="myModal" class="modal show"> */}
                 {/* <div id="myModal" class="modal show"> */}
                     <div class="sheet-overlay"></div>
-                    <div class="btn_grid_date">{currentDate}</div>
+                    {/* <div class="btn_grid_date">{TLctx.currentDate[0]}</div> */}
                     <div class="modal-content">
 
                         <div class="btn_container">

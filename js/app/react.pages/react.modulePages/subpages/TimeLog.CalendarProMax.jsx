@@ -4,11 +4,17 @@
 const CalendarPro = () => {
     const navigate = useNavigate();
     const [menuSelected, setMenuSelected] = useOutletContext();
+
+
     const goPage = (page) => {
         setMenuSelected(page)
         navigate(page);
     }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
+    const [btnGridVisible, setBtnGridVisible] = useState(false)
+    TLctx.btnGrid = [btnGridVisible, setBtnGridVisible]
+    const [currentDate, setCurrentDate] = useState(null)
+    TLctx.currentDate = [currentDate, setCurrentDate]
     // const pageTitle = () => {
     //     try {
     //         var title = TLctx.current.worker.name
@@ -84,12 +90,22 @@ const CalendarPro = () => {
         </Fragment>
     )}
     const header = (handler) => {
+        console.log(TLctx.current, 'TLctx.current')
+        var date = TLctx.current.date
         return (
+            // <Fragment>
+            // {TLctx.btnGrid[0] ? null : <div class="header" id="header_main">
+            //     <div className="nav_left"> {TLctx.btnGrid[0] ? null : navLeft(handler)}</div>
+            //     <div class="header_title"> {TLctx.btnGrid[0] ? TLctx.current.date : state.pageTitle} </div>
+            //     <div className="nav_right"> {TLctx.btnGrid[0] ? null : navRight(handler)}</div>
+            // </div>}
+            // </Fragment>
             <div class="header" id="header_main">
-                <div className="nav_left"> {navLeft(handler) || null}</div>
-                <div class="header_title"> {state.pageTitle || "Нету названия"} </div>
-                <div className="nav_right"> {navRight(handler) || null}</div>
+                <div className="nav_left"> {TLctx.btnGrid[0] ? null : navLeft(handler)}</div>
+                <div class="header_title"> {TLctx.btnGrid[0] ? date : state.pageTitle}</div>
+                <div className="nav_right"> {TLctx.btnGrid[0] ? null : navRight(handler)}</div>
             </div>
+
         )
     }
     const renderCanvas = () => {

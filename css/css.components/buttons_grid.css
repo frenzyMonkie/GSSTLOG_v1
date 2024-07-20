@@ -31,7 +31,7 @@ body {
   background: #5e5e5e;
   color: #fff;
   margin: 0px auto 8vw;
-  padding: 6vw;
+  /* padding: 6vw; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,6 +91,7 @@ body {
     flex-flow: row wrap;
     max-width: fit-content;
     justify-content: center;
+    padding: 11vw 0 0 0;
 }
 .button_hour {
   background-color: #fcfaf7;
