@@ -100,7 +100,7 @@ const Layout = () => {
 
     // const menuSelected = "mainpage"
     const [menuSelected, setMenuSelected] = useState('/')
-
+    window.scrollTo(0, 0);
     return (
         <Fragment>
             <Outlet context={[menuSelected, setMenuSelected]}/>
