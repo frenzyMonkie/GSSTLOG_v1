@@ -114,11 +114,12 @@ const CalendarPro = () => {
 const CalendarProCanvas = () => {
 
     const render = () => {
-        return (
-            <div class="container">
+        return <Calendar />
+        // (
+        //     <div class="container">
 
-                <div class="content" id="content_main">
-                <Calendar />
+        //         <div class="content" id="content_main">
+        //         <Calendar />
 
                     {/* <div class="menu">
                         <div class="menu_item menu_item_thin" id="presets">
@@ -153,9 +154,9 @@ const CalendarProCanvas = () => {
                             <p class="title_s">Далее</p>
                         </div>
                     </div> */}
-                </div>
-        </div>
-        )
+        //         </div>
+        // </div>
+        // )
     }
 
     return render()
@@ -231,8 +232,8 @@ const Calendar = () => {
         // var currentWorker = Object.keys(TLctx[0][0])[0] // Ищем выбранного рабочего (здесь необяхательно, из контекста можно вытащить потом)
         // console.log(currentWorker)
 
-        return (
-                                <div className="container">
+        return (    <Fragment>
+                                {/* <div className="container"> */}
                                 <ButtonGrid/>
                                 <MultidateCalendar
                                     // currentWorker={currentWorker}
@@ -242,7 +243,8 @@ const Calendar = () => {
                                     {/* <Form
                                     //   characterData={characters}
                                         handleSubmit={this.handleSubmit} /> */}
-                                </div>
+                                {/* </div> */}
+                    </Fragment>
         );
   }
   return render()
