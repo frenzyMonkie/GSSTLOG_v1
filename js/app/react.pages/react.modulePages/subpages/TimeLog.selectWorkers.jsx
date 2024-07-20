@@ -265,7 +265,13 @@ const renderContent = () => {
                                     ))}
                                 </div>
     const sbar = React.useMemo(() => searchBar(searchQuery, setSearchQuery));
-    var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
+    var object =
+    <div class='workerselectObject' id='workerselect_object' onclick='onClick()'>
+        {/* <div class='label'>Объект:</div> */}
+        {/* <div class='obj'>«{TLctx.current.object}»</div> */}
+        <div class='obj'>{TLctx.current.object}</div>
+        <div class='contr'>{TLctx.current.contr}</div>
+    </div>
     // var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
     var toggleFilter = filterParam == "Все"
@@ -290,8 +296,9 @@ const renderContent = () => {
                             {/* {objInfo} */}
                             <input type="radio" id="tab0" name="tabGroup4" class="tab" checked/>
                             <div class="grid_header workers">
-                                    <div>Список сотрудников</div>
-                                    {editWorkerListbtn}
+                                {editWorkerListbtn}
+                                <div>Список сотрудников</div>
+
                             </div>
                             {nameList_mainmode}
 

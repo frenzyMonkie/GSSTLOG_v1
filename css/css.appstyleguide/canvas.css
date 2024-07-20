@@ -8,6 +8,15 @@
     --border-sep: 1px rgba(0, 0, 0, 0.253) solid;
     --border-sep: 1px rgb(207, 207, 207) solid;
     --border-header-sep: 1px rgb(144, 144, 144) solid;
+
+
+    --t1: 5vw;
+    --ts: calc(var(--t1)*0.86);
+    --t2: calc(var(--t1)*1.07);
+    --t3: calc(var(--t2)*1.13);
+    --t4: calc(var(--t3)*1.18);
+    /* var(--t1); */
+
 }
 *:focus, *:active {
     -webkit-tap-highlight-color: transparent;
@@ -47,7 +56,7 @@ body {
     /* justify-content: space-between; */
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 1001;
     /* display: grid;
     grid-template-columns: minmax(40px, 1fr) 3fr 1fr;
     gap: 20px;
@@ -55,8 +64,10 @@ body {
     /* width: 100%; */
     /* margin: auto; */
     /* padding: 9px 0 7px 0; */
-    min-height: 53px;
-    background-color: var(--bg-main);
+    min-height: 17vw;
+    /* background-color: var(--bg-main); */
+    background: rgb(255,255,255);
+    /* background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(249,249,249,1) 75%, rgba(225,229,235,1) 100%); */
     /* border-bottom: var(--border-header-sep); */
     box-shadow: 0 0 3px 1px rgb(206, 206, 206);
 }
@@ -67,8 +78,9 @@ body {
     min-height: 100%;
     grid-area: a;
     align-self: center;
-    min-width: calc(100vw / 12);
-    min-height: calc(100vw / 12);
+    min-width: 8vw;
+    min-height: 8vw;
+
 }
 .header .nav_right {
     margin-left: auto;
@@ -78,8 +90,8 @@ body {
     position: relative;
     grid-area: c;
     align-self: center;
-    min-width: calc(100vw / 16);
-    min-height: calc(100vw / 16);
+    min-width: 6vw;
+    min-height: 6vw;
 }
 .header i {
     cursor: pointer;
@@ -100,7 +112,8 @@ body {
 .header_title {
     /* font-size: .88rem; */
     /* font-size: calc(100vw / 27); */
-    font-size: calc(100vw / 25);
+    font-size: var(--t1);
+    /* font-size: 1.8rem; */
     line-height: 1rem;
     line-height: calc(100vw / 31);
     font-weight: 700;

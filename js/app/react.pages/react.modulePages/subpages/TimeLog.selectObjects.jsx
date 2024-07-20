@@ -106,7 +106,7 @@ const TimeLogSelectObjects  = () => {
             TLctx.current.idx = idx;
             TLctx.current.object = newObject.name;
             TLctx.current.type = newObject.type;
-
+            TLctx.current.contr = newObject.contractor;
             // CTX - SERVER FILLS DATA
             // console.log("object",newObject);
             // console.log("contetx", TLctx.objects);
@@ -285,9 +285,9 @@ const TimeLogSelectObjects  = () => {
 
                                 <input type="radio" id="objtab0" class="tab" checked/>
                                 <div class="grid_header objects">
+                                {editWorkerListbtn}
+                                    <div>Выбранные</div>
 
-                                    <div>Объекты</div>
-                                    {editWorkerListbtn}
                                 </div>
                                 {nameList_mainmode}
                             </Fragment>

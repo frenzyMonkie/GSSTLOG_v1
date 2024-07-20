@@ -122,21 +122,42 @@
     font-size: calc(100vw / 26);
     font-size: 1.1rem;
 }
-.workerselectObject .obj {
+.workerselectObject .label {
     font-weight: 400;
-    font-size: calc(100vw / 24);
-    font-size: 1.1rem;
-    line-height: calc(100vw / 20);
-    line-height: 1rem;
+    font-size: var(--t3);
+    /* font-size: 1.1rem; */
+    /* line-height: var(--t1); */
+    /* line-height: 1rem; */
+    color: #f6f6f6;
+}
+.workerselectObject .obj {
+    font-weight: 900;
+    font-size: var(--t4);
+    /* font-size: 1.1rem; */
+    /* line-height: 10vw; */
+    margin: 0 0 2.4vw 0 ;
+    /* line-height: 1rem; */
+    letter-spacing: -0.05vw;
+
+}
+.workerselectObject .contr {
+    font-weight: 700;
+    font-size: var(--t1);
 }
 #workerselect_object {
     padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
     padding: 2rem 0 1rem 15px;
-    font-size: calc(100vw / 18);
-    font-size: 1.6rem;
-    background-color: #fafafa;
+    padding: 10vw 0 8vw 6.6vw;
+    padding: 10vw 0 6vw 6.6vw;
+    font-size: var(--t4);
+    /* font-size: 1.6rem; */
+    background-color: #cccbcd;
+    background-color: #4598d4e8;
+    color: #fff;
     width: 100%;
     /* cursor: pointer; */
+    letter-spacing: .1vw;
+    line-height: 6vw;
 }
 #calendar_worktype {
     cursor: pointer;

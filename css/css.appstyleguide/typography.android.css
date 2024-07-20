@@ -22,7 +22,7 @@ body {
     -webkit-font-smoothing: antialiased;
     /* letter-spacing: -.44px; */
     letter-spacing: -.39px;
-
+    font-size: var(--t1);.header_title
 }
 /* "wght" — font-weight;
 "wdth" — font-stretch;
@@ -145,7 +145,7 @@ body {
     font-size : .73rem;
     font-size : .76rem;
     /* letter-spacing: 0.5px; */
-    line-height: 16px;
+    /* line-height: 16px; */
 }
 
 
