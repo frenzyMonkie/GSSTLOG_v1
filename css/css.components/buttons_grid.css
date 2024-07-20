@@ -25,6 +25,7 @@ body {
   font-weight: 800;
   font-size: 6vw;
   width: 100%;
+  height: 100%;
   text-align: center;
   /* height: 40vw; */
   background: #5e5e5e;
@@ -56,6 +57,7 @@ body {
     flex-direction: column;
     padding: 17vw 0 0 0;
     pointer-events: auto;
+    height: 100%;
   }
   .sheet-overlay {
     position: fixed;
