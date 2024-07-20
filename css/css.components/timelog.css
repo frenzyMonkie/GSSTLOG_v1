@@ -48,7 +48,7 @@
     background-color: #fff;
     /* border-radius: calc(100vw/27); */
     box-shadow: #b5b5b5 0px 2px 2px;
-    padding: 0 calc(100vw / 20) 0 calc(100vw / 30) ;
+    padding: 0 calc(100vw / 20) 0 6.6vw ;
 
 }
 .main_section:first-child {
@@ -59,8 +59,8 @@
     height: calc(100vw/12);
 }
 .main_section .main_section_icon {
-    width: calc(100vw/5);
-    height: calc(100vw/5);
+    width: 17vw;
+    height: 17vw;
 }
 .main_section > .fi-ss-user-helmet-safety {
     scale: .75;

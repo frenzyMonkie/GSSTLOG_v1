@@ -6,7 +6,18 @@
     display: block;
     /* height: 26px; */
 }
-
+.architect {
+    background-image: url(../../icons/architect.png);
+}
+.construction {
+    background-image: url(../../icons/construction-machine.png);
+}
+.department {
+    background-image: url(../../icons/department.png);
+}
+.schedule {
+    background-image: url(../../icons/schedule.png);
+}
 .fi-sr-checkbox {
     background-image: url(../../icons/nav/fi-sr-checkbox.svg);
     display: none;
@@ -49,7 +60,7 @@
     background-image: url(../../icons/nav/fi-ss-flame.svg);
 }
 .fi-rs-disk {
-    background-image: url(../../icons/nav/save/fi-sr-disk.svg);
+    background-image: url(../../icons/nav/fi-sr-disk.svg);
 }
 .fi-bs-check-circle {
     background-image: url(../../icons/nav/fi-bs-check-circle.svg);
