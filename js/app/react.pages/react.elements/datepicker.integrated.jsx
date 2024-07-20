@@ -1,8 +1,12 @@
 
-    const multidatepicker = (TLctx) => {
+    const multidatepicker = (TLctx, navigate, setMenuSelected) => {
         // console.log("[multidatepicker] TLctx", TLctx)
         // К примеру, здесь добавить все уже указанные ноды времени в extensionRange или куда угодно ещё чтобы они отрисовались.
 
+        const goPage = (page) => {
+            setMenuSelected(page)
+            navigate(page);
+        }
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -115,6 +119,7 @@
                 // TLctx.current.timenodes = tnodes
                 console.log("Datepicker inner ", TLctx)
                 // $('#date_range').datepicker( "refresh" )
+
             }
             });
     }

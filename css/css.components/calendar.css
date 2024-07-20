@@ -42,6 +42,7 @@
     display: block;
     font-weight: 400;
     font-size: calc(100vw / 24);
+    font-size: var(--ts);
     line-height: calc(100vw / 20);
 
 }
@@ -49,20 +50,20 @@
     display: block;
     font-weight: 400;
     font-size: calc(100vw / 24);
-    font-size: 1.1rem;
+    font-size: var(--ts);
     /* line-height: calc(100vw / 13); */
 
 }
 .writernames > span {
     font-weight: 700;
     font-size: calc(100vw / 24);
-    font-size: 1rem;
+    font-size: var(--ts);
  }
 #workerselect_writernames {
     /* padding: calc(28vw / 29) 0 calc(105vw / 21) calc(100vw / 20); */
-    padding: 0 0 calc(105vw / 21) calc(100vw / 20);
-    padding: 1rem 0 2rem 15px;
-    margin: 0 0 .6rem 0;
+    padding: 0 0 0 6.6vw;
+    padding: 4vw 0 0 6.6vw;
+    /* margin: 0 0 .6rem 0; */
 }
 .calendFilter .band {
     display: block;
@@ -90,27 +91,31 @@
 
   }
 .calendar_menu_arr {
-    min-width: calc(100vw/26);
-    height: calc(100vw/26);
+    min-width: 5.8vw;
+    height: 5.8vw;
+    margin: 0 1vw 0 0;
     /* min-width: calc(100vw / 28); */
     /* min-height: calc(100vw / 28); */
 }
 #calendar_workername {
-    font-size: calc(100vw / 18);
+    /* font-size: calc(100vw / 18); */
+    font-size: var(--t1);
     background-color: #fafafa;
     width: 100%;
     font-weight: 700;
     /* padding: calc(132vw / 29) 0 calc(54vw / 29) calc(100vw / 20); */
-    padding: 0 0 calc(200vw / 29) calc(100vw / 20);
+    padding: 0 0 calc(200vw / 29) 6.6vw;
     cursor: pointer;
 }
 #calendar_object {
-    font-size: calc(100vw / 18);
+    /* font-size: calc(100vw / 18); */
+    font-size: var(--t1);
     background-color: #fafafa;
     width: 100%;
     font-weight: 700;
     /* padding: 0 0 calc(140vw / 29) calc(100vw / 20); */
     padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
+    padding: calc(132vw / 29) 0 calc(100vw / 21) 6.6vw;
     /* padding: 0 0 0 calc(100vw / 20); */
     box-shadow: 0 2px 2px 0px rgb(206, 206, 206);
     cursor: pointer;
@@ -145,7 +150,7 @@
     font-size: var(--t1);
 }
 #workerselect_object {
-    padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
+    padding: calc(132vw / 29) 0 calc(100vw / 21) 6.6vw;
     padding: 2rem 0 1rem 15px;
     padding: 10vw 0 8vw 6.6vw;
     padding: 10vw 0 6vw 6.6vw;
@@ -161,34 +166,39 @@
 }
 #calendar_worktype {
     cursor: pointer;
-    padding: calc(110vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
+    padding: 0 0 calc(100vw / 21) 4.5vw;
     background-color: #fafafa;
     font-size: calc(100vw/20);
+    font-size: var(--ts);
 }
 #calendar_smena  {
     cursor: pointer;
     background-color: #fafafa;
-    padding: calc(132vw / 29) 0 calc(78vw / 21) calc(100vw / 20);
+    padding: calc(132vw / 29) 0 4.5vw 4.5vw;
     font-size: calc(100vw/20);
+    font-size: var(--ts);
 }
 #calendar_summary {
     font-size: calc(100vw / 23);
+    font-size: var(--t1);
     /* background-color: #fafafa; */
     width: 100%;
     font-weight: 200;
     margin: auto 0;
     display: block;
     /* text-align: right; */
-    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) calc(100vw / 20);
+    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) 6.6vw;
 }
 
 .summary {
     font-size: calc(100vw / 26);
+    font-size:3.8vw;
+
     font-weight: 700;
-    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) calc(100vw / 20);
+    padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) 6.6vw;
     display: grid;
     grid-template-columns: .4fr 1fr;
-
+    line-height: 5vw;
     border-top: 1px black solid;
 }
 .summary_values {
@@ -196,8 +206,9 @@
 }
 .summary_smena {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr .9fr .9fr;
     margin: auto;
+
 }
 .summary_value:not(.smena){
     margin: auto;

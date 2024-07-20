@@ -222,6 +222,7 @@ const ButtonGrid = () => {
         <Fragment>
                 <div id="myModal" className={btnGridVisible ? "modal show" : "modal"}>
                 {/* <div id="myModal" class="modal show"> */}
+                {/* <div id="myModal" class="modal show"> */}
                     <div class="sheet-overlay"></div>
                     <div class="btn_grid_date">{currentDate}</div>
                     <div class="modal-content">

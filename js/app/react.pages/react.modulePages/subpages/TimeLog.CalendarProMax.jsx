@@ -239,7 +239,8 @@ const Calendar = () => {
                                     // currentWorker={currentWorker}
                                     // calendarData={calendar_data}
                                     handleSubmit={handleSubmit_calendar}
-                                    TLctx = {TLctx} />
+                                    TLctx = {TLctx}
+                                />
                                     {/* <Form
                                     //   characterData={characters}
                                         handleSubmit={this.handleSubmit} /> */}
@@ -258,6 +259,8 @@ const MultidateCalendar = (props) => {
     const TLctx = props.TLctx
     console.log(TLctx)
     // TLctx.choosingHours = [choosingHours, setChoosingHours]
+    const navigate = useNavigate();
+    const [menuSelected, setMenuSelected] = useOutletContext();
     const onSave = event => {
         event.preventDefault();
         props.handleSubmit(state);
@@ -272,7 +275,8 @@ const MultidateCalendar = (props) => {
                 // const calendarData = props.TLctx.workers[0][0];
                 // this.setState(calendarData) // Этап стартовой загрузки данных, предварительно запрошенных из БД
                 // console.log(123, props.TLctx)
-                multidatepicker(props.TLctx)
+
+                multidatepicker(props.TLctx, navigate, setMenuSelected)
             };
             onMount()
         }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
@@ -288,16 +292,16 @@ const MultidateCalendar = (props) => {
             return (
                 <Fragment>
                 {headInfo}
-                    <form onSubmit={onSave}>
+                    {/* <form onSubmit={onSave}>
                         <div>
                             <div id="date_range"></div>
-                            <br/>
-                            {/* <textarea name="multipleDate"></textarea>
+                            <textarea name="multipleDate"></textarea>
                             <button type="submit"  class="calendar_approve">
                                 Добавить
-                            </button> */}
+                            </button>
                         </div>
-                    </form>
+                    </form> */}
+                <div id="date_range"></div>
                 {summaryInfo}
                 </Fragment>
 

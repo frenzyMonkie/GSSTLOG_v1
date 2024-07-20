@@ -97,13 +97,9 @@ const Layout = () => {
     const logIn = () => navigate("/login");
     const goHome = () => navigate("/", {replace: true}); // Без записи перехода в историю, может пригодиться.
 
-    const menus = ['/', '/ReportCorrectionPage', '/OldReportsPage', '/SettingsPage']
+
     // const menuSelected = "mainpage"
     const [menuSelected, setMenuSelected] = useState('/')
-    var check = () => {
-        return
-    }
-
 
     return (
         <Fragment>
@@ -115,7 +111,8 @@ const Layout = () => {
                     <Link to="/contacts"><button>Contacts</button></Link>
                     <button onClick={goBack}>Обратно</button>
                 </nav> */}
-                {menuSelected == '/CalendarPro' || menuSelected == '/WorkerTableFilter_Smena' ||  menuSelected == '/WorkerTableFilter_WorkType'
+                {menuSelected == '/CalendarPro' || menuSelected == '/WorkerTableFilter_Smena'
+                ||  menuSelected == '/WorkerTableFilter_WorkType' ||  menuSelected == '/ButtonGrid'
                 ? null :
                  <div class="nav_main" id="nav_main">
                     <div class="menu menu_s">

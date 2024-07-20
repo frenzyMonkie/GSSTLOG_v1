@@ -419,8 +419,8 @@ button.ui-button::-moz-focus-inner {
     /* border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px; */
     cursor: pointer;
-    padding-bottom: 2rem;
-    /* padding-top: 20px; */
+    padding-bottom: 8vw;
+    /* padding-top: 2vw; */
 
 }
 .ui-datepicker thead{

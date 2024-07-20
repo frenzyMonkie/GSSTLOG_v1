@@ -13,6 +13,7 @@ function App () {
                     <Route path="CalendarPro" element={<CalendarPro />} />
                     <Route path="TimeLogSelectWorkers" element={<TimeLogSelectWorkers />} />
                     <Route path="TimeLogSelectObjects" element={<TimeLogSelectObjects />} />
+                    <Route path="Buttongrid" element={<ButtonGrid />} />
                     <Route path="WorkerTableFilter_Smena" element={<WorkerTableFilter filterCategory="smena" filterVals={smenaOptions} />}/>
                     <Route path="WorkerTableFilter_WorkType" element={<WorkerTableFilter filterCategory="workType" filterVals={workTypeOptions} />}/>
 
