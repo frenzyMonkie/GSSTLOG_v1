@@ -3,6 +3,11 @@
 // Компонент "Насосы"
 const CalendarPro = () => {
     const navigate = useNavigate();
+    const [menuSelected, setMenuSelected] = useOutletContext();
+    const goPage = (page) => {
+        setMenuSelected(page)
+        navigate(page);
+    }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     // const pageTitle = () => {
     //     try {
@@ -12,6 +17,7 @@ const CalendarPro = () => {
     //     }
     //     return title
     // }
+
     const state = {
         pageTitle: "Табель сотрудника",
         currentObject: "",
@@ -43,7 +49,8 @@ const CalendarPro = () => {
         //     }
         // }
         TLctx.current.timenodes = []
-        navigate("/TimeLogSelectWorkers", {replace: false})
+        // navigate("/TimeLogSelectWorkers", {replace: false})
+        goPage("/TimeLogSelectWorkers")
         console.log(TLctx)
     }
     const navLeft  = (handler) => {
@@ -62,7 +69,9 @@ const CalendarPro = () => {
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
         TLctx.workers[TLctx.current.idx].timenodes = structuredClone(TLctx.current.timenodes) // Ну примерно так
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
-        navigate("/TimeLogSelectWorkers", {replace: true})
+
+        // navigate("/TimeLogSelectWorkers", {replace: true})
+        goPage("/TimeLogSelectWorkers")
 
     }
     const navRight  = ({children}) => {
@@ -305,7 +314,11 @@ const filters = (TLctx) => {
     // TLctx.current.workType = TLctx.current.workType? TLctx.current.workType : TLctx.workers[idx].LastWorkType
     // TLctx.workers[idx].LastSmena = TLctx.current.smena ? TLctx.current.smena : TLctx.workers[idx].LastSmena
     // TLctx.workers[idx].LastWorkType = TLctx.current.LastWorkType ? TLctx.current.LastWorkType : TLctx.workers[idx].LastWorkType
-
+    const [menuSelected, setMenuSelected] = useOutletContext();
+    const goPage = (page) => {
+        setMenuSelected(page)
+        navigate(page);
+    }
     const navigate = useNavigate();
     var onClick = (w) => {
         // event.preventDefault();
@@ -351,9 +364,11 @@ const filters = (TLctx) => {
         // console.log(e.target.value)
         // const value = e.target.value
         if (target == "calendar_smena" ) {
-            navigate("/WorkerTableFilter_Smena", {replace: true})
+            // navigate("/WorkerTableFilter_Smena", {replace: true})
+            goPage("/WorkerTableFilter_Smena")
         } else if (target == "calendar_worktype" ) {
-            navigate("/WorkerTableFilter_WorkType", {replace: true})
+            // navigate("/WorkerTableFilter_WorkType", {replace: true})
+            goPage("/WorkerTableFilter_WorkType")
         }
     }
 

@@ -28,6 +28,11 @@ const searchBar = (searchQuery, setSearchQuery) => {
                     onChange={ (e) => setSearchQuery(e.target.value) }  /> // autoFocus
 }
 const TimeLogSelectWorkers  = () => {
+    const [menuSelected, setMenuSelected] = useOutletContext();
+    const goPage = (page) => {
+        setMenuSelected(page)
+        navigate(page);
+    }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const state = {
         pageTitle: "Табель объекта",
@@ -113,7 +118,8 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
         TLctx.current.timenodes = structuredClone(newNodes);  // Копируем куда надо
         console.log("enter", TLctx.current.timenodes)
         // CTX - SERVER FILLS DATA
-        navigate("/CalendarPro", {replace: true})
+        goPage("/CalendarPro")
+        // navigate("/CalendarPro", {replace: true})
     };
 
     return (
@@ -390,7 +396,8 @@ const prepareWorkers = () => {
     return workerList
 }
     const backToObjectList = () => {
-        navigate("/TimeLogSelectObjects", {replace: true})
+        // navigate("/TimeLogSelectObjects", {replace: true})
+        goPage("/TimeLogSelectObjects")
     }
     const navLeft  = ({children}) => {
         console.log("[ RE-CALLED ] : navLeft")

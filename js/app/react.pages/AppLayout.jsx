@@ -100,9 +100,14 @@ const Layout = () => {
     const menus = ['/', '/ReportCorrectionPage', '/OldReportsPage', '/SettingsPage']
     // const menuSelected = "mainpage"
     const [menuSelected, setMenuSelected] = useState('/')
+    var check = () => {
+        return
+    }
+
+
     return (
         <Fragment>
-            <Outlet />
+            <Outlet context={[menuSelected, setMenuSelected]}/>
             <div class="nav_footer">
                 {/* <nav>
                     <Link to="/"><button>Home</button></Link>
@@ -110,7 +115,9 @@ const Layout = () => {
                     <Link to="/contacts"><button>Contacts</button></Link>
                     <button onClick={goBack}>Обратно</button>
                 </nav> */}
-                <div class="nav_main" id="nav_main">
+                {menuSelected == '/CalendarPro' || menuSelected == '/WorkerTableFilter_Smena' ||  menuSelected == '/WorkerTableFilter_WorkType'
+                ? null :
+                 <div class="nav_main" id="nav_main">
                     <div class="menu menu_s">
                         <div onClick={() => goPage("/")} class="menu_item_s" id="presets">
                             {menuSelected == "/" ? <i class="fi fi-br-convert-shapes-selected"></i> : <i class="fi fi-br-convert-shapes"></i>}
@@ -129,7 +136,8 @@ const Layout = () => {
                             <div class={menuSelected == "/SettingsPage" ? "menu_selected" : null }>Настройки</div>
                         </div>
                     </div>
-                </div>
+                </div>}
+
                 <div class="nav_current" id="nav_tasks"></div>
             </div>
             </Fragment>

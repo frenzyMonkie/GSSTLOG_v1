@@ -1,4 +1,9 @@
 const WorkerTableFilter = ({ filterCategory, filterVals }) => {
+    const [menuSelected, setMenuSelected] = useOutletContext();
+    const goPage = (page) => {
+        setMenuSelected(page)
+        navigate(page);
+    }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const navigate = useNavigate();
     // const [selectedSmena, setSelectedSmena] = useState("Дневные смены")
@@ -24,7 +29,8 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
             // setSelectedWorkType(TLctx.current.workType)
             TLctx.current[filterName] = filterVal;
             // console.log(TLctx.current[filterName], filterName, filterVal)
-            navigate("/CalendarPro", {replace: true})
+            // navigate("/CalendarPro", {replace: true})
+            goPage("/CalendarPro")
         }; // Тоггл галочки выбора
         let iconClass = "task_item_arr fi fi-br-check"
         let itemClass = "task_item"
@@ -94,7 +100,8 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
 
     }
     const backToCalendar = () => {
-        navigate("/CalendarPro", {replace: true})
+        // navigate("/CalendarPro", {replace: true})
+        goPage("/CalendarPro")
     }
     const navLeft  = ({children}) => {
         console.log("[ RE-CALLED ] : navLeft")

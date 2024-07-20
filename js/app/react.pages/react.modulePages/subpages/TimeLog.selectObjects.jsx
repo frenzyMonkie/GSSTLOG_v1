@@ -13,6 +13,11 @@ var objects = [
 
 
 const TimeLogSelectObjects  = () => {
+    const [menuSelected, setMenuSelected] = useOutletContext();
+    const goPage = (page) => {
+        setMenuSelected(page)
+        navigate(page);
+    }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const state = {
         pageTitle: "Табели объектов",
@@ -111,7 +116,8 @@ const TimeLogSelectObjects  = () => {
             // console.log("object",newObject);
             // console.log("contetx", TLctx.objects);
             // console.log("object index", TLctx.objects.indexOf(newObject));
-            navigate("/TimeLogSelectWorkers", {replace: true})
+            // navigate("/TimeLogSelectWorkers", {replace: true})
+            goPage("/TimeLogSelectWorkers")
         }; // При клике на объект - переходим в полотно выбора рабочих с фильтрами на этот объект.
 
         return (
@@ -310,7 +316,9 @@ const TimeLogSelectObjects  = () => {
     const navLeft  = (handler) => {console.log("[ RE-CALLED ] : navLeft")
         return (
             <Fragment>
-            <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => navigate("/FillDataMain", {replace: true})}></i>
+            {/* <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => navigate("/FillDataMain", {replace: true})}></i> */}
+            <i class="header_back fi fi-rr-arrow-small-left" onClick = {() => goPage("/FillDataMain")}></i>
+            {/* goPage("/TimeLogSelectWorkers") */}
             </Fragment>
     )}
     const navRight  = (handler) => { console.log("[ RE-CALLED ] : navRight")
