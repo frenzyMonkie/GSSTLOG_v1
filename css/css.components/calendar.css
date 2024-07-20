@@ -84,16 +84,17 @@
 
 }
 .ui-datepicker-calendar tbody:before {
-    line-height: .8rem;
+    line-height: 1vw;
     content:".";
     color:white;
     display:block;
 
   }
 .calendar_menu_arr {
-    min-width: 5.8vw;
-    height: 5.8vw;
-    margin: 0 1vw 0 0;
+    /* display: none; */
+    min-width: 5.5vw;
+    height: 5.5vw;
+    margin: 0 1.8vw 0 0;
     /* min-width: calc(100vw / 28); */
     /* min-height: calc(100vw / 28); */
 }
@@ -115,7 +116,7 @@
     font-weight: 700;
     /* padding: 0 0 calc(140vw / 29) calc(100vw / 20); */
     padding: calc(132vw / 29) 0 calc(100vw / 21) calc(100vw / 20);
-    padding: calc(132vw / 29) 0 calc(100vw / 21) 6.6vw;
+    padding: 7vw 0 calc(100vw / 21) 6.6vw;
     /* padding: 0 0 0 calc(100vw / 20); */
     box-shadow: 0 2px 2px 0px rgb(206, 206, 206);
     cursor: pointer;
@@ -164,20 +165,28 @@
     letter-spacing: .1vw;
     line-height: 6vw;
 }
-#calendar_worktype {
-    cursor: pointer;
-    padding: 0 0 calc(100vw / 21) 4.5vw;
-    background-color: #fafafa;
-    font-size: calc(100vw/20);
-    font-size: var(--ts);
-}
 #calendar_smena  {
     cursor: pointer;
     background-color: #fafafa;
-    padding: calc(132vw / 29) 0 4.5vw 4.5vw;
+    padding: 5vw 0 4vw 4.5vw;
+    /* padding: 5vw 0 6vw 6.6vw; */
     font-size: calc(100vw/20);
-    font-size: var(--ts);
+    font-size: var(--t1);
+    color: #3d3d3d;
+    font-weight: 800;
+    border-bottom: 1px rgb(193, 193, 193) solid;
 }
+#calendar_worktype {
+    cursor: pointer;
+    padding: 4vw 0 5vw 4.5vw;
+    /* padding: 0 0 5vw 6.6vw; */
+    background-color: #fafafa;
+    font-size: calc(100vw/20);
+    font-size: var(--t1);
+    color: #3d3d3d;
+    font-weight: 800;
+}
+
 #calendar_summary {
     font-size: calc(100vw / 23);
     font-size: var(--t1);
@@ -194,16 +203,19 @@
     font-size: calc(100vw / 26);
     font-size:3.8vw;
 
-    font-weight: 700;
+    font-weight: 500;
     padding: calc(100vw / 20) calc(100vw / 20) calc(100vw / 20) 6.6vw;
     display: grid;
     grid-template-columns: .4fr 1fr;
     line-height: 5vw;
     border-top: 1px black solid;
 }
+.summary_category {
+}
 .summary_values {
 
 }
+
 .summary_smena {
     display: grid;
     grid-template-columns: 2fr .9fr .9fr;
@@ -212,5 +224,5 @@
 }
 .summary_value:not(.smena){
     margin: auto;
-
+    font-weight: 700;
 }

@@ -389,8 +389,8 @@ const filters = (TLctx) => {
     // var smena = <div class='calendFilter' id='calendar_smena' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.smena}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
     // var wtype = <div class='calendFilter' id='calendar_worktype' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.workType}</div></div>
 
-    var smenaChoose =  <div class='calendFilter' id='calendar_smena' onClick={() => handleFilterClick('calendar_smena')}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.smena}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
-    var wtypeChoose =  <div class='calendFilter' id='calendar_worktype' onClick={() => handleFilterClick('calendar_worktype')}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.workType}</div></div>
+    var smenaChoose =  <div class='calendFilter' id='calendar_smena' onClick={() => handleFilterClick('calendar_smena')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.current.smena}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
+    var wtypeChoose =  <div class='calendFilter' id='calendar_worktype' onClick={() => handleFilterClick('calendar_worktype')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.current.workType}</div></div>
 
     return (
         <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{smenaChoose}{wtypeChoose}</div></div>
@@ -470,8 +470,8 @@ const infoSection = (TLctx) => {
         let mapData = (i) => {
             return <div class="summary_smena">
                 <div class='summary_value smena'>{i.smena}</div>
-                <div class='summary_value'>{i.days}</div>
-                <div class='summary_value'>{i.hours}</div>
+                <div class='summary_value smena_count'>{i.days}</div>
+                <div class='summary_value hours_count'>{i.hours}</div>
             </div>
         }
         let vals =  <div class="summary_values">

@@ -314,12 +314,13 @@ button.ui-button::-moz-focus-inner {
 	pointer-events: none;
 }
 .ui-datepicker {
-	width: 17em;
+	/* width: 17em; */
 	/* padding: .3em .3em 1.8em .3em; */
 	display: none;
     /* border-radius: 50px; */
 	margin: 0 auto;
-	width: 96%;
+	width: 92%;
+    margin-top: 2.6vw;
 
 }
 .ui-datepicker-calendar {
@@ -398,7 +399,7 @@ button.ui-button::-moz-focus-inner {
 	/* line-height: 1.8em; */
 	/* text-align: center; */
     padding: 0 0 0 calc(80vw/20);
-    font-size: calc(100vw/18);
+    font-size: var(--t3);
 }
 .ui-datepicker .ui-datepicker-title select {
 	font-size: 1em;
@@ -428,12 +429,13 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker th {
     /* font-size: 1.3em; */
-	font-size: calc(100vw / 39);
-	padding: 1.2rem 0 .8rem 0;
+	font-size: 4.2vw;
+	padding: 2vw 0 4vw 0;
     /* background: #a4c5ff; */
     background: var(--bg-accent);
+    color: #616161;
 	text-align: center;
-	font-weight: bold;
+	font-weight: 900;
 	border: 0;
     /* border-radius: 13px; */
     /* border-bottom: 1px rgb(212, 212, 212) solid; */
@@ -1054,7 +1056,7 @@ html .ui-button.ui-state-disabled:active {
 	/* border: 1px solid #c5c5c5; */
 	/* background: #f6f6f6; */
 	font-weight: 700;
-    font-size: calc(100vw/20);
+    font-size: var(--ts);
 	color: #454545;
     /* text-align: center; */
     /* width: calc(100vw/7.7);
