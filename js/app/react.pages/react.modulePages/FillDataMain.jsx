@@ -43,19 +43,19 @@ const FillDataMain = () => {
 
                 {/* <div class="main_section" onClick = {() => navigate("/", {replace: true})}> */}
                 <div class="main_section" onClick = {() => goPage("/")}>
-                    <i class="main_section_icon fi fi-ss-employee-man-alt "></i>
+                    <i class="main_section_icon fi schedule"></i>
                     <div class="main_section_text">Индивидуальные табели<br/></div>
                     <i class="fi fi-sr-caret-right"></i>
                 </div>
                 {/* <div class="main_section" onClick = {() => navigate("/TimeLogSelectObjects", {replace: true})}> */}
                 <div class="main_section" onClick = {() => goPage("/TimeLogSelectObjects")}>
-                    <i class="main_section_icon fi fi-ss-user-helmet-safety"></i>
+                    <i class="main_section_icon fi architect"></i>
                     <div class="main_section_text">Табели объектов</div>
                     {/* <span><br/> Неотправленных табелей: 4</span></div> */}
                     <i class="fi fi-sr-caret-right"></i>
                 </div>
                 <div class="main_section">
-                    <i class="main_section_icon fi fi-ss-notebook-main"></i>
+                    <i class="main_section_icon fi department"></i>
                     <div class="main_section_text">Табели отделов </div>
                     {/* <span><br/>Ожидают заполения: 4 </span></div> */}
                     <i class="fi fi-sr-caret-right"></i>
