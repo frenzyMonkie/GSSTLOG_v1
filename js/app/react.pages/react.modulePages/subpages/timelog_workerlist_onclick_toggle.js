@@ -8,9 +8,9 @@ const selectedRows = document.querySelectorAll(".task_item");
 
 // let i = 0
 for (var s of selectedRows) {
-    console.log("123455")
+    // console.log("123455")
     subIcon = s.querySelector(".fi");
-    console.log("123455")
+    // console.log("123455")
     // i++
     // s.classList.add("id__" + i);
     // subIcon.classList.add("id__" + i);

@@ -1,4 +1,4 @@
-const WorkerTableFilter = ({ filterCategory, filterVals }) => {
+const SendMenu = ({ SendMenuOptions }) => {
     const [menuSelected, setMenuSelected] = useOutletContext();
     const goPage = (page) => {
         setMenuSelected(page)
@@ -7,51 +7,50 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const navigate = useNavigate();
     // const [selectedSmena, setSelectedSmena] = useState("Дневные смены")
-    // const [selectedWorkType, setSelectedWorkType] = useState("Дежурство")
+    const [selectedWorkType, setSelectedWorkType] = useState("Дежурство")
     TLctx.filters = {}
     // TLctx.filters['smena'] = [selectedSmena, setSelectedSmena]
     // TLctx.filters['workType'] = [selectedWorkType, setSelectedWorkType]
     const state = {
-        pageTitle: "Тип работ",
+        pageTitle: "Отправка по каналам",
         currentObject: "",
         currentObjectCustoms: {},
         formData: {},
-        formLabel: "TimeLogFilter",
-        backPage: "/CalendarPro",
-        nextPage: "/CalendarPro",
+        formLabel: "SendMenu",
+        backPage: "/TimeLogObjectList",
+        nextPage: "/FillDataMain",
         const: {Spendables: [], MeasureUnits: [] },
     }
-    const oneFilterSelectableCanvas = (filterName, filterVal, selected) => {
+    const oneSendOptionSelectableCanvas = (sendMenuOption, sendMenuOptionSub) => {
         console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
-        const applyFilter = (filterName, filterVal) => {
+        const goFinalizeMenu = () => {
                     // Это уже при клике
             // setSelectedSmena(TLctx.current.smena)
             // setSelectedWorkType(TLctx.current.workType)
-            TLctx.current[filterName] = filterVal;
+            // TLctx.current[filterName] = filterVal;
             // console.log(TLctx.current[filterName], filterName, filterVal)
             // navigate("/CalendarPro", {replace: true})
-            goPage("/CalendarPro")
+            goPage("/FillDataMain")
         }; // Тоггл галочки выбора
-        let iconClass = "task_item_arr fi fi-br-check"
-        let itemClass = "task_item"
-        // let itemWokerBandClass = "task_item_info label_s"
-        let itemNameClass = "task_item_header nomargin title_m"
+
         return (
-            <div className={selected == filterVal ? itemClass + " selected" : itemClass } onClick={() => applyFilter(filterName, filterVal)}>
-                                <div class="task_item_text">
-                                    <p className={selected == filterVal ? itemNameClass  + " selected" : itemNameClass}>{filterVal}</p>
-                                </div>
-                                <i className={selected == filterVal ? iconClass + " selected" : iconClass }></i>
-                        </div>
+            <div class="task_item" onClick={goFinalizeMenu}>
+                <div class="task_item_text">
+                    <p class="task_item_header nomargin title_m">{sendMenuOption.option}</p>
+                    <p class="task_item_info label_s">{sendMenuOption.sub}</p>
+                </div>
+                {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
+                <i className="task_item_arr fi fi-sr-caret-right "></i>
+            </div>
           );
     }
-    const filterCanvasManager = (filterCategory, filterVals) => {
+    const sendTypeCanvasManager = (SendMenuOptions) => {
         var ret = []
         // console.log(TLctx.current[filterCategory])
-        var selected = TLctx.current[filterCategory]
+        // var selected = TLctx.current[filterCategory]
 
-        for (var filterVal of filterVals) {
-            var canvas = oneFilterSelectableCanvas(filterCategory, filterVal, selected)
+        for (var sendMenuOption of SendMenuOptions) {
+            var canvas = oneSendOptionSelectableCanvas(sendMenuOption)
             // var isSelected = filterVal == selected ? true : false
             let newWorkerData = {
                 canvas: canvas,
@@ -63,20 +62,14 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         return ret
     }
 
-    const filterFilters = (filterCategory, filterVals) => {
-        filterVals = filterCategory == "smena" && TLctx.current.type == "Водопонижение" ? ["Дневные смены"] : filterVals
-        filterVals = filterCategory == "workType" && TLctx.current.type != "Водопонижение" ? ["Монтаж", "Сварка", "Электрика", "Прогулы", "Выходные"] : filterVals
-        return filterVals
-    }
 
     const renderContent = () => {
         console.log("[ RE-CALLED ] : renderContent")
         // Подготовка данных
-        filterVals = filterFilters(filterCategory, filterVals)
-        TLctx.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
+        var Options = sendTypeCanvasManager(SendMenuOptions)
         // console.log(TLctx.filters)
-        const nameList_mainmode = <div className="tab__content" id="tab__filters">
-                                        {TLctx.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
+        const nameList_mainmode = <div className="tab__content" id="tab__sendmenu_options">
+                                        {Options.map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.
                                             item.canvas
                                             // Если бы тут была функция, возвращающая канвас, а не сам канвас, то можно бы было прокинуть порядковый номер.
                                         ))}
@@ -89,7 +82,7 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         return (
             <TimeLogContext.Provider>
             <div class="timelog">
-                <div class="filters">
+                <div class="sendmenu">
                     <div class="tab-wrap">
                         {mainCanvas}
                     </div>
@@ -99,22 +92,38 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         )
 
     }
-    const backToCalendar = () => {
+    const backToObjectList = () => {
         // navigate("/CalendarPro", {replace: true})
-        goPage("/CalendarPro")
+        setMenuSelected("/TimeLogSelectObjects")
+        goPage("/TimeLogSelectObjects")
     }
     const navLeft  = ({children}) => {
         console.log("[ RE-CALLED ] : navLeft")
-        var btn = <i onClick={backToCalendar} className="header_back fi fi-rr-arrow-small-left"></i>
+        // var btn = <i onClick={backToObjectList} className="header_back fi fi-rr-arrow-small-left"></i>
         return (
             <Fragment>
-            {btn}
+            {/* {btn} */}
             </Fragment>
     )}
+    const finalize = () => {
+        // navigate("/CalendarPro", {replace: true})
+        // отправить запрос, пока ожидается ответ - показать экран с бесконечной загрузкой
+        // Таймаут на 7-8 секунд.
+        var success = true // Провекра на успех отправки данных
+        if (success) {
+            // Отобразить что всё отправлено и перейти
+            setMenuSelected("/FillDataMain")
+            goPage("/FillDataMain")
+        } else {
+            // Отобразить ошибку, "Попробуйте отправить позднее" и остаться на странице
+        }
 
+    }
     const navRight  = (handler) => { console.log("[ RE-CALLED ] : navRight")
         // var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
         // var btn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
+        // var btn = <i onClick={finalize} className="fi fi-bs-paper-plane-finalize"></i>
+
         return (
         <Fragment>
         {/* <i class="header_save fi fi-rs-disk"></i> */}

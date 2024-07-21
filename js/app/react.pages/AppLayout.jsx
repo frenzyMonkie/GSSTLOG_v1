@@ -6,14 +6,21 @@ const TimeLogContext = React.createContext({
         smena: null,
         timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
     },
+    user: {ID: 1, phone: "89774763357", PIN: "1234", name: "Щебетов Георгий Бумбоксович"},
     objects: [],
     workers: [],
 })
+
+
+
 const AppCanvas = (props) => {
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     // const [data, setData] = useState([]);
+
+
+
 
     // По сути это и есть syncDatabases();
     const onClickDataIterator = (dataPack) => {
@@ -118,15 +125,15 @@ const Layout = () => {
                     <div class="menu menu_s">
                         <div onClick={() => goPage("/")} class="menu_item_s" id="presets">
                             {menuSelected == "/" ? <i class="fi fi-br-convert-shapes-selected"></i> : <i class="fi fi-br-convert-shapes"></i>}
-                            <div class={menuSelected == "/" ? "menu_selected" : null }>Отправка</div>
+                            <div class={menuSelected == "/" ? "menu_selected" : null }>Внесение</div>
                         </div>
-                        <div onClick={() => goPage("/ReportCorrectionPage")} class="menu_item_s" id="report_corrections">
-                            {menuSelected == "/ReportCorrectionPage" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
-                            <div class={menuSelected == "/ReportCorrectionPage" ? "menu_selected" : null }> Табели </div>
+                        <div onClick={() => goPage("/SendMenu")} class="menu_item_s" id="report_corrections">
+                            {menuSelected == "/SendMenu" ? <i class="fi fi-ss-notebook-selected"></i> : <i class="fi fi-ss-notebook"></i>}
+                            <div class={menuSelected == "/SendMenu" ? "menu_selected" : null }> Публикация </div>
                         </div>
-                        <div onClick={() => goPage("/OldReportsPage")} class="menu_item_s" id="get_reports">
-                            {menuSelected == "/OldReportsPage" ? <i class="fi fi-rr-time-watch-calendar-selected"></i> : <i class="fi fi-rr-time-watch-calendar"></i>}
-                            <div class={menuSelected == "/OldReportsPage" ? "menu_selected" : null }>Корректировки</div>
+                        <div onClick={() => goPage("/ReportCorrectionPage")} class="menu_item_s" id="get_reports">
+                            {menuSelected == "/ReportCorrectionPage" ? <i class="fi fi-rr-time-watch-calendar-selected"></i> : <i class="fi fi-rr-time-watch-calendar"></i>}
+                            <div class={menuSelected == "/ReportCorrectionPage" ? "menu_selected" : null }>Корректировки</div>
                         </div>
                         <div onClick={() => goPage("/SettingsPage")} class="menu_item_s" id="personal">
                             {menuSelected == "/SettingsPage" ? <i class="fi fi-sr-admin-alt-selected"></i> : <i class="fi fi-sr-admin-alt"></i>}

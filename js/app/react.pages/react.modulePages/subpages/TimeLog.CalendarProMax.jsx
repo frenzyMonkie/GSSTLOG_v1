@@ -75,11 +75,55 @@ const CalendarPro = () => {
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
         TLctx.workers[TLctx.current.idx].timenodes = structuredClone(TLctx.current.timenodes) // Ну примерно так
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
-
+        console.log(TLctx)
         // navigate("/TimeLogSelectWorkers", {replace: true})
+        // console.log(Math.floor(Date.now() / 1000))
+        var payload = {
+            headers: {
+                datetime: Math.floor(Date.now() / 1000),
+                reqtype: "POSTDB_SAVESTATE",
+            },
+            "userID": TLctx.user.ID,
+            "objects": [ ],
+            "workers": [ ],
+        }
+        for (let obj of TLctx.objects) {
+            payload.objects.push({
+                "id": obj.keyID,
+                isSelected: obj.isSelected
+            })
+        }
+        for (let w of TLctx.workers) {
+            payload.workers.push({
+                "id": w.keyID,
+                presetShift: w.LastSmena,
+                presetWorkType: w.LastWorkType,
+                selectedInObjects: w.selectedInObjects,
+                tnodes: w.timenodes,
+             })
+        }
+
+        saveState(payload)
+
         goPage("/TimeLogSelectWorkers")
 
     }
+
+    const saveState = (payload) => {
+        // https://www.topcoder.com/thrive/articles/fetch-api-javascript-how-to-make-get-and-post-requests
+        // https://reqbin.com/code/javascript/wc3qbk0b/javascript-fetch-json-example#:~:text=To%20fetch%20JSON%20from%20the,text%2C%20call%20the%20response.text()%20method
+        fetch('http://localhost:8080/save', {
+            method: 'POST',
+            // mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+           .then(response => console.log(response))
+
+    }
+
     const navRight  = ({children}) => {
         // Нужно сделать апдейт в этом моменте useTLCXT.current + .workers.
 

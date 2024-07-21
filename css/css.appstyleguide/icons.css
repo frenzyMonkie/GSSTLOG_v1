@@ -6,6 +6,15 @@
     display: block;
     /* height: 26px; */
 }
+.fi-bs-paper-plane-finalize {
+    background-image: url(../../icons/nav/fi-bs-paper-plane_finalize.svg);
+}
+.fi-bs-paper-plane {
+    background-image: url(../../icons/nav/fi-bs-paper-plane.svg);
+}
+.plane {
+    background-image: url(../../icons/plane.png);
+}
 .architect {
     background-image: url(../../icons/architect.png);
 }

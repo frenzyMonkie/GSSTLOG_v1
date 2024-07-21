@@ -20,7 +20,7 @@
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
-        console.log(minDayDiff, "MDD")
+        // console.log(minDayDiff, "MDD")
         $('#date_range').datepicker({
             // !!!!!!!!!!!!!!!!!!!! Ключевой момент тут - отрисовка хранящихся на сервере дат.
             TLctx: TLctx,

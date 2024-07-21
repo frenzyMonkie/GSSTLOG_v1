@@ -31,17 +31,21 @@ const ButtonGrid = () => {
     TLctx.setCurrentTLOGDate = setCurrentTLOGDate
 
     const removeHoursData = e => {
+        // Нужно запомнить позицию и вернуться к ней. Либо открывать в отдельном окне. Либо сделать gap через margin.
+        // window.scrollTo(0, 0);
         updateDatepicker(e, "remove")
         cleanupAndRefresh();
         // setTimeout(() => { cleanupAndRefresh(); }, 100);
     }
 
     const handleBtnClick = e => {
+        // window.scrollTo(0, 0);
         updateDatepicker(e, "update")
         cleanupAndRefresh();
         // setTimeout(() => {  }, 100);
     }
     const goBack = e => {
+        // window.scrollTo(0, 0);
         updateDatepicker(e, "back")
         cleanupAndRefresh();
         // setTimeout(() => {  }, 100);
