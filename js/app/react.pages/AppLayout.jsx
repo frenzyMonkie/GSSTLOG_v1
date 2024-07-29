@@ -2,8 +2,8 @@ const TimeLogContext = React.createContext({
     current: {
         idx: null,
         worker: null,
-        workType: null,
-        smena: null,
+        work_type: null,
+        work_shift: null,
         timenodes: [], // При сохранении записываем в workers. Чтобы не лезть не удалять при сбросе.
     },
     user: {ID: 1, phone: "89774763357", PIN: "1234", name: "Щебетов Георгий Бумбоксович"},
@@ -118,8 +118,8 @@ const Layout = () => {
                     <Link to="/contacts"><button>Contacts</button></Link>
                     <button onClick={goBack}>Обратно</button>
                 </nav> */}
-                {menuSelected == '/CalendarPro' || menuSelected == '/WorkerTableFilter_Smena'
-                ||  menuSelected == '/WorkerTableFilter_WorkType' ||  menuSelected == '/ButtonGrid'
+                {menuSelected == '/CalendarPro' || menuSelected == '/WorkerTableFilter_work_shift'
+                ||  menuSelected == '/WorkerTableFilter_work_type' ||  menuSelected == '/ButtonGrid'
                 ? null :
                  <div class="nav_main" id="nav_main">
                     <div class="menu menu_s">

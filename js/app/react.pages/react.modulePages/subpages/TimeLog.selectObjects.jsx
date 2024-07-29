@@ -1,7 +1,7 @@
 
 
 
-const TimeLogSelectObjects  = () => {
+const TimeLogSelectObjects  = ({contextType}) => {
     const [menuSelected, setMenuSelected] = useOutletContext();
     const goPage = (page) => {
         setMenuSelected(page)
@@ -19,10 +19,6 @@ const TimeLogSelectObjects  = () => {
         const: {Spendables: [], MeasureUnits: [] },
     }
 
-    // const [btnGridVisible, setBtnGridVisible] = useState(true)
-    // console.log(setBtnGridVisible)
-    // TLctx.btnGrid = [btnGridVisible, setBtnGridVisible]
-
     // https://codepen.io/Spruce_khalifa/pen/GRrWjmR
     const [selectMode, setSelectMode] = useState(false)
     const [error, setError] = useState(null);
@@ -31,6 +27,78 @@ const TimeLogSelectObjects  = () => {
     const [searchParam] = useState(["name", "type"]);
     const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
+
+    const saveObjectList = () => {
+        toggleSelectMode()
+        console.log(TLctx)
+        updateStateAndSubmit()
+    }
+    const updateStateAndSubmit = () => {
+
+        // 1. Обновляем список
+        for (let obj of TLctx.objects) {
+            obj.is_selected = obj.useNameSelected ? obj.useNameSelected[0] : obj.is_selected
+            console.log("Очередной", obj.id, obj.is_selected)
+            var index = TLctx.objects_selected_ids.indexOf(obj.id);
+            if (obj.is_selected) { // Объект выбран
+                if (index !== -1) { // И он есть в списке
+                } else if (index == -1) { // Но его нет в списке
+                    TLctx.objects_selected_ids.push(obj.id)
+                    console.log("Добавляем в список", obj.id)
+                }
+            } else if (!obj.is_selected) {  // Объект не выбран
+                if (index !== -1) { // И он есть в списке
+                    TLctx.objects_selected_ids.splice(obj.id, 1);
+                    console.log("Убираем из списка", obj.id)
+                }
+            }
+        }
+        console.log(TLctx)
+        handleSaveTLOG()
+        // // 2. Если есть расхождения - отправялем на сервер. Итерируемся по двум спискам
+        // for (let id of TLctx.objects_selected_ids) {
+        //     var index = TLctx.initialState.objects_selected_ids.indexOf(id);
+        //     if (index == -1) {
+        //         //   Если хотя бы одного индекса нет в спике, то надо бы сохранить состояние
+        //         handleSaveTLOG()
+        //     }
+        // }
+        // for (let id of TLctx.initialState.objects_selected_ids) {
+        //     var index = TLctx.objects_selected_ids.indexOf(id);
+        //     if (index == -1) {
+        //         //   Если хотя бы одного индекса нет в спике, то надо бы сохранить состояние
+        //         handleSaveTLOG()
+        //     }
+
+        // }
+    }
+    const handleSaveTLOG = () => {
+        var payload = {
+            headers: {
+                datetime: Math.floor(Date.now() / 1000),
+                reqtype: "POSTDB_SAVESTATE",
+            },
+            "user_id": TLctx.user.ID,
+            "objects_selected_ids": TLctx.objects_selected_ids,
+        }
+        console.log("PAYLOAD", payload)
+        saveState(payload)
+
+    }
+    const saveState = (payload) => {
+        // https://www.topcoder.com/thrive/articles/fetch-api-javascript-how-to-make-get-and-post-requests
+        // https://reqbin.com/code/javascript/wc3qbk0b/javascript-fetch-json-example#:~:text=To%20fetch%20JSON%20from%20the,text%2C%20call%20the%20response.text()%20method
+        fetch('http://localhost:8080/save', {
+            method: 'POST',
+            // mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+           .then(response => console.log(response))
+
+    }
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
         setFilterParam("Все")
@@ -39,7 +107,7 @@ const TimeLogSelectObjects  = () => {
     const searchBarObjects = (searchQuery, setSearchQuery) => {
         console.log("[ RE-CALLED ] : searchBar")
         return <input
-                        key="searchObjectss"
+                        key="searchObjects"
                         type="search"
                         class="people_search"
                         placeholder="Поиск"
@@ -65,16 +133,6 @@ const TimeLogSelectObjects  = () => {
                     );
                 });
             }
-            // if (filterParam == "Избранное" && item.isFav) { // Если в избранном и итем принадлежит этой категории
-            //     return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
-            //         return ( // Возвращаем true если есть вхождение набранного текста в очередной айтем.
-            //             item[newItem]
-            //                 .toString()
-            //                 .toLowerCase()
-            //                 .indexOf(searchQuery.toLowerCase()) > -1
-            //         );
-            //     });
-            // }
             if (filterParam == "Выбранные" && item.useNameSelected[0]) { // Если в выбранных и итем принадлежит этой категории
 
                 return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
@@ -99,15 +157,14 @@ const TimeLogSelectObjects  = () => {
         // console.log("[ RE-CALLED ] : objectItemMainCanvas")
         const editObjectTable = () => {
             TLctx.current.idx = idx;
-            TLctx.current.object = newObject.name;
-            TLctx.current.objectID = newObject.keyID;
-            TLctx.current.type = newObject.type;
-            TLctx.current.contr = newObject.contractor;
+            TLctx.current.object_name = newObject.name;
+            TLctx.current.object_id = newObject.id;
+            TLctx.current.type = TLctx.maps.services[newObject.type];
+            TLctx.current.contractor= TLctx.maps.contractors[newObject.contractor];
+
+
+
             // CTX - SERVER FILLS DATA
-            // console.log("object",newObject);
-            // console.log("contetx", TLctx.objects);
-            // console.log("object index", TLctx.objects.indexOf(newObject));
-            // navigate("/TimeLogSelectWorkers", {replace: true})
             goPage("/TimeLogSelectWorkers")
         }; // При клике на объект - переходим в полотно выбора рабочих с фильтрами на этот объект.
 
@@ -115,7 +172,7 @@ const TimeLogSelectObjects  = () => {
             <div class="task_item" onClick={editObjectTable}>
                                 <div class="task_item_text">
                                     <p class="task_item_header nomargin title_m">{newObject.name}</p>
-                                    <p class="task_item_info label_s">{newObject.contractor}</p>
+                                    <p class="task_item_info label_s">{TLctx.maps.contractors[newObject.contractor]}</p>
                                 </div>
                                 {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
                                 <i className="task_item_arr fi fi-sr-caret-right "></i>
@@ -126,20 +183,19 @@ const TimeLogSelectObjects  = () => {
 
     const objectItemSelectCanvas = (newObject, idx, nameSelected, setNameSelected) => {
         // console.log("[ RE-CALLED ] : objectItemSelectCanvas")
-        const toggleIsSelected = () => {
+        const toggleSelected = () => {
             setNameSelected( !nameSelected );
         }; // Тоггл галочки выбора
-        // let iconClass = "task_item_arr fi fi-br-check"
         let iconClass = "task_item_arr fi fi-sr-checkbox"
         let iconClassUnchecked = "task_item_arr fi fi-sr-checkbox-unchecked"
         let itemClass = "task_item"
         let itemWokerBandClass = "task_item_info label_s"
         let itemWokerNameClass = "task_item_header nomargin title_m"
         return (
-            <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleIsSelected}>
+            <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleSelected}>
                                 <div class="task_item_text">
                                     <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newObject.name}</p>
-                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newObject.contractor}</p>
+                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{TLctx.maps.contractors[newObject.contractor]}</p>
 
                                 </div>
                                 <i className={nameSelected == false ? iconClassUnchecked : iconClass + " selected"}></i>
@@ -150,28 +206,14 @@ const TimeLogSelectObjects  = () => {
     const objectCanvasManager = (newObject, idx, alreadyInitializedItems) => {
         // console.log("[ RE-CALLED ] : objectCanvasManager")
 
-        // let cached = newObject.useNameSelected != undefined && newObject.useNameSelected != []
-
-
-        // Возможно, дело в том, что хук вызывается во вложенной функции относительно ObjectPage. Но это не точно)
-        // Да точняк. из-за того что тут кондишанл создание юзстейт / выбор уже существующего, может быть такое что кол-во именно ВЫЗОВОВ функции useState разное, хотя кол-во самих [val, seVal] одинаковое.
-        // Хотя странно что двойной рендер не выдал ошибку в этом случае.
         // https://www.dhiwise.com/post/dealing-with-fewer-hooks-than-expected-in-rendered-output
-        // var [selected, setSelected] = useCells(newObject, newObject.isSelected)
+        // var [selected, setSelected] = useCells(newObject, newObject.is_selected)
+        newObject.is_selected = newObject.useNameSelected ? newObject.useNameSelected[0] : newObject.is_selected
+        let [selected, setSelected] = useState(newObject.is_selected)
 
-        // console.log('potentialCell', newObject )
-        newObject.isSelected = newObject.useNameSelected ? newObject.useNameSelected[0] : newObject.isSelected
-        let [selected, setSelected] = useState(newObject.isSelected)
-        // newObject.useNameSelected ? newObject.useNameSelected : [sel, setSel]
-        // var [selected, setSelected] = useState(newObject.isSelected)
-        // var [selected2, setSelected2] = newObject.useNameSelected ? newObject.useNameSelected : [null, null]
-        // selected = newObject.useNameSelected ? selected2 : selected
-        // setSelected = newObject.useNameSelected ? setSelected2 : setSelected // Создаем индивидуальное хранилище для отслеживания клика (для иконки). Приходится выкручиваться из-за правил использования хуков.
-        // var [selected, setSelected] = newObject.useNameSelected ? newObject.useNameSelected : useState(newObject.isSelected)
-        // console.log(newObject.useNameSelected ? true : false, newObject)
-        // console.log('selectMode', selectMode)
+
+
         var canvas = selectMode ? objectItemSelectCanvas(newObject, idx, selected, setSelected) : objectItemMainCanvas(newObject, idx, selected, setSelected)
-        // console.log("canvas", canvas)
         // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
         let newObjectData = {
             ...newObject,
@@ -183,17 +225,11 @@ const TimeLogSelectObjects  = () => {
         // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
         if (!alreadyInitializedItems.includes(newObject.name)) { // Если в контексте такого ещё нет, то добавляем его.
             TLctx.objects.push(newObjectData)
-            // console.log("not yet initializedItem. newObjectData:", newObjectData)
-
         } else { // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newObject
-            // console.log("already initializedItem. SelectMode: ", selectMode,  "newObjectData:", newObjectData)
             var idx = TLctx.objects.findIndex((element) => element.name == newObjectData.name)
             TLctx.objects[idx] = newObjectData
-
         }
 
-        // console.log("canvas", canvas) - OK
-        // console.log("not yet initializedItem. newObjectData:", newObjectData) - NOT OK?
     }
 
 
@@ -206,12 +242,14 @@ const TimeLogSelectObjects  = () => {
             // console.log("[ RE-CALLED ] : parseContextNames")
             // console.log(TLctx)
             var ret = [] // Просто выдираем имена из контекста
+            // console.log(TLctx.objects)
             for (var uniqueObject of TLctx.objects) {
                 ret.push(uniqueObject.name)
             }
             return ret
         }
         var obj = TLctx.objects.length == 0 ? TLctx.initialState.objects : TLctx.objects // objects
+
         var alreadyInitializedItems = parseContextNames(TLctx)
         let index = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         for (var newObject of obj) {
@@ -251,8 +289,8 @@ const TimeLogSelectObjects  = () => {
                                         ))}
                                     </div>
         const sbar = React.useMemo(() => searchBarObjects(searchQuery, setSearchQuery));
-        var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
-        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
+        var editWorkerListbtn = <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
+        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object_name}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
         var toggleFilter = filterParam == "Все"
         ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check "></i></label>
@@ -323,7 +361,7 @@ const TimeLogSelectObjects  = () => {
     const navRight  = (handler) => { console.log("[ RE-CALLED ] : navRight")
         // var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
         var btn = selectMode ?
-        <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : null
+        <i onClick={saveObjectList} className="fi fi-rs-disk"></i> : null
         // : <i onClick={goSendMenu} className="fi fi-bs-paper-plane"></i> // <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         return (
         <Fragment>
@@ -341,18 +379,6 @@ const TimeLogSelectObjects  = () => {
             </div>
         )
     }
-
-    // Можно конечно попробовать рендерит ьвсё прямо здесь.. а уже потом оборачивать в контекст отловщика ошибок и т.д.
-    // const renderCanvas = () => {
-    //     var he = header()
-    //     var co = content()
-    //     return (
-    //         <Fragment>
-    //             {he}
-    //             {co}
-    //         </Fragment>
-    //     )
-    // }
 
     const render = () => {
 

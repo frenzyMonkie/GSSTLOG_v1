@@ -79,8 +79,8 @@
             //    console.log('dateText', TLctx)
             //     console.log('extensionRange', extensionRange)
 
-                // {date: '28.03.2026', smena: 'День', workType: 'Дежурство', workHours: 12}
-                // Можно и сводную делать {smena: 'День', workType: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
+                // {date: '28.03.2026', work_shift: 'День', work_type: 'Дежурство', workHours: 12}
+                // Можно и сводную делать {work_shift: 'День', work_type: 'Дежурство', dates: [{date: '28.03.2026', workHours: 12},{date: '29.03.2026', workHours: 12},{}]}
 
                 // TLctx.current.timenodes.forEach(item => {
                 //     if (item.hours == null || item.hours == undefined) {
@@ -105,12 +105,12 @@
                 //             TLctx.current.timenodes.push({
                 //                 date: dateText,
                 //                 object: TLctx.current.object,
-                //                 smena: TLctx.current.smena,
-                //                 workType: TLctx.current.workType
+                //                 work_shift: TLctx.current.work_shift,
+                //                 work_type: TLctx.current.work_type
                 //             })
                 //         }
 
-                //         // tnodes.push({date: element, smena: TLctx.current.smena, workType: TLctx.current.workType})
+                //         // tnodes.push({date: element, work_shift: TLctx.current.work_shift, work_type: TLctx.current.work_type})
                 //     });
 
                 //     // CTX - USER UPDATES DATA
@@ -124,19 +124,19 @@
             });
     }
 
-// Вроде как можно попробовать привязаться через useEffect и getElById("worktype"), getElById("smena")
+// Вроде как можно попробовать привязаться через useEffect и getElById("work_type"), getElById("work_shift")
 // Вариант с интегрировонием (может не пройти) - прокидывать туда jsx-компонент с привязанными хендлерами, которые в свою очередь связаны с контекстом, в котором будет фамилия и сохранение данных.
 
 
 // const filters_inject = (TLctx) => {
 //     // const TLctx = React.useContext(TimeLogContext) // Берем контекст
-//     var smena = "<div class='calendFilter' id='calendar_smena' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дневные смены</div>" + "</div>"
-//     var wtype = "<div class='calendFilter' id='calendar_worktype' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
-//     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + TLctx.current.worker.name + "</div></div>"
+//     var work_shift = "<div class='calendFilter' id='calendar_work_shift' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>День</div>" + "</div>"
+//     var wtype = "<div class='calendFilter' id='calendar_work_type' onclick='onClick()'><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>Дежурство</div>" + "</div>"
+//     var name = "<div class='calendFilter' id='calendar_workername' onclick='onClick()'> <div class='workername'>Сотрудник:</div><div>" + TLctx.current.worker.fullname + "</div></div>"
 //     var object = "<div class='calendFilter' id='calendar_object' onclick='onClick()'><div class='obj'>Объект:</div>" + "<div>   Силикатный пр-д</div>" + "</div>"
 
 //     return (
-//         "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + smena + "</div>" + "</div>"
+//         "<div class='calendFilters'>" + name + object +"<div class='calendarFilterSection'>"  + wtype + work_shift + "</div>" + "</div>"
 //     )
 // }
 

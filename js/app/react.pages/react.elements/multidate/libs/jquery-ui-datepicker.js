@@ -1963,7 +1963,7 @@ $.extend( Datepicker.prototype, {
 
                     ( /all|right/.test( cornerClass ) && row === 0 ? ( isRTL ? prev : next ) : "" ) +
 					"</div>" +
-					"<tr><div>Дневные смены</div><div>Дежурство</div></tr>" +
+					"<tr><div>День</div><div>Дежурство</div></tr>" +
 					"<table class='ui-datepicker-calendar'><thead>" +
 					"<tr>";
 				thead = ( showWeek ? "<th class='ui-datepicker-week-col'>" + this._get( inst, "weekHeader" ) + "</th>" : "" );

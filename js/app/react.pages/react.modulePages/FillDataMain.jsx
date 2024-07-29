@@ -15,7 +15,7 @@ const FillDataMain = () => {
         backPage: "/ReportPage",
         nextPage: "/ReportPage",
         var: {userWorkerList: {},},
-        const: {Worktypes: [], Shifts: [], Hours: [] }
+        const: {work_types: [], Shifts: [], Hours: [] }
     }
     const context = null
     const idb = null

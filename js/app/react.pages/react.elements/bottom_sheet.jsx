@@ -74,9 +74,9 @@ const BottomSheet = (title, items) => {
     // showModalBtn.addEventListener("click", showBottomSheet);
 
 
-    let items = [{text: 1, isSelected: true}, {text: 2, isSelected: false}, {text: 3, isSelected: false},]
+    let items = [{text: 1, is_selected: true}, {text: 2, is_selected: false}, {text: 3, is_selected: false},]
     var canvas = items.map((e, idx) =>
-            <div key={idx} className={e.isSelected ? "select_option selected" : "select_option"}>
+            <div key={idx} className={e.is_selected ? "select_option selected" : "select_option"}>
                 <div class="option_selected_icon"></div>
                 <div class="option_text">{e.text}</div>
                 <div class="option_selected_icon"></div>

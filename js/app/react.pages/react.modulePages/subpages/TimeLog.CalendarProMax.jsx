@@ -17,7 +17,7 @@ const CalendarPro = () => {
     TLctx.currentDate = [currentDate, setCurrentDate]
     // const pageTitle = () => {
     //     try {
-    //         var title = TLctx.current.worker.name
+    //         var title = TLctx.current.worker.fullname
     //     } catch (e) {
     //         var title = "ОШИБКА ЧТЕНИЯ КОНТЕКСТА"
     //     }
@@ -50,7 +50,7 @@ const CalendarPro = () => {
         // let idx = TLctx.current.idx
         // for (let cn of TLctx.current.timenodes) {
         //     for (let sn of TLctx.workers[idx]) {
-        //         let match = cn.object == sn.object && cn.smena == sn.smena && cn.workType == sn.workType && cn.date == sn.date
+        //         let match = cn.object_name == sn.object_name && cn.work_shift == sn.work_shift && cn.work_type == sn.work_type && cn.date == sn.date
         //         if (match) {}
         //     }
         // }
@@ -70,8 +70,8 @@ const CalendarPro = () => {
         // Сохранить данные и перейти назад.
         // console.log("TLctx.current.timenodes", TLctx.current.timenodes)
         let idx = TLctx.current.idx
-        TLctx.workers[idx].LastSmena = TLctx.current.smena
-        TLctx.workers[idx].LastWorkType = TLctx.current.workType
+        TLctx.workers[idx].last_workshift = TLctx.current.work_shift
+        TLctx.workers[idx].last_worktype = TLctx.current.work_type
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
         TLctx.workers[TLctx.current.idx].timenodes = structuredClone(TLctx.current.timenodes) // Ну примерно так
         // console.log("TLctx.workers", TLctx.workers, "TLctx.current.idx", TLctx.current.idx, TLctx.workers[TLctx.current.idx].timenodes)
@@ -81,28 +81,22 @@ const CalendarPro = () => {
         var payload = {
             headers: {
                 datetime: Math.floor(Date.now() / 1000),
-                reqtype: "POSTDB_SAVESTATE",
+                reqtype: "POSTDB_SAVETNODES",
             },
-            "userID": TLctx.user.ID,
-            "objects": [ ],
+            "user_id": TLctx.user.ID,
+            "objects_selected_ids": TLctx.objects_selected_ids,
             "workers": [ ],
-        }
-        for (let obj of TLctx.objects) {
-            payload.objects.push({
-                "id": obj.keyID,
-                isSelected: obj.isSelected
-            })
         }
         for (let w of TLctx.workers) {
             payload.workers.push({
-                "id": w.keyID,
-                presetShift: w.LastSmena,
-                presetWorkType: w.LastWorkType,
-                selectedInObjects: w.selectedInObjects,
-                tnodes: w.timenodes,
+                "worker_id": w.worker_id,
+                last_workshift: w.last_workshift,
+                last_worktype: w.last_workshift,
+                selected_in: w.selected_in,
+                timenodes: w.timenodes,
              })
         }
-
+        console.log("PAYLOAD", payload)
         saveState(payload)
 
         goPage("/TimeLogSelectWorkers")
@@ -230,13 +224,13 @@ const Calendar = () => {
         calendar_data: [{
             "Смешной Андрей Яковлевич":  [{
                 date: "28.03.2026",
-                smena: "День",
-                workType: "Дежурство",
+                work_shift: "День",
+                work_type: "Дежурство",
                 workHours: 12,
             }, {
                 date: "28.03.2026",
-                smena: "День",
-                workType: "Монтаж",
+                work_shift: "День",
+                work_type: "Монтаж",
                 workHours: 12,
         }]
     }]
@@ -278,7 +272,7 @@ const Calendar = () => {
     const parseContextNames = (TLctx) => {
         var ret = [] // Просто выдираем имена из контекста
         for (var uniqueWorker of TLctx.workers) {
-            ret.push(uniqueWorker.name)
+            ret.push(uniqueWorker.fullname)
         }
         return ret
     }
@@ -315,7 +309,7 @@ const MultidateCalendar = (props) => {
     var initialState = []
     var state = initialState;
     // var [choosingHours, setChoosingHours] = useState(false)
-    // При сохранении, выходе, изменении параметров workType, smena - нужно сохранять current.timenodes в контекст соответствующего рабочего, в т.ч. в базу данных.
+    // При сохранении, выходе, изменении параметров work_type, work_shift - нужно сохранять current.timenodes в контекст соответствующего рабочего, в т.ч. в базу данных.
     const TLctx = props.TLctx
     console.log(TLctx)
     // TLctx.choosingHours = [choosingHours, setChoosingHours]
@@ -371,15 +365,7 @@ const MultidateCalendar = (props) => {
 }
 
 const filters = (TLctx) => {
-    // let idx = TLctx.current.idx
-    // var [smena, setSmena] = useState(TLctx.workers[idx].LastSmena)
-    // var [workType, setWorkType] = useState(TLctx.workers[idx].LastWorkType)
-    // TLctx.current.setSsmena = setSmena
-    // TLctx.current.setWorkType = setWorkType
-    // TLctx.current.smena = TLctx.current.smena ?  TLctx.current.smena : TLctx.workers[idx].LastSmena
-    // TLctx.current.workType = TLctx.current.workType? TLctx.current.workType : TLctx.workers[idx].LastWorkType
-    // TLctx.workers[idx].LastSmena = TLctx.current.smena ? TLctx.current.smena : TLctx.workers[idx].LastSmena
-    // TLctx.workers[idx].LastWorkType = TLctx.current.LastWorkType ? TLctx.current.LastWorkType : TLctx.workers[idx].LastWorkType
+
     const [menuSelected, setMenuSelected] = useOutletContext();
     const goPage = (page) => {
         setMenuSelected(page)
@@ -398,19 +384,19 @@ const filters = (TLctx) => {
     // const TLctx = React.useContext(TimeLogContext) // Берем контекст
     // var objectOnclick =  () => navigate("/TimeLogSelectObjects", {replace: true})
     // var nameOnclick = () => navigate("/TimeLogSelectWorkers", {replace: true})
-    // var name = <div class='calendFilter' id='calendar_workername' onClick={nameOnclick}> <div class='workername'>Сотрудник:</div><div>{TLctx.current.worker.name}</div> </div>
+    // var name = <div class='calendFilter' id='calendar_workername' onClick={nameOnclick}> <div class='workername'>Сотрудник:</div><div>{TLctx.current.worker.fullname}</div> </div>
     // var object = <div class='calendFilter' id='calendar_object' onClick={objectOnclick}><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
-    var name = <div class='calendFilter' id='calendar_workername'> <div class='workername'>Сотрудник:</div><div>{TLctx.current.worker.name}</div> </div>
-    var object = <div class='calendFilter' id='calendar_object'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
+    var name = <div class='calendFilter' id='calendar_workername'> <div class='workername'>Сотрудник:</div><div>{TLctx.current.worker.fullname}</div> </div>
+    var object = <div class='calendFilter' id='calendar_object'><div class='obj'>Объект:</div><div>{TLctx.current.object_name}</div></div>
 
     // Далее, очевидно - сделать связь между выбираемой сменой и обновлением холста календаря.
-    // var smenaOptions = ["Дневные смены", "Ночные смены"]
-    // var workTypeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение"]
+    // var work_shiftOptions = ["День", "Ночные смены"]
+    // var work_typeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение"]
 
 
     // Здесь нужно привязать, последний стык.
     // {item} должен быть из контекста, а не из массива
-    // {TLctx.current.smena}
+    // {TLctx.current.work_shift}
     // const filterBlock = (items, category) => {
     //     return items.map((item) => ( // Отрисовать результаты поиска по всему файлу.
     //         // console.log(TLctx.current[item])
@@ -429,31 +415,31 @@ const filters = (TLctx) => {
         // console.log(e.target.id)
         // console.log(e.target.value)
         // const value = e.target.value
-        if (target == "calendar_smena" ) {
-            // navigate("/WorkerTableFilter_Smena", {replace: true})
-            goPage("/WorkerTableFilter_Smena")
-        } else if (target == "calendar_worktype" ) {
-            // navigate("/WorkerTableFilter_WorkType", {replace: true})
-            goPage("/WorkerTableFilter_WorkType")
+        if (target == "calendar_work_shift" ) {
+            // navigate("/WorkerTableFilter_work_shift", {replace: true})
+            goPage("/WorkerTableFilter_work_shift")
+        } else if (target == "calendar_work_type" ) {
+            // navigate("/WorkerTableFilter_work_type", {replace: true})
+            goPage("/WorkerTableFilter_work_type")
         }
     }
 
-    // var smenaChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_smena'>
-    //                         {filterBlock(smenaOptions, 'smena')}
+    // var work_shiftChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_work_shift'>
+    //                         {filterBlock(work_shiftOptions, 'work_shift')}
     //                     </select>
 
-    // var wtypeChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_worktype'>
-    //                         {filterBlock(workTypeOptions, 'workType')}
+    // var wtypeChoose =  <select onChange={e => handleFilterClick(e)} class="calendFilter input_measure spendables_units" id='calendar_work_type'>
+    //                         {filterBlock(work_typeOptions, 'work_type')}
     //                     </select>
 
-    // var smena = <div class='calendFilter' id='calendar_smena' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.smena}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
-    // var wtype = <div class='calendFilter' id='calendar_worktype' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.workType}</div></div>
+    // var work_shift = <div class='calendFilter' id='calendar_work_shift' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.work_shift}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
+    // var wtype = <div class='calendFilter' id='calendar_work_type' onClick={onClick}><i class='task_item_arr calendar_menu_arr fi fi-br-angle-small-right'></i><div>{TLctx.current.work_type}</div></div>
 
-    var smenaChoose =  <div class='calendFilter' id='calendar_smena' onClick={() => handleFilterClick('calendar_smena')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.current.smena}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
-    var wtypeChoose =  <div class='calendFilter' id='calendar_worktype' onClick={() => handleFilterClick('calendar_worktype')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.current.workType}</div></div>
+    var work_shiftChoose =  <div class='calendFilter' id='calendar_work_shift' onClick={() => handleFilterClick('calendar_work_shift')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.maps.work_shifts[TLctx.current.work_shift]}</div></div> // <div class='band'>Бригадир: {TLctx.current.worker.band}</div>
+    var wtypeChoose =  <div class='calendFilter' id='calendar_work_type' onClick={() => handleFilterClick('calendar_work_type')}><i class='task_item_arr calendar_menu_arr fi fi-sr-caret-right'></i><div>{TLctx.maps.work_types[TLctx.current.work_type]}</div></div>
 
     return (
-        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{smenaChoose}{wtypeChoose}</div></div>
+        <div class='calendFilters'>{object}{name}<div class='calendarFilterSection'>{work_shiftChoose}{wtypeChoose}</div></div>
     )
 }
 const infoSection = (TLctx) => {
@@ -463,24 +449,24 @@ const infoSection = (TLctx) => {
     let sumVals = []
 
     // const applyData = (item, node) => {
-    //     item.workType = node.workType
-    //     item.smena = node.smena
+    //     item.work_type = node.work_type
+    //     item.work_shift = node.work_shift
     //     item.hours += Number(node.hours)
     //     item.days++
     // }
     let newVals = []
     TLctx.current.worker.timenodes.forEach(node => {
-        // let i = {workType: '', smena: "", days: 0, hours: 0}
+        // let i = {work_type: '', work_shift: "", days: 0, hours: 0}
 
         if (node.hours != null && sumVals.length != 0) {
 
             for (let item of sumVals) {
                 let mainfound = false
-                if (node.workType == item.workType) {
+                if (node.work_type == item.work_type) {
                     let found = false
                     console.log('item', item)
                     for (let d of item.data) {
-                        if (node.smena == d.smena) {
+                        if (node.work_shift == d.work_shift) {
                             console.log('item', item)
                             d.hours += Number(node.hours)
                             d.days++
@@ -489,32 +475,32 @@ const infoSection = (TLctx) => {
                         }
                     }
                     if (!found) {
-                        let dd = {smena: node.smena, hours: Number(node.hours), days: 1}
+                        let dd = {work_shift: node.work_shift, hours: Number(node.hours), days: 1}
                         item.data.push(dd)
                         mainfound = true
                     }
 
                 }
                 if (!mainfound) {
-                    let data = {workType: node.workType, data: [{smena: node.smena, hours: Number(node.hours), days: 1}]}
+                    let data = {work_type: node.work_type, data: [{work_shift: node.work_shift, hours: Number(node.hours), days: 1}]}
                     newVals.push(data)
                 }
             }
         } else if (node.hours != null && sumVals.length == 0) {
-            let data = {workType: node.workType, data: [{smena: node.smena, hours: Number(node.hours), days: 1}]}
+            let data = {work_type: node.work_type, data: [{work_shift: node.work_shift, hours: Number(node.hours), days: 1}]}
             sumVals.push(data)
         }
 
 
 
 
-        // if (node.hours != null && node.smena == TLctx.current.smena && node.workType == TLctx.current.workType) {
+        // if (node.hours != null && node.work_shift == TLctx.current.work_shift && node.work_type == TLctx.current.work_type) {
         //     hours += Number(node.hours)
         //     days++
 
         // }
-        // if (node.hours != null && !wt.includes(node.workType + ": " + node.smena)) {
-        //     wt.push(node.workType + ": " + node.smena )
+        // if (node.hours != null && !wt.includes(node.work_type + ": " + node.work_shift)) {
+        //     wt.push(node.work_type + ": " + node.work_shift )
         // }
 
     }) // Подсчёт кол-ва часов и дней с учётом фильтров
@@ -523,14 +509,14 @@ const infoSection = (TLctx) => {
     // data = []
 
     // Бурение:
-    // Дневные смены:
+    // День:
     // Ночные смены:
-    let i = {workType: '', data: [{smena: "", days: 0, hours: 0}, {smena: "", days: 0, hours: 0}]}
+    let i = {work_type: '', data: [{work_shift: "", days: 0, hours: 0}, {work_shift: "", days: 0, hours: 0}]}
     let tableRow = (item, ) => {
         let mapData = (i) => {
-            return <div class="summary_smena">
-                <div class='summary_value smena'>{i.smena}</div>
-                <div class='summary_value smena_count'>{i.days}</div>
+            return <div class="summary_work_shift">
+                <div class='summary_value work_shift'>{i.work_shift}</div>
+                <div class='summary_value work_shift_count'>{i.days}</div>
                 <div class='summary_value hours_count'>{i.hours}</div>
             </div>
         }
@@ -538,13 +524,13 @@ const infoSection = (TLctx) => {
                         {item.data.map((i) => mapData(i))}
                     </div>
         return <div class="summary">
-            <div class='summary_category'>{item.workType}</div>
+            <div class='summary_category'>{item.work_type}</div>
             {vals}
         </div>
     }
     var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     // Если нет ночных, то дневные растягиваем, вместо 3 секций - 2.
-    let header = [{workType: 'Категория', data: [{smena: "Смена", days: "Смен", hours: "Часов"}]}]
+    let header = [{work_type: 'Категория', data: [{work_shift: "Смена", days: "Смен", hours: "Часов"}]}]
     let summaryItem = <Fragment>
                         {header.map( (item) => tableRow(item) )}
                         {sumVals.map( (item) => tableRow(item) )}

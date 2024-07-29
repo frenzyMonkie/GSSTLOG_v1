@@ -17,9 +17,9 @@ const TimeLogSelectWorkers  = () => {
 
 
     var workers = [
-        {id: 1, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true}, // isSelected если они уже ранее были добавлены в список, в этой или предыдущей сессии (в т.ч. данные с сервера.)
-        {id: 2, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false},
-        {id: 3, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: true, isSelected: true},
+        {id: 1, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, is_selected: true}, // is_selected если они уже ранее были добавлены в список, в этой или предыдущей сессии (в т.ч. данные с сервера.)
+        {id: 2, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, is_selected: false},
+        {id: 3, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: true, is_selected: true},
     ]
     var workersPresend = [
         {id: 1, name: "Захаров Дмитрий Алексеевич", data: {}},
@@ -105,7 +105,7 @@ const workerCanvasManager = (w, nameSelected, setNameSelected) => {
     }
 
     // console.log(fullWorkerListContainer)
-    // console.log(w.isSelected)
+    // console.log(w.is_selected)
 
     return workerClickable2(w, nameSelected, setNameSelected, fullWorkerListContainer)
 }
@@ -121,7 +121,7 @@ const workerClickable2 = (w, nameSelected, setNameSelected, fullWorkerListContai
 
     useEffect(() => {
         const getData = async () => {
-            if (w.isSelected) {
+            if (w.is_selected) {
                 setNameSelected(true);
             }
         }; // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
@@ -198,11 +198,11 @@ const renderCanvas = () => {
         const [nameSelected, setNameSelected] = useState(false) // Создаем хранилище для отслеживания клика
 
         var listItemCanvas = workerCanvasManager(w, nameSelected, setNameSelected)
-        // setNameSelected(w.isSelected)  // Вот тут теперь непонятно почему цикл происходит, мы ведь сейчас вне вызова создания кнопки, просто перебираем воркеров и каждому ставим свой setNameSelected
+        // setNameSelected(w.is_selected)  // Вот тут теперь непонятно почему цикл происходит, мы ведь сейчас вне вызова создания кнопки, просто перебираем воркеров и каждому ставим свой setNameSelected
         // Мне что useEffect нужно сделать чтоб 1 раз только гарантированно вызывалась это функция?
 
         // Распределение загруженных ФИО в разные вкладки
-        if (w.isSelected) { // В список отмеченных (первая вкладка)
+        if (w.is_selected) { // В список отмеченных (первая вкладка)
             selectedWorkers.push(listItemCanvas) // или appendChild
         }
         if (w.isFav) { // В список избранных (вторая вкладка)

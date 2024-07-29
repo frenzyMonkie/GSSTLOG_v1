@@ -2013,7 +2013,7 @@ $.extend( Datepicker.prototype, {
 					}
 					calender += "'>";
 				}
-				// var filters = "<div class='calendFilters'><div class='calendFilter'>Дневные смены</div><div class='calendFilter'>Дежурство</div></div>"
+				// var filters = "<div class='calendFilters'><div class='calendFilter'>День</div><div class='calendFilter'>Дежурство</div></div>"
 				calender += // += filters(TLctx)
                     "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
@@ -2040,8 +2040,8 @@ $.extend( Datepicker.prototype, {
 				this.maxRows = numRows;
                 // console.log("generatehtml", TLctx.current.object)
                 // console.log("generatehtml", TLctx)
-                // console.log("generatehtml", TLctx.current.workType)
-                // console.log("generatehtml", TLctx.current.smena)
+                // console.log("generatehtml", TLctx.current.work_type)
+                // console.log("generatehtml", TLctx.current.work_shift)
                 // console.log("generatehtml", TLctx.current.worker.name)
                 // console.log("generatehtml", TLctx.current.worker.timenodes)
 
@@ -2077,15 +2077,15 @@ $.extend( Datepicker.prototype, {
 						console.log(printDate.getDate(), printDate, this._formatDate(inst, printDate))
 						var printDate_formatted = this._formatDate(inst, printDate)
 						for (var tnode of TLctx.current.timenodes) {
-							var contextMatch = tnode.object == TLctx.current.object && tnode.smena == TLctx.current.smena && tnode.workType == TLctx.current.workType
+							var contextMatch = tnode.object == TLctx.current.object && tnode.work_shift == TLctx.current.work_shift && tnode.work_type == TLctx.current.work_type
 							var dateMatch = tnode.date == printDate_formatted
 
 							if (contextMatch && dateMatch && tnode.hours ) {
 								var hrs = tnode.hours
 								console.log(tnode.date, printDate_formatted)
 								console.log(tnode.object, TLctx.current.object)
-								console.log(tnode.smena, TLctx.current.smena)
-								console.log(tnode.workType, TLctx.current.workType)
+								console.log(tnode.work_shift, TLctx.current.work_shift)
+								console.log(tnode.work_type, TLctx.current.work_type)
 							}
 						}
 						var hrsCanvas = hrs ? "<div class='outer_hrs'>" + hrs + "</div>" : ""

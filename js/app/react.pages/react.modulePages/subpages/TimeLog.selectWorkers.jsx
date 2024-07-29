@@ -10,7 +10,7 @@ const searchBar = (searchQuery, setSearchQuery) => {
                     defaultValue={searchQuery}
                     onChange={ (e) => setSearchQuery(e.target.value) }  /> // autoFocus
 }
-const TimeLogSelectWorkers  = () => {
+const TimeLogSelectWorkers  = ({contextType}) => {
     const [menuSelected, setMenuSelected] = useOutletContext();
     const goPage = (page) => {
         setMenuSelected(page)
@@ -34,7 +34,7 @@ const TimeLogSelectWorkers  = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const [searchParam] = useState(["name", "band"]);
+    const [searchParam] = useState(["fullname", "band"]);
     const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
     const toggleSelectMode = () => {
@@ -62,7 +62,7 @@ const TimeLogSelectWorkers  = () => {
                 });
             }
 
-            // if (filterParam == "Избранное" && item.isFav && item.selectedInObjects.includes(TLctx.current.object)) { // Если в избранном и итем принадлежит этой категории
+            // if (filterParam == "Избранное" && item.isFav && item.selected_in.includes(TLctx.current.object)) { // Если в избранном и итем принадлежит этой категории
             //     return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
             //         return ( // Возвращаем true если есть вхождение набранного текста в очередной айтем.
             //             item[newItem]
@@ -72,7 +72,7 @@ const TimeLogSelectWorkers  = () => {
             //         );
             //     });
             // }
-            if (filterParam == "Выбранные" && item.useNameSelected[0] && item.selectedInObjects.includes(TLctx.current.objectID)) { // Если в выбранных и итем принадлежит этой категории
+            if (filterParam == "Выбранные" && item.useNameSelected[0] && item.selected_in.includes(TLctx.current.object_id)) { // Если в выбранных и итем принадлежит этой категории
                 return searchParam.some((newItem) => { // Возвращаем true если есть совпадение хотя бы по одному ключу ( ФИО или Бригада )
                     return ( // Возвращаем true если есть вхождение набранного текста в очередной айтем.
                         item[newItem]
@@ -94,8 +94,8 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
         let newWorker = TLctx.workers[idx]
         TLctx.current.idx = idx;
         TLctx.current.worker = newWorker;
-        TLctx.current.smena = newWorker.LastSmena
-        TLctx.current.workType = newWorker.LastWorkType
+        TLctx.current.work_shift = newWorker.last_workshift
+        TLctx.current.work_type = newWorker.last_worktype
         let newNodes = TLctx.workers[idx].timenodes.filter(item => {
             return item.hours != null;
         }).map(item => item) // Очищаем массив от лишних, обнуленных элементов, и клонируем его.
@@ -109,8 +109,8 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
     return (
         <div class="task_item" onClick={() => editWorker(idx)}>
                             <div class="task_item_text">
-                                <p class="task_item_header nomargin title_m">{newWorker.name}</p>
-                                <p class="task_item_info label_s">{newWorker.band}</p>
+                                <p class="task_item_header nomargin title_m">{newWorker.fullname}</p>
+                                <p class="task_item_info label_s">{TLctx.maps.brigades[newWorker.band]}</p>
                             </div>
                             {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
                             <i className="task_item_arr fi fi-sr-caret-right "></i>
@@ -122,22 +122,23 @@ const oneWorkerMainCanvas = (idx, newWorker) => {
 //
 const oneWorkerSelectableCanvas = (idx, newWorker, selected, setSelected) => {
     // console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
-    const toggleWorkerisSelected = () => {
+    const toggleWorkeris_selected = () => {
         // console.log('selected', selected)
-        if (selected) {let index = newWorker.selectedInObjects.indexOf(TLctx.current.objectID)
+        if (selected) {let index = newWorker.selected_in.indexOf(TLctx.current.object_id)
                                 if (index !== -1) {
-                                    // console.log(newWorker.selectedInObjects)
-                                    newWorker.selectedInObjects.splice(index, 1);
-                                    // console.log(newWorker.selectedInObjects)
+                                    // console.log(newWorker.selected_in)
+                                    newWorker.selected_in.splice(index, 1);
+                                    // console.log(newWorker.selected_in)
                     }
-        } else if (!selected && !newWorker.selectedInObjects.includes(TLctx.current.objectID)){
-            // console.log(newWorker.selectedInObjects)
-            newWorker.selectedInObjects.push(TLctx.current.objectID)
-            // console.log(newWorker.selectedInObjects)
+        console.log(newWorker.selected_in)
+        } else if (!selected && !newWorker.selected_in.includes(TLctx.current.object_id)){
+            // console.log(newWorker.selected_in)
+            newWorker.selected_in.push(TLctx.current.object_id)
+            // console.log(newWorker.selected_in)
         }
         // TLctx.workers[idx].useNameSelected[1]( !useNameSelected[0] );
         setSelected(!selected)
-        // изменить на логику if newWorker.selectedInObjects.includes(TLctx.current.object) => setSelected(true) else setSelected(false)
+        // изменить на логику if newWorker.selected_in.includes(TLctx.current.object) => setSelected(true) else setSelected(false)
     }; // Тоггл галочки выбора
     // let iconClass = "task_item_arr fi fi-br-check"
     let iconClass = "task_item_arr fi fi-sr-checkbox"
@@ -147,10 +148,10 @@ const oneWorkerSelectableCanvas = (idx, newWorker, selected, setSelected) => {
     let itemWokerNameClass = "task_item_header nomargin title_m"
 
     return (
-        <div className={ selected ? itemClass + " selected" : itemClass } onClick={() => toggleWorkerisSelected()}>
+        <div className={ selected ? itemClass + " selected" : itemClass } onClick={() => toggleWorkeris_selected()}>
                             <div class="task_item_text">
-                                <p className={selected ? itemWokerNameClass + " selected" : itemWokerNameClass}>{newWorker.name}</p>
-                                <p className={selected ? itemWokerBandClass + " selected" : itemWokerBandClass}>{newWorker.band}</p>
+                                <p className={selected ? itemWokerNameClass + " selected" : itemWokerNameClass}>{newWorker.fullname}</p>
+                                <p className={selected ? itemWokerBandClass + " selected" : itemWokerBandClass}>{TLctx.maps.brigades[newWorker.band]}</p>
 
                             </div>
                             <i className={selected ? iconClass + " selected" : iconClassUnchecked}></i>
@@ -161,13 +162,13 @@ const parseContextNames = (TLctx) => {
     // console.log("[ RE-CALLED ] : parseContextNames")
     var ret = [] // Просто выдираем имена из контекста
     for (var uniqueWorker of TLctx.workers) {
-        ret.push(uniqueWorker.name)
+        ret.push(uniqueWorker.fullname)
     }
     return ret
 }
 const useCells = (newObject, defaultValue) => {
     let [sel, setSel] = useState(defaultValue)
-    // console.log('potentialCell', newObject )
+    // console.log('potentialCell', newobject_name)
     return newObject.useNameSelected ? newObject.useNameSelected : [sel, setSel]
 }
 const workerCanvasManager = (newWorker, idx, alreadyInitializedItems) => {
@@ -175,21 +176,19 @@ const workerCanvasManager = (newWorker, idx, alreadyInitializedItems) => {
 
 
     // console.log(newWorker)
-
-    var defaultSmena = "Дневные смены"
-    var defaultWorkType = "Бурение"
-    // var [selected, setSelected] = useCells(newWorker.useNameSelected, newWorker.isSelected)
-    // console.log('newWorker.selectedInObjects.includes(TLctx.current.object)', newWorker.selectedInObjects.includes(TLctx.current.object))
-    newWorker.isSelected = newWorker.useNameSelected ? newWorker.useNameSelected[0] : newWorker.isSelected
-    let [selected, setSelected] = useState(newWorker.selectedInObjects.includes(TLctx.current.objectID))
+    console.log("newWorker", newWorker)
+    // var defaultwork_shift = "День"
+    // var defaultwork_type = "Бурение"
+    // var [selected, setSelected] = useCells(newWorker.useNameSelected, newWorker.is_selected)
+    // console.log('newWorker.selected_in.includes(TLctx.current.object)', newWorker.selected_in.includes(TLctx.current.object))
+    newWorker.is_selected = newWorker.useNameSelected ? newWorker.useNameSelected[0] : newWorker.is_selected
+    let [selected, setSelected] = useState(newWorker.selected_in.includes(TLctx.current.object_id))
     // console.log('selected 1', selected)
     // Здесь нужно не из воркера брать, а из контекста по idx
     let newWorkerData = {
         ...newWorker,
         index: idx, // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         useNameSelected: [selected, setSelected],
-        LastSmena: defaultSmena,
-        LastWorkType: defaultWorkType,
     }
 
     var canvas = selectMode ? oneWorkerSelectableCanvas(idx, newWorker, selected, setSelected) : oneWorkerMainCanvas(idx, newWorker)
@@ -202,11 +201,11 @@ const workerCanvasManager = (newWorker, idx, alreadyInitializedItems) => {
     // Проверяем, есть ли полученное с сервера или базы имя в оперативном контексте.
     // var namesInContext = parseContextNames(TLctx)
     // console.log(TLctx)
-    // if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
+    // if (!namesInContext.includes(newWorker.fullname)) { // Если в контексте такого ещё нет, то добавляем его.
     //     TLctx.workers.push(newWorkerData)
     //     console.log("789s", TLctx.workers)
     // } else {
-    //     var idx = TLctx.workers.findIndex((element) => element.name == newWorkerData.name)
+    //     var idx = TLctx.workers.findIndex((element) => element.fullname == newWorkerData.fullname)
     //     // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
     //     TLctx.workers[idx] = newWorkerData
     //     console.log("456s", TLctx.workers)
@@ -226,7 +225,7 @@ const renderContent = () => {
         // console.log("[ RE-CALLED ] : renderMainMode")
         return ctx.filter( (item) => {
             // console.log("item", item)
-            if (item.useNameSelected[0] && item.selectedInObjects.includes(TLctx.current.objectID)) { return true }
+            if (item.useNameSelected[0] && item.selected_in.includes(TLctx.current.object_id)) { return true }
         })
     }
     const toggleFilterParam = () => {
@@ -241,7 +240,7 @@ const renderContent = () => {
     // console.log("workerList", workerList)
     // console.log("TLctx.workers", TLctx.workers)
     // wrks = wrks.filter(worker => {
-    //     return worker.selectedInObjects.includes(TLctx.current.object)})
+    //     return worker.selected_in.includes(TLctx.current.object)})
     // console.log(wrks)
     const nameList_selectmode = <div className="tab__content" id="tab__favourite_workers">
                                     {search(TLctx.workers).map((item) => ( // Отрисовать результаты поиска по всему файлу.
@@ -258,9 +257,9 @@ const renderContent = () => {
     var object =
     <div class='workerselectObject' id='workerselect_object' onclick='onClick()'>
         {/* <div class='label'>Объект:</div> */}
-        {/* <div class='obj'>«{TLctx.current.object}»</div> */}
-        <div class='obj'>{TLctx.current.object}</div>
-        <div class='contr'>{TLctx.current.contr}</div>
+        {/* <div class='obj'>«{TLctx.current.object_name}»</div> */}
+        <div class='obj'>{TLctx.current.object_name}</div>
+        <div class='contr'>{TLctx.current.contractor}</div>
     </div>
     // var objInfo = <div class='workerselectObject' id='workerselect_writernames' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
     var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
@@ -337,11 +336,13 @@ const prepareWorkers = () => {
         // console.log("[ RE-CALLED ] : parseContextNames")
         // console.log(TLctx)
         var ret = [] // Просто выдираем имена из контекста
+
         for (var uniqueWorker of TLctx.workers) {
-            ret.push(uniqueWorker.name)
+            ret.push(uniqueWorker.fullname)
         }
         return ret
     }
+    // console.log(TLctx.initialState.workers.workers)
     var wrks = TLctx.workers.length == 0 ? TLctx.initialState.workers : TLctx.workers // workers
     // console.log("wrks", wrks)
     // console.log("TLctx", TLctx)
@@ -350,7 +351,13 @@ const prepareWorkers = () => {
     let workerList = []
     // console.log('wrks', wrks)
     for (var newWorker of wrks) {
-        // if (newWorker.selectedInObjects.includes(TLctx.current.object)) {
+        // if (newWorker.selected_in.includes(TLctx.current.object)) {
+        if  (newWorker.timenodes == null) {
+            newWorker.timenodes = []
+        }
+        if (newWorker.selected_in == null) {
+            newWorker.selected_in = []
+        }
         let worker = workerCanvasManager(newWorker, index, alreadyInitializedItems) // Инициализируем сам элемент с логикой и холстом
         index++
         workerList.push(worker)
@@ -359,18 +366,18 @@ const prepareWorkers = () => {
 
     var namesInContext = parseContextNames(TLctx)
     for (var newWorker of workerList) {
-        // if (newWorker.selectedInObjects.includes(TLctx.current.object)) {
-            if (!namesInContext.includes(newWorker.name)) { // Если в контексте такого ещё нет, то добавляем его.
+        // if (newWorker.selected_in.includes(TLctx.current.object)) {
+            if (!namesInContext.includes(newWorker.fullname)) { // Если в контексте такого ещё нет, то добавляем его.
                 TLctx.workers.push(newWorker)
                 // console.log("789s", TLctx.workers)
             } else {
-                var idx = TLctx.workers.findIndex((element) => element.name == newWorker.name)
+                var idx = TLctx.workers.findIndex((element) => element.fullname == newWorker.fullname)
                 // console.log(idx)
                 // Имя уже добавлено, но возможно его параметры другие. Новые параметры находятся в newWorker
                 TLctx.workers[idx] = {
                     ...newWorker,
-                    LastSmena: TLctx.workers[idx].LastSmena,
-                    LastWorkType: TLctx.workers[idx].LastWorkType
+                    last_workshift: TLctx.workers[idx].last_workshift,
+                    last_worktype: TLctx.workers[idx].last_worktype
                 }
                 // console.log("456s", TLctx.workers)
             }
@@ -412,17 +419,6 @@ const prepareWorkers = () => {
         )
     }
 
-    // Можно конечно попробовать рендерит ьвсё прямо здесь.. а уже потом оборачивать в контекст отловщика ошибок и т.д.
-    // const renderCanvas = () => {
-    //     var he = header()
-    //     var co = content()
-    //     return (
-    //         <Fragment>
-    //             {he}
-    //             {co}
-    //         </Fragment>
-    //     )
-    // }
 
     const render = () => {
         // console.log("[ RE-CALLED ] : render")
