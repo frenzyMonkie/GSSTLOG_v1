@@ -32,7 +32,13 @@ var workers = [
     {worker_id: 8, band_type: "OBJ", fullname: "Смешной Егор Егорович", band: "Ражабов",  selected_in: [], timenodes: [],},
     {worker_id: 9, band_type: "DEP", fullname: "Якубенко Владислав Игоревич", band: "Энергетическая служба",  selected_in: [], timenodes: [],},
 ]     // .sort() лучше вообще сделать так, чтобы изначально с сервера приходил отсортированный по именам.
-
+console.log(TLctx)
+TLctx.initialState = {
+    objects: objects,
+    objects_selected_ids: [1,2],
+    workers: workers,
+    userID: 1,
+}
 function App () {
     var work_shiftOptions = ["День", "Ночные смены"]
     var work_typeOptions = ["Дежурство", "Монтаж", "Сварка", "Бурение", "Невыходы", "Выходные"]
