@@ -6,11 +6,11 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const navigate = useNavigate();
-    // const [selectedwork_shift, setSelectedwork_shift] = useState("День")
-    // const [selectedwork_type, setSelectedwork_type] = useState("Дежурство")
+    // const [selectedSmena, setSelectedSmena] = useState("Дневные смены")
+    // const [selectedWorkType, setSelectedWorkType] = useState("Дежурство")
     TLctx.filters = {}
-    // TLctx.filters['work_shift'] = [selectedwork_shift, setSelectedwork_shift]
-    // TLctx.filters['work_type'] = [selectedwork_type, setSelectedwork_type]
+    // TLctx.filters['smena'] = [selectedSmena, setSelectedSmena]
+    // TLctx.filters['workType'] = [selectedWorkType, setSelectedWorkType]
     const state = {
         pageTitle: "Тип работ",
         currentObject: "",
@@ -21,16 +21,14 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         nextPage: "/CalendarPro",
         const: {Spendables: [], MeasureUnits: [] },
     }
-    const oneFilterSelectableCanvas = (filterCategory, filterVals, key, selected) => {
+    const oneFilterSelectableCanvas = (filterName, filterVal, selected) => {
         console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
-        const applyFilter = (filterCategory, key) => {
+        const applyFilter = (filterName, filterVal) => {
                     // Это уже при клике
-            // setSelectedwork_shift(TLctx.current.work_shift)
-            // setSelectedwork_type(TLctx.current.work_type)
-            console.log(TLctx.current[filterCategory])
-            TLctx.current[filterCategory] = Number(key);
-            console.log(TLctx.current[filterCategory])
-            // console.log(TLctx.current[filterCategory], filterCategory, filterVal)
+            // setSelectedSmena(TLctx.current.smena)
+            // setSelectedWorkType(TLctx.current.workType)
+            TLctx.current[filterName] = filterVal;
+            // console.log(TLctx.current[filterName], filterName, filterVal)
             // navigate("/CalendarPro", {replace: true})
             goPage("/CalendarPro")
         }; // Тоггл галочки выбора
@@ -38,47 +36,26 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
         let itemClass = "task_item"
         // let itemWokerBandClass = "task_item_info label_s"
         let itemNameClass = "task_item_header nomargin title_m"
-
         return (
-            <div className={key  == selected ? itemClass + " selected" : itemClass } onClick={() => applyFilter(filterCategory, key)}>
+            <div className={selected == filterVal ? itemClass + " selected" : itemClass } onClick={() => applyFilter(filterName, filterVal)}>
                                 <div class="task_item_text">
-                                    <p className={key  == selected ? itemNameClass  + " selected" : itemNameClass}>{filterVals[key]}</p>
+                                    <p className={selected == filterVal ? itemNameClass  + " selected" : itemNameClass}>{filterVal}</p>
                                 </div>
-                                <i className={ key == selected ? iconClass + " selected" : iconClass }></i>
+                                <i className={selected == filterVal ? iconClass + " selected" : iconClass }></i>
                         </div>
           );
     }
-    const filterCanvasManager = (filterCategory) => {
+    const filterCanvasManager = (filterCategory, filterVals) => {
         var ret = []
         // console.log(TLctx.current[filterCategory])
         var selected = TLctx.current[filterCategory]
 
-        var filterVals = filterCategory == "work_shift" ? TLctx.maps.work_shifts
-        : filterCategory == "work_type" ? TLctx.maps.work_types
-        : []
-        // var filterValues = [...Object.keys(TLctx.maps.work_shifts).map(function(key) {
-        //     return TLctx.maps.work_shifts[key];
-        // })]
-        // [...Object.keys(TLctx.maps.work_types).map(function(key) {
-        //     return TLctx.maps.work_types[key];
-        // })]
-        console.log(filterVals)
-        // filterVals.forEach((value, key, map) => {
-        //     console.log(value)
-        //     var canvas = oneFilterSelectableCanvas(filterCategory, value, selected)
-        //     // var is_selected = filterVal == selected ? true : false
-        //     let newWorkerData = {
-        //         canvas: canvas,
-        //         // is_selected: is_selected
-        //     }
-        //     ret.push(newWorkerData)
-        // })
-        for (var key in filterVals) {
-            var canvas = oneFilterSelectableCanvas(filterCategory, filterVals, key, selected)
-            // var is_selected = filterVal == selected ? true : false
+        for (var filterVal of filterVals) {
+            var canvas = oneFilterSelectableCanvas(filterCategory, filterVal, selected)
+            // var isSelected = filterVal == selected ? true : false
             let newWorkerData = {
                 canvas: canvas,
-                // is_selected: is_selected
+                // isSelected: isSelected
             }
             ret.push(newWorkerData)
         }
@@ -87,18 +64,16 @@ const WorkerTableFilter = ({ filterCategory, filterVals }) => {
     }
 
     const filterFilters = (filterCategory, filterVals) => {
-        filterVals = filterCategory == "work_shift" && TLctx.current.type == "Водопонижение" ? ["День"] : filterVals
-        filterVals = filterCategory == "work_type" && TLctx.current.type != "Водопонижение" ? ["Монтаж", "Сварка", "Электрика", "Прогулы", "Выходные"] : filterVals
+        filterVals = filterCategory == "smena" && TLctx.current.type == "Водопонижение" ? ["Дневные смены"] : filterVals
+        filterVals = filterCategory == "workType" && TLctx.current.type != "Водопонижение" ? ["Монтаж", "Сварка", "Электрика", "Прогулы", "Выходные"] : filterVals
         return filterVals
     }
 
     const renderContent = () => {
         console.log("[ RE-CALLED ] : renderContent")
         // Подготовка данных
-        // console.log(TLctx.maps.work_shifts.values())
-
-        // filterVals = filterFilters(filterCategory, filterVals)
-        TLctx.filters[filterCategory] = filterCanvasManager(filterCategory)
+        filterVals = filterFilters(filterCategory, filterVals)
+        TLctx.filters[filterCategory] = filterCanvasManager(filterCategory, filterVals)
         // console.log(TLctx.filters)
         const nameList_mainmode = <div className="tab__content" id="tab__filters">
                                         {TLctx.filters[filterCategory].map((item, mapindex) => ( // Отрисовать результаты поиска по всему файлу.

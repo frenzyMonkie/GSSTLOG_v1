@@ -6,11 +6,11 @@ const SendMenu = ({ SendMenuOptions }) => {
     }
     const TLctx = React.useContext(TimeLogContext) // Берем контекст
     const navigate = useNavigate();
-    // const [selectedwork_shift, setSelectedwork_shift] = useState("День")
-    const [selectedwork_type, setSelectedwork_type] = useState("Дежурство")
+    // const [selectedSmena, setSelectedSmena] = useState("Дневные смены")
+    const [selectedWorkType, setSelectedWorkType] = useState("Дежурство")
     TLctx.filters = {}
-    // TLctx.filters['work_shift'] = [selectedwork_shift, setSelectedwork_shift]
-    // TLctx.filters['work_type'] = [selectedwork_type, setSelectedwork_type]
+    // TLctx.filters['smena'] = [selectedSmena, setSelectedSmena]
+    // TLctx.filters['workType'] = [selectedWorkType, setSelectedWorkType]
     const state = {
         pageTitle: "Отправка по каналам",
         currentObject: "",
@@ -25,8 +25,8 @@ const SendMenu = ({ SendMenuOptions }) => {
         console.log("[ RE-CALLED ] : oneWorkerSelectableCanvas")
         const goFinalizeMenu = () => {
                     // Это уже при клике
-            // setSelectedwork_shift(TLctx.current.work_shift)
-            // setSelectedwork_type(TLctx.current.work_type)
+            // setSelectedSmena(TLctx.current.smena)
+            // setSelectedWorkType(TLctx.current.workType)
             // TLctx.current[filterName] = filterVal;
             // console.log(TLctx.current[filterName], filterName, filterVal)
             // navigate("/CalendarPro", {replace: true})
@@ -51,10 +51,10 @@ const SendMenu = ({ SendMenuOptions }) => {
 
         for (var sendMenuOption of SendMenuOptions) {
             var canvas = oneSendOptionSelectableCanvas(sendMenuOption)
-            // var is_selected = filterVal == selected ? true : false
+            // var isSelected = filterVal == selected ? true : false
             let newWorkerData = {
                 canvas: canvas,
-                // is_selected: is_selected
+                // isSelected: isSelected
             }
             ret.push(newWorkerData)
         }

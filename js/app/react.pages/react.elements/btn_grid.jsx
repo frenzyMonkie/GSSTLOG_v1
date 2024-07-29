@@ -12,12 +12,12 @@ const ButtonGrid = () => {
         if (date) TLctx.current.date = date // Устанавливаем фокус на выбранную дату
         TLctx.currentDate[1](date)
         // let date = TLctx.currentDate[0]
-        let object_id = TLctx.current.object_id
-        let work_shift = TLctx.current.work_shift
-        let work_type = TLctx.current.work_type
+        let object = TLctx.current.object
+        let smena = TLctx.current.smena
+        let workType = TLctx.current.workType
         TLctx.current.timenodes.forEach(item => { // Устанавливаем фокус на хранящееся число отработанных часов для последующей отрисовки
-            let totalMatch = item.date == date && item.object_id== object_id && item.work_shift == work_shift && item.work_type == work_type
-            let contextMatch = item.object_id == object_id && item.work_shift == work_shift && item.work_type == work_type
+            let totalMatch = item.date == date && item.object == object && item.smena == smena && item.workType == workType
+            let contextMatch = item.object == object && item.smena == smena && item.workType == workType
             if (totalMatch) {
                 // if (item.date == date) {
                     TLctx.current.hours = item.hours
@@ -67,9 +67,9 @@ const ButtonGrid = () => {
 
         // let date = TLctx.currentDate[0]
         let currentDate = TLctx.current.date
-        let object_id = TLctx.current.object_id
-        let work_shift = TLctx.current.work_shift
-        let work_type = TLctx.current.work_type
+        let object = TLctx.current.object
+        let smena = TLctx.current.smena
+        let workType = TLctx.current.workType
 
         // Устанавливаем выбранное пользователем кол-во часов
         let newHours = action == "update" ? Number(e.target.textContent)
@@ -80,7 +80,7 @@ const ButtonGrid = () => {
 
         let totalMatchFound = false
         TLctx.current.timenodes.forEach(item => {
-            let filtersMatch = item.object_id == object_id && item.work_shift == work_shift && item.work_type == work_type
+            let filtersMatch = item.object == object && item.smena == smena && item.workType == workType
             let totalMatch = item.date == currentDate && filtersMatch
             totalMatchFound = totalMatch ? true : totalMatchFound
             // console.log(item, totalMatchFound)
@@ -103,13 +103,12 @@ const ButtonGrid = () => {
             var item = {
                 date: currentDate,
                 hours: newHours,
-                object_name: TLctx.current.object_name,
-                object_id: TLctx.current.object_id,
-                work_shift: TLctx.current.work_shift,
-                work_type: TLctx.current.work_type,
+                object: TLctx.current.object,
+                smena: TLctx.current.smena,
+                workType: TLctx.current.workType,
             }
 
-            // let contextMatch = el.object_name == object_name && el.work_shift == work_shift && el.work_type == work_type && el.hours != null
+            // let contextMatch = el.object == object && el.smena == smena && el.workType == workType && el.hours != null
             // if (contextMatch) {
                 if (action == "update" ? (item.hours != null) : action == "remove" ? (item.date != currentDate) : action == "back" ? true : false) {
                     // console.log('tmf', totalMatchFound)
@@ -152,17 +151,17 @@ const ButtonGrid = () => {
      //         TLctx.current.timenodes.push({
      //             date: dateText,
      //             object: TLctx.current.object,
-     //             work_shift: TLctx.current.work_shift,
-     //             work_type: TLctx.current.work_type
+     //             smena: TLctx.current.smena,
+     //             workType: TLctx.current.workType
      //         })
      //     }
 
 
         //     let hours = action == "update" ? Number(e.target.textContent) : action == "remove" ? null : null
         //     let date = TLctx.currentDate[0]
-        //     let object_name = TLctx.current.object_name
-        //     let work_shift = TLctx.current.work_shift
-        //     let work_type = TLctx.current.work_type
+        //     let object = TLctx.current.object
+        //     let smena = TLctx.current.smena
+        //     let workType = TLctx.current.workType
         //     console.log("updateDatepicker", TLctx.current.timenodes)
 
         //     // Устанавливаем выбранное пользователем кол-во часов
@@ -170,7 +169,7 @@ const ButtonGrid = () => {
 
         //     var out = []
         //     TLctx.current.timenodes.forEach(el => {
-        //         let totalMatch = el.date == date && el.object_name == object_name && el.work_shift == work_shift && el.work_type == work_type
+        //         let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
         //         el.hours = totalMatch ? hours : el.hours
         //         if (totalMatch) {
         //             if (action == "update" ? (el.hours != null) : action == "remove" ? (el.date != date) : false) {
@@ -188,7 +187,7 @@ const ButtonGrid = () => {
         //         el = out[0]
         //         console.log(out)
         //         console.log(el.date, date,  hours)
-        //         let totalMatch = el.date == date && el.object_name == object_name && el.work_shift == work_shift && el.work_type == work_type
+        //         let totalMatch = el.date == date && el.object == object && el.smena == smena && el.workType == workType
         //         el.hours = totalMatch ? hours : el.hours // Устанавливаем выбранное пользователем кол-во часов также в общем списке
 
         //         // Фильтруем по фильтрам, проверяем что у элемента уже проставлено значение часов.
@@ -210,8 +209,8 @@ const ButtonGrid = () => {
         //         console.log("date", date)
         //         el = {
         //             object: TLctx.current.object,
-        //             work_shift: TLctx.current.work_shift,
-        //             work_type: TLctx.current.work_type,
+        //             smena: TLctx.current.smena,
+        //             workType: TLctx.current.workType,
         //             date: date,
         //             hours: hours,
         //         }

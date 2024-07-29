@@ -17,9 +17,9 @@ const TimeLogSelectWorkers  = () => {
     // onClick={() => setWorkerSelected((prev) => !prev)}
 
     var workers = [
-        {id: 1, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, is_selected: true}, // is_selected если они уже ранее были добавлены в список, в этой или предыдущей сессии (в т.ч. данные с сервера.)
-        {id: 2, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, is_selected: false},
-        {id: 3, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: true, is_selected: true},
+        {id: 1, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true}, // isSelected если они уже ранее были добавлены в список, в этой или предыдущей сессии (в т.ч. данные с сервера.)
+        {id: 2, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false},
+        {id: 3, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: true, isSelected: true},
     ]
     var workersPresend = [
         {id: 1, name: "Захаров Дмитрий Алексеевич", data: {}},
@@ -64,7 +64,7 @@ const toggleWorkerState = (event, subIcon, subName) => {
     // subName = s.querySelector(".task_item_header");
     // for (var w of workers) {
     //     if (w.name == subName) {
-    //         w.is_selected = false ? true : false // Устанавливаем отметку (необ)
+    //         w.isSelected = false ? true : false // Устанавливаем отметку (необ)
     //         // Если включаем, то добавляем в список под отправку
     //         // Если выключаем, то убираем из списка под отправку.
     //     }
@@ -121,7 +121,7 @@ const renderCanvas = () => {
     for (var w of workers) {
 
         // Проверяем, должен ли работник быть отмеченным на основании днями ранее введенных данных с сервера.
-        if (w.is_selected) {
+        if (w.isSelected) {
             workersSelected.push(w.name)
             var selected = true // let selected = workersSelected.includes(w.name)
         }
@@ -144,7 +144,7 @@ const renderCanvas = () => {
         // }}) (this.listItemCanvas), false); // Добавляем к шаблону элемента новый индивидуальный кликер, и передаём ссылку на сам шаблон аргументом чтобы на клике менять иконку и состояние памяти.
 
         // Условное распределение загруженных ФИО в разные вкладки
-        if (w.is_selected) {
+        if (w.isSelected) {
             selectedWorkers.push(listItemCanvas) // или appendChild
             // Добавляем в список отмеченных (первая вкладка)
         }

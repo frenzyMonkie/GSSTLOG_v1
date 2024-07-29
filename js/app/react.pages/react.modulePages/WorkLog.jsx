@@ -10,7 +10,7 @@ const  WorkLog = () => {
         backPage: "/ReportPage",
         nextPage: "/ReportPage",
         var: {msgData: {},},
-        const: {work_types: [], Brigades: [] }
+        const: {Worktypes: [], Brigades: [] }
     }
     const context = null
     const idb = null

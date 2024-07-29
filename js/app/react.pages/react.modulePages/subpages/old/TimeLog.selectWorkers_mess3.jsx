@@ -38,15 +38,15 @@ const TimeLogSelectWorkers  = () => {
 
 
     var workers = [
-    {id : 1, name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, is_selected: true},
-    {id : 2, name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, is_selected: false},
-    {id : 3, name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, is_selected: false},
-    {id : 4, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, is_selected: true},
-    {id : 5, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, is_selected: true},
-    {id : 6, name: "Нагорный Ламинат Горыныч", band: "Данченко", isFav: false, is_selected: false},
-    {id : 7, name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, is_selected: false},
-    {id : 8, name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, is_selected: true},
-    {id : 9, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, is_selected: false},
+    {id : 1, name: "Авплетий Ничан Пастырович", band: "Рябов", isFav: false, isSelected: true},
+    {id : 2, name: "Ахмедов Ахмед Ахмедович", band: "Дьячков", isFav: true, isSelected: false},
+    {id : 3, name: "Джованни Джорджо Яковлевич", band: "Дьячков", isFav: false, isSelected: false},
+    {id : 4, name: "Захаров Дмитрий Алексеевич", band: "Геоспецстрой", isFav: true, isSelected: true},
+    {id : 5, name: "Мухатгалиев Якубджон Джамшут-оглы", band: "Дьячков", isFav: false, isSelected: true},
+    {id : 6, name: "Нагорный Ламинат Горыныч", band: "Данченко", isFav: false, isSelected: false},
+    {id : 7, name: "Сальчичон Балык Хамонович", band: "Дьячков", isFav: false, isSelected: false},
+    {id : 8, name: "Смешной Егор Егорович", band: "Ражабов", isFav: true, isSelected: true},
+    {id : 9, name: "Якубенко Владислав Игоревич", band: "Илькевич", isFav: true, isSelected: false},
     ]
 
 
@@ -120,12 +120,12 @@ const oneWorkerMainCanvas = (newWorker) => {
 
 
 const oneWorkerSelectableCanvas = (newWorker, nameSelected, setNameSelected) => {
-    const toggleWorkeris_selected = () => {
+    const toggleWorkerisSelected = () => {
         setNameSelected( !nameSelected );
     }; // Тоггл галочки выбора
     let iconClass = "task_item_arr fi fi-br-check"
     return (
-        <div class="task_item" onClick={toggleWorkeris_selected}>
+        <div class="task_item" onClick={toggleWorkerisSelected}>
                             <div class="task_item_text">
                                 <p class="task_item_header nomargin title_m">{newWorker.name}</p>
                                 <p class="task_item_info label_s">{newWorker.band}</p>
@@ -196,13 +196,13 @@ const renderCanvas2 = () => {
     //     var selectedWorkersCanvas = []
     //     firstLoad = false
     //     for (var newWorker of workers) { // Формируем список фамилий
-    //         const [is_selected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-    //         var listItemCanvas = workerCanvasManager(TLctx, newWorker, is_selected, setSelected) // Инициализируем сам элемент с логикой и холстом
+    //         const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
+    //         var listItemCanvas = workerCanvasManager(TLctx, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
     //         // Распределяем созданные элементы ФИО в разные вкладки
-    //         // if (newWorker.is_selected) {
+    //         // if (newWorker.isSelected) {
     //             selectedWorkersCanvas.push(listItemCanvas)
     //             useEffect(() => { // Устанавливаем пресетные значения
-    //                 const addSelected = async () => {if (newWorker.is_selected) {setSelected(true)}};
+    //                 const addSelected = async () => {if (newWorker.isSelected) {setSelected(true)}};
     //                 addSelected()
     //                 }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
     //         // } // Вкладка отмеченных
@@ -273,13 +273,13 @@ const renderCanvas2 = () => {
 //         var selectedWorkersCanvas = []
 //         firstLoad = false
 //         for (var newWorker of workers) { // Формируем список фамилий
-//             const [is_selected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
-//             var listItemCanvas = workerCanvasManager(TLctx, newWorker, is_selected, setSelected) // Инициализируем сам элемент с логикой и холстом
+//             const [isSelected, setSelected] = useState(false) // Создаем индивидуальное хранилище для отслеживания клика (для иконки)
+//             var listItemCanvas = workerCanvasManager(TLctx, newWorker, isSelected, setSelected) // Инициализируем сам элемент с логикой и холстом
 //             // Распределяем созданные элементы ФИО в разные вкладки
-//             // if (newWorker.is_selected) {
+//             // if (newWorker.isSelected) {
 //                 selectedWorkersCanvas.push(listItemCanvas)
 //                 useEffect(() => { // Устанавливаем пресетные значения
-//                     const addSelected = async () => {if (newWorker.is_selected) {setSelected(true)}};
+//                     const addSelected = async () => {if (newWorker.isSelected) {setSelected(true)}};
 //                     addSelected()
 //                     }, []); // https://maxrozen.com/learn-useeffect-dependency-array-react-hooks
 //             // } // Вкладка отмеченных
@@ -351,8 +351,8 @@ const prepareWorkers = () => {
             var listItemCanvas = workerCanvasManager(newWorker, selected, setSelected) // Инициализируем сам элемент с логикой и холстом
             // Распределяем созданные элементы ФИО в разные вкладки
             // selectedWorkersCanvas.push(listItemCanvas)
-            // if (newWorker.is_selected) {console.log(newWorker.is_selected)}
-            if (newWorker.is_selected) {
+            // if (newWorker.isSelected) {console.log(newWorker.isSelected)}
+            if (newWorker.isSelected) {
                 useEffect(() => { // Устанавливаем пресетные значения
                     const addSelected = async () => {
                         setSelected(true)
@@ -371,7 +371,7 @@ const prepareWorkers = () => {
         for (var newWorker of TLctx) {
 
             // var listItemCanvas = workerCanvasManager(TLctx, newWorker, newWorker.useState[0], newWorker.useState[1]) // Инициализируем сам элемент с логикой и холстом
-            if (newWorker.useState[0]) { // if (newWorker.is_selected)
+            if (newWorker.useState[0]) { // if (newWorker.isSelected)
                 useEffect(() => { // Устанавливаем пресетные значения
                     const addSelected = async () => {newWorker.useState[1](true)};
                     addSelected()

@@ -27,78 +27,6 @@ const TimeLogSelectObjects  = ({contextType}) => {
     const [searchParam] = useState(["name", "type"]);
     const [filterParam, setFilterParam] = useState(["Все"]); // "Все", "Избранное". "Выбранные"
     const navigate = useNavigate();
-
-    const saveObjectList = () => {
-        toggleSelectMode()
-        console.log(TLctx)
-        updateStateAndSubmit()
-    }
-    const updateStateAndSubmit = () => {
-
-        // 1. Обновляем список
-        for (let obj of TLctx.objects) {
-            obj.is_selected = obj.useNameSelected ? obj.useNameSelected[0] : obj.is_selected
-            console.log("Очередной", obj.id, obj.is_selected)
-            var index = TLctx.objects_selected_ids.indexOf(obj.id);
-            if (obj.is_selected) { // Объект выбран
-                if (index !== -1) { // И он есть в списке
-                } else if (index == -1) { // Но его нет в списке
-                    TLctx.objects_selected_ids.push(obj.id)
-                    console.log("Добавляем в список", obj.id)
-                }
-            } else if (!obj.is_selected) {  // Объект не выбран
-                if (index !== -1) { // И он есть в списке
-                    TLctx.objects_selected_ids.splice(obj.id, 1);
-                    console.log("Убираем из списка", obj.id)
-                }
-            }
-        }
-        console.log(TLctx)
-        handleSaveTLOG()
-        // // 2. Если есть расхождения - отправялем на сервер. Итерируемся по двум спискам
-        // for (let id of TLctx.objects_selected_ids) {
-        //     var index = TLctx.initialState.objects_selected_ids.indexOf(id);
-        //     if (index == -1) {
-        //         //   Если хотя бы одного индекса нет в спике, то надо бы сохранить состояние
-        //         handleSaveTLOG()
-        //     }
-        // }
-        // for (let id of TLctx.initialState.objects_selected_ids) {
-        //     var index = TLctx.objects_selected_ids.indexOf(id);
-        //     if (index == -1) {
-        //         //   Если хотя бы одного индекса нет в спике, то надо бы сохранить состояние
-        //         handleSaveTLOG()
-        //     }
-
-        // }
-    }
-    const handleSaveTLOG = () => {
-        var payload = {
-            headers: {
-                datetime: Math.floor(Date.now() / 1000),
-                reqtype: "POSTDB_SAVESTATE",
-            },
-            "user_id": TLctx.user.ID,
-            "objects_selected_ids": TLctx.objects_selected_ids,
-        }
-        console.log("PAYLOAD", payload)
-        saveState(payload)
-
-    }
-    const saveState = (payload) => {
-        // https://www.topcoder.com/thrive/articles/fetch-api-javascript-how-to-make-get-and-post-requests
-        // https://reqbin.com/code/javascript/wc3qbk0b/javascript-fetch-json-example#:~:text=To%20fetch%20JSON%20from%20the,text%2C%20call%20the%20response.text()%20method
-        fetch('http://localhost:8080/save', {
-            method: 'POST',
-            // mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-           .then(response => console.log(response))
-
-    }
     const toggleSelectMode = () => {
         setSelectMode(!selectMode)
         setFilterParam("Все")
@@ -107,7 +35,7 @@ const TimeLogSelectObjects  = ({contextType}) => {
     const searchBarObjects = (searchQuery, setSearchQuery) => {
         console.log("[ RE-CALLED ] : searchBar")
         return <input
-                        key="searchObjects"
+                        key="searchObjectss"
                         type="search"
                         class="people_search"
                         placeholder="Поиск"
@@ -157,13 +85,10 @@ const TimeLogSelectObjects  = ({contextType}) => {
         // console.log("[ RE-CALLED ] : objectItemMainCanvas")
         const editObjectTable = () => {
             TLctx.current.idx = idx;
-            TLctx.current.object_name = newObject.name;
-            TLctx.current.object_id = newObject.id;
-            TLctx.current.type = TLctx.maps.services[newObject.type];
-            TLctx.current.contractor= TLctx.maps.contractors[newObject.contractor];
-
-
-
+            TLctx.current.object = newObject.name;
+            TLctx.current.objectID = newObject.keyID;
+            TLctx.current.type = newObject.type;
+            TLctx.current.contr = newObject.contractor;
             // CTX - SERVER FILLS DATA
             goPage("/TimeLogSelectWorkers")
         }; // При клике на объект - переходим в полотно выбора рабочих с фильтрами на этот объект.
@@ -172,7 +97,7 @@ const TimeLogSelectObjects  = ({contextType}) => {
             <div class="task_item" onClick={editObjectTable}>
                                 <div class="task_item_text">
                                     <p class="task_item_header nomargin title_m">{newObject.name}</p>
-                                    <p class="task_item_info label_s">{TLctx.maps.contractors[newObject.contractor]}</p>
+                                    <p class="task_item_info label_s">{newObject.contractor}</p>
                                 </div>
                                 {/* <i className="task_item_arr fi fi-br-angle-small-right "></i> */}
                                 <i className="task_item_arr fi fi-sr-caret-right "></i>
@@ -183,7 +108,7 @@ const TimeLogSelectObjects  = ({contextType}) => {
 
     const objectItemSelectCanvas = (newObject, idx, nameSelected, setNameSelected) => {
         // console.log("[ RE-CALLED ] : objectItemSelectCanvas")
-        const toggleSelected = () => {
+        const toggleIsSelected = () => {
             setNameSelected( !nameSelected );
         }; // Тоггл галочки выбора
         let iconClass = "task_item_arr fi fi-sr-checkbox"
@@ -192,10 +117,10 @@ const TimeLogSelectObjects  = ({contextType}) => {
         let itemWokerBandClass = "task_item_info label_s"
         let itemWokerNameClass = "task_item_header nomargin title_m"
         return (
-            <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleSelected}>
+            <div className={nameSelected == false ? itemClass : itemClass + " selected"} onClick={toggleIsSelected}>
                                 <div class="task_item_text">
                                     <p className={nameSelected == false ? itemWokerNameClass : itemWokerNameClass + " selected"}>{newObject.name}</p>
-                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{TLctx.maps.contractors[newObject.contractor]}</p>
+                                    <p className={nameSelected == false ? itemWokerBandClass : itemWokerBandClass + " selected"}>{newObject.contractor}</p>
 
                                 </div>
                                 <i className={nameSelected == false ? iconClassUnchecked : iconClass + " selected"}></i>
@@ -207,12 +132,9 @@ const TimeLogSelectObjects  = ({contextType}) => {
         // console.log("[ RE-CALLED ] : objectCanvasManager")
 
         // https://www.dhiwise.com/post/dealing-with-fewer-hooks-than-expected-in-rendered-output
-        // var [selected, setSelected] = useCells(newObject, newObject.is_selected)
-        newObject.is_selected = newObject.useNameSelected ? newObject.useNameSelected[0] : newObject.is_selected
-        let [selected, setSelected] = useState(newObject.is_selected)
-
-
-
+        // var [selected, setSelected] = useCells(newObject, newObject.isSelected)
+        newObject.isSelected = newObject.useNameSelected ? newObject.useNameSelected[0] : newObject.isSelected
+        let [selected, setSelected] = useState(newObject.isSelected)
         var canvas = selectMode ? objectItemSelectCanvas(newObject, idx, selected, setSelected) : objectItemMainCanvas(newObject, idx, selected, setSelected)
         // Создаем контент для хранилища. Один элемент, который может отрисовываться в разных вкладках несколько раз.
         let newObjectData = {
@@ -242,14 +164,12 @@ const TimeLogSelectObjects  = ({contextType}) => {
             // console.log("[ RE-CALLED ] : parseContextNames")
             // console.log(TLctx)
             var ret = [] // Просто выдираем имена из контекста
-            // console.log(TLctx.objects)
             for (var uniqueObject of TLctx.objects) {
                 ret.push(uniqueObject.name)
             }
             return ret
         }
         var obj = TLctx.objects.length == 0 ? TLctx.initialState.objects : TLctx.objects // objects
-
         var alreadyInitializedItems = parseContextNames(TLctx)
         let index = 0  // По этому индексу можно не перербирвать массив рабочих, а напрямую записывать по индексу (комечно после проверки на совпадение по имени)
         for (var newObject of obj) {
@@ -289,8 +209,8 @@ const TimeLogSelectObjects  = ({contextType}) => {
                                         ))}
                                     </div>
         const sbar = React.useMemo(() => searchBarObjects(searchQuery, setSearchQuery));
-        var editWorkerListbtn = <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
-        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object_name}</div></div>
+        var editWorkerListbtn = selectMode ? <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
+        // var object = <div class='workerselectObject' id='workerselect_object' onclick='onClick()'><div class='obj'>Объект:</div><div>{TLctx.current.object}</div></div>
         // var objInfo = <div class='workerselectObject' id='' onclick='onClick()'><div class='writernames'>Заполнявшие в этом месяце: <br/><span>Захарченко И.С.</span></div><div></div></div>
         var toggleFilter = filterParam == "Все"
         ? <label for="tab1" onClick={() => {return toggleFilterParam()}}><i className="fi fi-sr-summary-check "></i></label>
@@ -361,7 +281,7 @@ const TimeLogSelectObjects  = ({contextType}) => {
     const navRight  = (handler) => { console.log("[ RE-CALLED ] : navRight")
         // var btn = selectMode ? <button onClick={toggleSelectMode} class="header_save change_workers ready">Готово</button> : <button onClick={toggleSelectMode} class="header_save change_workers">Изменить</button>
         var btn = selectMode ?
-        <i onClick={saveObjectList} className="fi fi-rs-disk"></i> : null
+        <i onClick={toggleSelectMode} className="fi fi-rs-disk"></i> : null
         // : <i onClick={goSendMenu} className="fi fi-bs-paper-plane"></i> // <i onClick={toggleSelectMode} className="fi fi-bs-edit"></i>
         return (
         <Fragment>
