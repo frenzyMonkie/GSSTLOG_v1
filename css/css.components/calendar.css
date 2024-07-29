@@ -146,7 +146,7 @@
     letter-spacing: -0.05vw;
 
 }
-.workerselectObject .contr {
+.workerselectObject .contractor{
     font-weight: 700;
     font-size: var(--t1);
 }
@@ -165,7 +165,7 @@
     letter-spacing: .1vw;
     line-height: 6vw;
 }
-#calendar_smena  {
+#calendar_work_shift  {
     cursor: pointer;
     background-color: #fafafa;
     padding: 5vw 0 4vw 4.5vw;
@@ -176,7 +176,7 @@
     font-weight: 800;
     border-bottom: 1px rgb(193, 193, 193) solid;
 }
-#calendar_worktype {
+#calendar_work_type {
     cursor: pointer;
     padding: 4vw 0 5vw 4.5vw;
     /* padding: 0 0 5vw 6.6vw; */
@@ -216,13 +216,13 @@
 
 }
 
-.summary_smena {
+.summary_work_shift {
     display: grid;
     grid-template-columns: 2fr .9fr .9fr;
     margin: auto;
 
 }
-.summary_value:not(.smena){
+.summary_value:not(.work_shift){
     margin: auto;
     font-weight: 700;
 }
